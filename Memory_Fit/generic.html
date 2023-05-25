@@ -1,0 +1,295 @@
+<!DOCTYPE HTML>
+<!--
+	Massively by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+	<head>
+		<title>Memory Allocation Techniques</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="assets/css/main.css" />
+		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
+	</head>
+	<body class="is-preload">
+
+		<!-- Wrapper -->
+			<div id="wrapper">
+
+				<!-- Header -->
+					<header id="header">
+						<a href="index.html" class="logo">Memory Allocation Techniques</a>
+					</header>
+
+				<!-- Nav -->
+					<nav id="nav">
+						<ul class="links">
+							<li><a href="index.html">Simulation</a></li>
+							<li class="active"><a href="generic.html">Theory</a></li>
+							<!-- <li><a href="elements.html">Elements Reference</a></li> -->
+						</ul>
+						<ul class="icons">
+							<li><a href="#" class="icon brands fa-twitter"><span class="label">Twitter</span></a></li>
+							<li><a href="#" class="icon brands fa-facebook-f"><span class="label">Facebook</span></a></li>
+							<li><a href="#" class="icon brands fa-instagram"><span class="label">Instagram</span></a></li>
+							<li><a href="https://github.com/Anuraag001" class="icon brands fa-github"><span class="label">GitHub</span></a></li>
+						</ul>
+					</nav>
+
+				<!-- Main -->
+					<div id="main">
+
+						<!-- Post -->
+							<section class="post">
+								<header class="major">
+									<span class="date">Theory</span>
+									<h1>Theory for<br />
+										Memory Allocation Techniques</h1>
+									<p>"MemoryFit in an operating system ensures optimal memory management, aligning the right amount of memory with each process, like a puzzle perfectly fitting its pieces for seamless system performance."</p>
+									<p>"In the realm of operating systems, MemoryFit serves as the conductor that orchestrates memory allocation, dynamically adapting the memory puzzle to match the ever-changing needs of processes, resulting in a harmonious symphony of efficient resource utilization."</p>
+								</header>
+								<div class="image main"><img src="images/memory.jpeg" alt="Memory Fitting" class="center" /></div>
+								
+									<p>In this memory Allocation Algorithms Page, you will learn:</p>
+										<ul>
+										<li><a href="#1">What is Memory Allocation?  		</a></li>
+										<li><a href="#2">Types of Memory Allocation  </a></li>
+										<li><a href="#3">Important Terminologies    </a></li>
+										<li><a href="#4">What are Memory Allocation Techniques?    </a></li>
+										<li><a href="#5">First Fit   </a></li>
+										<li><a href="#6">Best Fit    </a></li>
+										<li><a href="#7">Worst Fit    </a></li>
+										<li><a href="#8">Which is the  best memory fit algortihm?    </a></li>
+										<li><a href="#9">Summary    </a></li>
+										<li><a href="#10">Further Reading    </a></li>
+										</ul>
+  
+										<h2><a id="1"></a>What is Memory Allocation?</h2>
+										<p>Memory allocation refers to the process of assigning memory resources to programs, processes, or data structures within a computer system. It involves managing the available memory space and distributing it efficiently to fulfill the memory requirements of various entities within the system.</p>
+										<center><img src="images\MemAlocTypes.jpeg"></center>
+										<h2><a id="2"></a>Types of Memory Allocation</h2>
+										<h3>Contigous Memory management Scheme:</h3>
+										<p>Contiguous memory refers to a memory management technique where the available memory space is divided into continuous or contiguous blocks. In this approach, each process or program is allocated a contiguous block of memory that satisfies its size requirements. The memory blocks are assigned consecutively without any gaps or fragmentation between them.</p>
+										<h4>Single Contigous:</h4>
+										<p>Single contiguous memory refers to a memory configuration where the entire available memory space is represented as a single, continuous block without any gaps or fragmentation. In this memory arrangement, the memory addresses are sequentially allocated, allowing for efficient and straightforward memory access.</p>
+										<h4>Multi Partitioning:</h4>
+										<br>
+										<h5>Fixed Partitioning:</h5>
+										<p>The available memory is divided into fixed-sized partitions or regions. Each partition is assigned to a process, and the size of the partitions remains constant.</p>
+										<h5>Dynamic Partitioning:</h5>
+										<p>The memory is divided into variable-sized partitions, allowing for more flexibility in memory allocation. The size of the partitions can vary depending on the memory requirements of the processes.</p>
+										<h3>Non Contiguous Memory management Scheme:</h3>
+										<h4>Paging:</h4>
+										<p>Paging is a memory management technique used in computer systems to facilitate virtual memory and efficient memory allocation. It involves dividing the physical memory into fixed-size blocks called pages and dividing the logical memory of a process into blocks of the same size called page frames.</p>
+										<h4>Segmentation:</h4>
+										<p>Segmentation is a memory management technique used in computer systems to divide the logical address space of a process into separate segments, where each segment represents a different part of the process's memory.</p>
+										<h2><a id="3"></a>Important Terminologies</h2>
+										<ul>
+										<li><strong>Memory Address:</strong> A unique identifier or location used to access a specific memory location.</li>
+										<li><strong>Memory Block/Region:</strong> A contiguous section of memory used for allocation.</li>
+										<li><strong>Fragmentation: </strong> The division of memory into small, non-contiguous blocks due to allocation and deallocation of memory. </li>
+										<li><strong>Memory Overhead: </strong> The additional memory required for data structures and bookkeeping purposes in memory management.</li>
+										<li><strong>Partition:</strong>  Division of memory space</li>
+										<li><strong>Suboptimal allocation:</strong> memory resources are assigned or utilized in a less efficient or less optimal manner. </li>
+										</ul>
+  
+										<h2><a id="4"></a>What are Memory Allocation Techniques?</h2>
+										<p>Memory allocation techniques are methods or strategies used to assign memory resources to processes or programs in a computer system. These techniques help optimize memory utilization and ensure efficient management of available memory.</p>
+										<center><img src="images/mainpart.jpeg"></center>
+										<h2><a id="5"></a>First Fit</h2>
+											<p>First Fit is a memory allocation algorithm used in computer systems to assign memory blocks to incoming processes or data. It is one of the basic and widely used strategies for memory allocation.</p>
+											<p>In the First Fit algorithm, the memory is divided into partitions or blocks of various sizes. When a process or data needs to be allocated memory, the system searches for the first available partition that is large enough to accommodate it.</p>
+											<p>The search for an appropriate partition starts from the beginning of the memory and continues until a suitable partition is found. Once a suitable partition is found, the process or data is allocated memory in that partition, and the remaining space, if any, is split into a new partition. The new partition is marked as either allocated or free, depending on whether it is being used or not.</p>
+											
+											
+												<h3>Advantages</h3>
+												
+												<h4>Efficiency:</h4> 
+												<p>First Fit is a relatively simple and efficient memory allocation algorithm. It scans the memory blocks sequentially, making it easy to implement and execute.</p>
+								
+												<h4>Fast Allocation:</h4>
+												<p>Since First Fit allocates the first available block that meets the process's memory needs, it typically provides a quick response time for memory allocation requests.</p>
+								
+												<h4>Locality of Allocation:</h4>
+												<p>First Fit tends to allocate memory in a way that maintains the spatial locality of processes. This means that if processes are loaded sequentially, they are likely to be placed in adjacent memory blocks, which can improve cache performance.</p>
+
+												<br>
+												
+												<h3>Disadvantages</h3>
+													
+												<h4>Fragmentation:</h4> 
+												<p>One major drawback of First Fit is that it can lead to external fragmentation over time. External fragmentation occurs when free memory blocks become scattered throughout the memory, making it challenging to allocate large contiguous blocks to processes. This fragmentation can reduce overall memory utilization and waste memory space.</p>
+									
+												<h4>Inefficient Memory Usage:</h4>
+												<p>Due to external fragmentation, the available memory may not be utilized optimally. Even if enough free memory exists in total, it may be scattered in small, non-contiguous blocks, which may not be suitable for larger processes.</p>
+									
+												<h4>Suboptimal Allocation:</h4> 
+												<p>In some cases, First Fit may allocate larger blocks to smaller processes, leaving behind larger memory gaps that could have been utilized for larger processes. This inefficiency can result in suboptimal memory utilization.</p>
+
+												<br>
+
+												<h3>Example:</h3>
+												<center><img src="images/first.jpg"></center>
+												
+												
+										<h2><a id="6"></a>Best Fit</h2>
+										
+											<p>In the best fit memory allocation strategy, when a process requests a certain amount of memory, the OS searches for the smallest available memory block that can accommodate the process's memory requirement. Among all the available blocks, the one that provides the closest fit to the requested size is chosen. The goal is to minimize memory wastage and fragmentation.</p>
+											<p>When a process requests memory, the OS searches the memory allocation table to find the smallest available block that is large enough to accommodate the process's memory requirement.</p>
+											<p>If the found block is exactly the same size as the requested memory, it is allocated to the process.</p>
+											<p>If the found block is larger than the requested memory, it is split into two parts: one allocated to the process, and the remaining part becomes a new free block.</p>
+											<p>If there are multiple blocks with the same closest fit, the OS may employ additional criteria to choose the best one, such as prioritizing the block that is closest to the midpoint of its size.</p>
+
+											<h3>Advantages</h3>
+											
+												<h4>Minimizes Fragmentation:</h4>
+												<p>Best Fit helps to minimize external fragmentation compared to other memory allocation algorithms. By selecting the smallest available block that fits the process, it leaves smaller leftover fragments, reducing wasted memory space.</p>
+												
+												<h4>Efficient Memory Utilization: </h4>
+												<p>Best Fit strives to utilize memory more efficiently by selecting the optimal-sized block for each process. This can lead to a higher overall memory utilization rate, as it maximizes the number of processes that can be accommodated in the available memory.</p>
+								
+												<h4>Flexibility for Varying Memory Sizes:</h4> 
+												<p>Best Fit is well-suited for systems with varying memory block sizes. It can effectively allocate memory to processes with different memory requirements, allowing for a more flexible memory management approach.</p>
+
+											<h3>Disadvantages</h3>
+											
+												<h4>Time Complexity:</h4> 
+												<p>Best Fit has a higher time complexity compared to simpler allocation algorithms like First Fit. Since it needs to search through the available memory blocks to find the best fit, it can be slower in finding a suitable block for memory allocation.</p>
+								
+												
+												<h4>Fragmentation Over Time:</h4> 
+												<p>While Best Fit reduces external fragmentation compared to First Fit, it can still result in some degree of fragmentation. Over time, small gaps between allocated blocks can accumulate and lead to increased fragmentation, reducing the availability of contiguous memory blocks for larger processes.</p>
+								
+												<h4>Memory Overhead:</h4> 
+												<p>Best Fit may require additional data structures to keep track of the available memory blocks and their sizes, which can introduce some memory overhead.</p>
+												
+											<h3>Example</h3>
+											<center><img src="images/Best.jpg"></center>
+											
+										
+										<h2><a id="7"></a>Worst Fit</h2>
+										
+											<p>Best Fit is a memory allocation algorithm used in operating systems to assign memory blocks to incoming processes or data. It is designed to minimize fragmentation and make efficient use of memory space.</p>
+											<p>In the Best Fit algorithm, the memory is divided into partitions or blocks of various sizes. When a process or data needs to be allocated memory, the system searches for the partition that best fits the memory requirements of the incoming process. It iterates through all available partitions and selects the one with the smallest size that is still large enough to accommodate the process.</p>
+											<p>The idea behind the Best Fit algorithm is to find the smallest available partition that can hold the incoming process, thereby minimizing wastage of memory. This approach helps in reducing external fragmentation, where small unused gaps exist between allocated blocks.</p>
+											
+											<h3>Advantages</h3>
+											
+												<h4>Fragmentation Reduction:</h4>
+												<p>Worst Fit aims to minimize external fragmentation by selecting the largest available block for memory allocation. By allocating processes to the largest blocks, it leaves smaller gaps between them, reducing the number and size of fragments in the memory.</p>
+								
+												<h4>Accommodates Larger Processes:</h4>
+												<p>Worst Fit is particularly useful when dealing with processes that require larger memory allocations. By prioritizing the largest available blocks, it increases the likelihood of accommodating such processes, which can be beneficial in certain scenarios.</p>
+								
+												<h4>Simple Implementation:</h4>
+												<p>Worst Fit is relatively straightforward to implement and understand. It involves selecting the largest available block, making it easier to implement compared to more complex memory allocation algorithms.</p>
+
+											<h3>Disadvantages</h3>
+													
+												<h4>Inefficient Memory Utilization:</h4> 
+												<p>One significant drawback of Worst Fit is that it often leads to inefficient memory utilization. By allocating processes to the largest available blocks, smaller memory gaps may be created, which can result in wasted memory space.</p>
+									
+												<h4>Limited Flexibility:</h4>
+												<p>Worst Fit may struggle to efficiently allocate memory in systems with varying memory block sizes. It prioritizes larger blocks, which may not be the most suitable choice for processes with smaller memory requirements. This can limit its flexibility in accommodating diverse process sizes.</p>
+									
+												<h4>Higher Fragmentation Over Time:</h4>
+												<p>Although Worst Fit aims to reduce fragmentation, it can still lead to fragmentation over time. As smaller blocks are allocated to processes, the remaining larger blocks may be fragmented, leading to inefficient memory usage and reduced availability of contiguous memory for larger processes.</p>
+													
+											<h3>Example</h3>
+											<center><img src="images/Worst.jpg"></center>
+												
+										<h2><a id="8" ></a>Which is the memory fit algortihm? </h2>
+										<p>The best memory fit refers to the memory allocation algorithm that provides the most optimal utilization of memory resources. While different allocation algorithms have their advantages and trade-offs, the "best" fit algorithm is typically considered to be the Best Fit algorithm.</p>
+										<p>First Fit is a simple and efficient algorithm but may lead to fragmentation.</p>
+										<p>Best Fit aims to minimize wastage and external fragmentation, providing better memory utilization.</p> 
+										<p>Worst Fit, on the other hand, allocates the largest partition, resulting in higher fragmentation and lower memory utilization. The choice between these algorithms depends on the specific requirements and constraints of the system.</p>
+										<p>However, it's important to note that the "best" fit may vary depending on the specific context, system requirements, and characteristics of the workload. Different allocation algorithms, such as First Fit, Worst Fit, or Next Fit, have their own strengths and weaknesses, and the choice of the best algorithm depends on factors such as the system's memory characteristics, allocation patterns, and performance objectives.</p>
+										
+										<h2><a id="9" ></a>Summary</h2>
+										<ul>
+											<li>Memory allocation is the process of assigning memory resources to processes or programs in a computer system.</li>
+											<li>It involves dividing the available memory space into blocks or partitions that are allocated to processes.</li>
+											<li>Different memory allocation techniques exist, including contiguous allocation, paging, and segmentation.</li>
+											<li>Contiguous memory allocation divides memory into fixed or variable-sized partitions assigned to processes.</li>
+											<li>Paging allows for non-contiguous memory allocation using fixed-sized blocks called pages.</li>
+											<li>Segmentation divides memory into logical segments assigned to different parts of a program.</li>
+											<li>Memory allocation algorithms, such as First Fit, Best Fit, and Worst Fit, determine how memory blocks are assigned to processes.</li>
+											<li>First Fit assigns the first available memory block that is large enough for a process.</li>
+											<li>Best Fit selects the smallest available memory block that can accommodate a process.</li>
+											<li>Worst Fit allocates the largest available memory block, potentially leading to more fragmentation but accommodating larger processes.</li>
+										</ul>
+										
+								<!-- <p>Donec eget ex magna. Interdum et malesuada fames ac ante ipsum primis in faucibus. Pellentesque venenatis dolor imperdiet dolor mattis sagittis. Praesent rutrum sem diam, vitae egestas enim auctor sit amet. Pellentesque leo mauris, consectetur id ipsum sit amet, fergiat. Pellentesque in mi eu massa lacinia malesuada et a elit. Donec urna ex, lacinia in purus ac, pretium pulvinar mauris. Nunc lorem mauris, fringilla in aliquam at, euismod in lectus. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Curabitur sapien risus, commodo eget turpis at, elementum convallis enim turpis, lorem ipsum dolor sit amet nullam.</p>
+								<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis dapibus rutrum facilisis. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Etiam tristique libero eu nibh porttitor fermentum. Nullam venenatis erat id vehicula viverra. Nunc ultrices eros ut ultricies condimentum. Mauris risus lacus, blandit sit amet venenatis non, bibendum vitae dolor. Nunc lorem mauris, fringilla in aliquam at, euismod in lectus. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. In non lorem sit amet elit placerat maximus. Pellentesque aliquam maximus risus. Donec eget ex magna. Interdum et malesuada fames ac ante ipsum primis in faucibus. Pellentesque venenatis dolor imperdiet dolor mattis sagittis. Praesent rutrum sem diam, vitae egestas enim auctor sit amet. Pellentesque leo mauris, consectetur id ipsum.</p> -->
+							</section>
+
+					</div>
+
+				<!-- Footer -->
+					<footer id="footer">
+						<!-- <section>
+							<form method="post" action="#">
+								<div class="fields">
+									<div class="field">
+										<label for="name">Name</label>
+										<input type="text" name="name" id="name" />
+									</div>
+									<div class="field">
+										<label for="email">Email</label>
+										<input type="text" name="email" id="email" />
+									</div>
+									<div class="field">
+										<label for="message">Message</label>
+										<textarea name="message" id="message" rows="3"></textarea>
+									</div>
+								</div>
+								<ul class="actions">
+									<li><input type="submit" value="Send Message" /></li>
+								</ul>
+							</form>
+						</section> -->
+						<section class="split contact">
+							<section class="alt">
+								<h3>Details</h3>
+								<p>Created by Anuraag Bandaru Venkata<br />
+									R.no: 211CS214</p>
+								</section>
+							<section>
+								<h3>Github</h3>
+								<p><a href="https://github.com/Anuraag001">Anuraag001</a></p>
+							</section>
+							<section>
+								<h3>Email</h3>
+								<p><a href="#">anuraagbandaruvenkata.211cs214@nitk.edu.in</a></p>
+							</section>
+							<section>
+								<h3>Social</h3>
+								<ul class="icons alt">
+									<li><a href="#" class="icon brands alt fa-twitter"><span class="label">Twitter</span></a></li>
+									<li><a href="#" class="icon brands alt fa-facebook-f"><span class="label">Facebook</span></a></li>
+									<li><a href="#" class="icon brands alt fa-instagram"><span class="label">Instagram</span></a></li>
+									<li><a href="https://github.com/Anuraag001" class="icon brands alt fa-github"><span class="label">GitHub</span></a></li>
+								</ul>
+							</section>
+						</section>
+					</footer>
+
+				<!-- Copyright -->
+					<div id="copyright">
+						<ul><li>&copy; Anuraag001</li><li><!--Design: <a href="https://html5up.net">HTML5 UP</a>-->211CS214</li></ul>
+					</div>
+
+			</div>
+
+		<!-- Scripts -->
+			<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/jquery.scrollex.min.js"></script>
+			<script src="assets/js/jquery.scrolly.min.js"></script>
+			<script src="assets/js/browser.min.js"></script>
+			<script src="assets/js/breakpoints.min.js"></script>
+			<script src="assets/js/util.js"></script>
+			<script src="assets/js/main.js"></script>
+
+	</body>
+</html>

@@ -1,0 +1,266 @@
+<!DOCTYPE HTML>
+<!--
+	Massively by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+
+<head>
+	<title>Process Synchronization</title>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+	<link rel="stylesheet" href="assets/css/main.css" />
+	<noscript>
+		<link rel="stylesheet" href="assets/css/noscript.css" />
+	</noscript>
+</head>
+
+<body class="is-preload">
+
+	<!-- Wrapper -->
+	<div id="wrapper" class="fade-in">
+
+		<!-- Intro -->
+		<div id="intro">
+			<h1>Process<br />
+				Synchronization</h1>
+			<p>
+				Process synchronization is a crucial aspect of operating systems that determines
+				how processes interact with each other in a multiprogramming environemnt.
+				<!--It involves selecting a process 
+							from the ready queue and dispatching it for execution on the CPU. The scheduler employs 
+							various algorithms to achieve efficient and fair resource utilization with the goal of optimizing
+							system throughput, response time, and fairness while ensuring the 
+							smooth execution of concurrent processes.-->
+			</p>
+			<a href="https://github.com/helios2003">@Ankit Dash</a><br />
+
+			<ul class="actions">
+				<li><a href="#header" class="button icon solid solo fa-arrow-down scrolly">Continue</a></li>
+			</ul>
+		</div>
+
+		<!-- Header -->
+		<header id="header">
+			<a href="index.html" class="logo">Process Synchronization </a>
+		</header>
+
+		<!-- Nav -->
+		<nav id="nav">
+			<ul class="links">
+				<li class="active"><a href="index.html">Process Synchronization</a></li>
+				<li><a href="generic.html">Theory</a></li>
+				<!-- <li><a href="elements.html">Elements Reference</a></li> -->
+			</ul>
+			<ul class="icons">
+				<li><a href="https://github.com/helios2003" class="icon brands fa-github"><span
+							class="label">GitHub</span></a></li>
+			</ul>
+		</nav>
+
+		<!-- Main -->
+		<div id="main">
+
+			<!-- Featured Post -->
+			<article class="post featured">
+				<header class="major">
+					<span class="date">Process Synchronization</span>
+					<h2><a href="#">Process Synchronization<br />
+							Algorithms' Simulator</a></h2>
+
+					<p>The algorithms demonstrated in this section are Producer-Consumer problem, Reader-Writer problem
+						Shared Memory and Message passing.
+					</p>
+				</header>
+				<a href="#" class="image main"><img src="images/image_01.jpg" alt="" /></a>
+				<!-- <ul class="actions special">
+									<li><a href="#" class="button large">Home</a></li>
+								</ul> -->
+			</article>
+
+			<!-- Posts -->
+			<h1>
+				<center>Simulations
+					<center />
+			</h1>
+			<section class="posts">
+				<article>
+					<header>
+						<h2><a href="#">Producer<br />
+								Consumer Problem</a></h2>
+					</header>
+					<!-- <a href="#" class="image fit"><img src="images/pic02.jpg" alt="" /></a> -->
+					<p>The producer-consumer problem is a classic synchronization problem in operating systems.
+						It involves two types of processes: producers, which generate data, and consumers, which consume
+						the data.
+						The challenge is to ensure that producers and consumers can work concurrently and efficiently
+						without data corruption or resource conflicts.</p>
+					<ul class="actions special">
+						<li><a href="simulation/producer_consumer.html"
+								class="button">Simulation</a></li>
+					</ul>
+				</article>
+				<article>
+					<header>
+						<span class="date">SJF</span>
+						<h2><a href="#">Shortest Job<br />
+								First</a></h2>
+					</header>
+					<!-- <a href="#" class="image fit"><img src="images/pic03.jpg" alt="" /></a> -->
+					<p>SJF is a non-preemptive process scheduling algorithm that selects the process with the smallest
+						execution time next. It aims to minimize the average waiting time and response time,
+						prioritizing shorter processes over longer ones.</p>
+					<ul class="actions special">
+						<li><a href="CPU-Scheduling-Visualisation/ShortestJobFirst.html" class="button">Simulation</a>
+						</li>
+					</ul>
+				</article>
+				<article>
+					<header>
+						<span class="date">RR</span>
+						<h2><a href="#">Round<br />
+								Robin</a></h2>
+					</header>
+					<!-- <a href="#" class="image fit"><img src="images/pic04.jpg" alt="" /></a> -->
+					<p>RR is a preemptive process scheduling algorithm that allocates a fixed time quantum to each
+						process in a cyclic manner. Processes are executed in a round-robin fashion, allowing fairness
+						and preventing starvation, but potentially incurring higher context-switching overhead.</p>
+					<ul class="actions special">
+						<li><a href="CPU-Scheduling-Visualisation/RoundRobin.html" class="button">Simulation</a></li>
+					</ul>
+				</article>
+				<article>
+					<header>
+						<span class="date">PP</span>
+						<h2><a href="#">Priority<br />
+								Preemptive</a></h2>
+					</header>
+					<!-- <a href="#" class="image fit"><img src="images/pic05.jpg" alt="" /></a> -->
+					<p>Priority preemptive scheduling assigns priorities to processes and allows higher priority
+						processes to preempt lower priority ones. It ensures that higher priority processes are given
+						preference in CPU allocation, but may lead to lower priority processes waiting indefinitely.</p>
+					<ul class="actions special">
+						<li><a href="CPU-Scheduling-Visualisation/PriorityPreemptive.html" class="button">Simulation</a>
+						</li>
+					</ul>
+				</article>
+				<article>
+					<header>
+						<span class="date">PNP</span>
+						<h2><a href="#">Priority<br />
+								Non Preemptive</a></h2>
+					</header>
+					<!-- <a href="#" class="image fit"><img src="images/pic06.jpg" alt="" /></a> -->
+					<p>Priority non-preemptive scheduling assigns priorities to processes without preemption. Once a
+						process starts executing, it continues until it completes or blocks, regardless of higher
+						priority processes becoming available. It may result in longer response times for higher
+						priority processes if lower priority processes are executing for extended periods.
+					</p>
+					<ul class="actions special">
+						<li><a href="CPU-Scheduling-Visualisation/PriorityNonPreemptive.html"
+								class="button">Simulation</a></li>
+					</ul>
+				</article>
+				<!-- <article>
+									<header>
+										<span class="date">April 7, 2017</span>
+										<h2><a href="#">Augue lorem<br />
+										primis vestibulum</a></h2>
+									</header>
+									<a href="#" class="image fit"><img src="images/pic07.jpg" alt="" /></a>
+									<p>Donec eget ex magna. Interdum et malesuada fames ac ante ipsum primis in faucibus. Pellentesque venenatis dolor imperdiet dolor mattis sagittis magna etiam.</p>
+									<ul class="actions special">
+										<li><a href="simulation/process_scheduling.html" class="button">Simulation</a></li>
+									</ul>
+								</article> -->
+			</section>
+
+			<!-- Footer -->
+			<!-- <footer>
+								<div class="pagination">
+									<a href="#" class="previous">Prev</a>
+									<a href="#" class="page active">1</a>
+									<a href="#" class="page">2</a>
+									<a href="#" class="page">3</a>
+									<span class="extra">&hellip;</span>
+									<a href="#" class="page">8</a>
+									<a href="#" class="page">9</a>
+									<a href="#" class="page">10</a>
+									<a href="#" class="next">Next</a>
+								</div>
+							</footer> -->
+
+		</div>
+
+		<!-- Footer -->
+		<footer id="footer">
+			<!-- <section> -->
+			<!-- <form method="post" action="#"> -->
+			<!-- <div class="fields"> -->
+			<!-- <div class="field"> -->
+			<!-- <label for="name">Name</label> -->
+			<!-- <input type="text" name="name" id="name" /> -->
+			<!-- </div> -->
+			<!-- <div class="field"> -->
+			<!-- <label for="email">Email</label> -->
+			<!-- <input type="text" name="email" id="email" /> -->
+			<!-- </div> -->
+			<!-- <div class="field"> -->
+			<!-- <label for="message">Message</label> -->
+			<!-- <textarea name="message" id="message" rows="3"></textarea> -->
+			<!-- </div> -->
+			<!-- </div> -->
+			<!-- <ul class="actions"> -->
+			<!-- <li><input type="submit" value="Send Message" /></li> -->
+			<!-- </ul> -->
+			<!-- </form> -->
+			<!-- </section> -->
+			<section class="split contact">
+				<section class="alt">
+					<h3>Details</h3>
+					<p>Created by Ankit Dash<br />
+						R.no: 211CS212</p>
+				</section>
+				<section>
+					<h3>Github</h3>
+					<p><a href="https://github.com/helios2003">Ankit Dash</a></p>
+				</section>
+				<section>
+					<h3>Email</h3>
+					<p><a href="#">ankitdash.211cs212@nitk.edu.in</a></p>
+				</section>
+				<section>
+					<h3>Social</h3>
+					<ul class="icons alt">
+						<li><a href="https://github.com/helios2003" class="icon brands alt fa-github"><span
+									class="label">GitHub</span></a></li>
+									<li><a href="https://www.linkedin.com/in/ankitdash/" class="icon brands alt linkedin"><span
+										class="label">Linkedin</span></a></li>
+					</ul>
+				</section>
+			</section>
+		</footer>
+
+		<!-- Copyright -->
+		<div id="copyright">
+			<ul>
+				<li>&copy; Ankit Dash</li>
+				<li><!--Design: <a href="https://html5up.net">HTML5 UP</a>-->211CS212</li>
+			</ul>
+		</div>
+
+	</div>
+
+	<!-- Scripts -->
+	<script src="assets/js/jquery.min.js"></script>
+	<script src="assets/js/jquery.scrollex.min.js"></script>
+	<script src="assets/js/jquery.scrolly.min.js"></script>
+	<script src="assets/js/browser.min.js"></script>
+	<script src="assets/js/breakpoints.min.js"></script>
+	<script src="assets/js/util.js"></script>
+	<script src="assets/js/main.js"></script>
+
+</body>
+
+</html>
