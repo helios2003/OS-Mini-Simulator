@@ -1,0 +1,186 @@
+<!DOCTYPE HTML>
+<!--
+	Massively by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+	<head>
+		<title>Disk Scheduling</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="assets/css/main.css" />
+		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
+		
+	</head>
+	<body class="is-preload">
+
+		<!-- Wrapper -->
+			<div id="wrapper" class="fade-in">
+
+				<!-- Intro -->
+					<div id="intro">
+						<h1>Disk<br />
+							Scheduling</h1>
+						<p>
+							Disk scheduling is a technique used by operating systems to manage and optimize the order in which disk I/O (input/output) operations are performed on a hard disk drive or other storage devices.
+							
+						</p>
+						<a href="https://github.com/Gayathri3110">@Gayathri</a><br />
+
+						<ul class="actions">
+							<li><a href="#header" class="button icon solid solo fa-arrow-down scrolly">Continue</a></li>
+						</ul>
+					</div>
+
+				<!-- Header -->
+					<header id="header">
+						<a href="index.html" class="logo">Disk Scheduling	</a>
+					</header>
+
+				<!-- Nav -->
+					<nav id="nav">
+						<ul class="links">
+							<li class="active"><a href="index.html">Disk Scheduling</a></li>
+							
+							<!-- <li><a href="elements.html">Elements Reference</a></li> -->
+						</ul>
+						<ul class="icons">
+							<li><a href="https://github.com/Gayathri3110" class="icon brands fa-github"><span class="label">GitHub</span></a></li>
+						</ul>
+					</nav>
+
+				<!-- Main -->
+					<div id="main">
+
+						<!-- Featured Post -->
+							<article class="post featured">
+								<header class="major">
+									<span class="date">Disk Scheduling</span>
+									<h2><a href="#">Disk Scheduling<br />
+									Algorithms' Simulator</a></h2>
+
+									<p>Disk scheduling is a technique used by operating systems to manage and optimize 
+										the order in which disk I/O (input/output) operations are performed on a hard 
+										disk drive or other storage devices. When multiple I/O requests are made by different 
+										processes or threads, disk scheduling determines the most efficient way to access and 
+										retrieve the requested data from the disk.
+
+										The primary goal of disk scheduling algorithms is to minimize the overall disk seek time,
+										which is the time required for the disk's read/write heads to move to the desired track or
+										cylinder where the data is stored. By reordering the I/O requests intelligently, the operating 
+										system aims to reduce the amount of time wasted in seek operations and maximize the disk's throughput.</p>
+								</header>
+								<!-- <ul class="actions special">
+									<li><a href="#" class="button large">Home</a></li>
+								</ul> -->
+							</article>
+
+						<!-- Posts -->
+						<h1><center>Simulations<center/></h1>
+							<section class="posts">
+								<article>
+									<header>
+										<span class="date">FCFS</span>
+										<h2><a href="#">First Come First Serve<br />
+										</a></h2>
+									</header>
+									<a href="#" class="image main"><img src="https://media.geeksforgeeks.org/wp-content/uploads/20190727015526/fcfs-1.jpg" alt="" /></a>
+									<p>FCFS is the simplest disk scheduling algorithm. As the name suggests, this 
+										algorithm entertains requests in the order they arrive in the disk queue. 
+										The algorithm looks very fair and there is no starvation (all requests are serviced 
+										sequentially) but generally, it does not provide the fastest service.time. It operates 
+										on a queue-based approach, providing simplicity but potentially leading to longer waiting 
+										times for longer processes.</p>
+										
+									<ul class="actions special">
+										<li><a href="FCFS.html" class="button">Simulation</a></li>
+									</ul>
+								</article>
+								<article>
+									<header>
+										<span class="date">SCAN</span>
+										<h2><a href="#">SCAN<br />
+										</a></h2>
+									</header>
+									<a href="#" class="image main"><img src="https://media.geeksforgeeks.org/wp-content/uploads/20190727175932/fcfs-2.jpg" alt="" /></a>
+									<p>In SCAN disk scheduling algorithm, head starts from one end of the disk and 
+										moves towards the other end, servicing requests in between one by one and 
+										reach the other end. Then the direction of the head is reversed and the process
+										 continues as head continuously scan back and forth to access the disk. So, this 
+										 algorithm works as an elevator and hence also known as the elevator algorithm. 
+										</p>
+									<ul class="actions special">
+										<li><a href="SCAN.html" class="button">Simulation</a></li>
+									</ul>
+								</article>
+								<article>
+									<header>
+										<span class="date">CSCAN</span>
+										<h2><a href="#">CSCAN<br />
+										</a></h2>
+									</header>
+									<a href="#" class="image main"><img src="https://media.geeksforgeeks.org/wp-content/uploads/20190820015715/fcfs2.png" alt="" /></a>
+									<p>The circular SCAN (C-SCAN) scheduling algorithm is a modified version of 
+										the SCAN disk scheduling algorithm that deals with the inefficiency of 
+										the SCAN algorithm by servicing the requests more uniformly. Like SCAN 
+										(Elevator Algorithm) C-SCAN moves the head from one end servicing all 
+										the requests to the other end. However, as soon as the head reaches the 
+										other end, it immediately returns to the beginning of the disk without 
+										servicing any requests on the return trip (see chart below) and starts 
+										servicing again once reaches the beginning.</p>
+									<ul class="actions special">
+										<li><a href="CSCAN.html" class="button">Simulation</a></li>
+									</ul>
+								</article>
+								
+							</section>
+
+						
+
+					</div>
+
+				<!-- Footer -->
+					<footer id="footer">
+						
+						<section class="split contact">
+							<section class="alt">
+								<h3>Details</h3>
+								<p>Created by Gayathri S<br />
+								R.no: 211CS218</p>
+							</section>
+							<section>
+								<h3>Github</h3>
+								<p><a href="https://github.com/Gayathri3110">Gayathri</a></p>
+							</section>
+	
+							<section>
+								<h3>Social</h3>
+								<ul class="icons alt">
+									<li><a href="#" class="icon brands alt fa-twitter"><span class="label">Twitter</span></a></li>
+									<li><a href="#" class="icon brands alt fa-facebook-f"><span class="label">Facebook</span></a></li>
+									<li><a href="#" class="icon brands alt fa-instagram"><span class="label">Instagram</span></a></li>
+									<li><a href="https://github.com/Gayathri3110" class="icon brands alt fa-github"><span class="label">GitHub</span></a></li>
+								</ul>
+							</section>
+						</section>
+					</footer>
+
+				<!-- Copyright -->
+					<div id="copyright">
+						<ul><li>&copy; Gayathri</li><li><!--Design: <a href="https://html5up.net">HTML5 UP</a>-->211CS218</li></ul>
+					</div>
+
+			</div>
+
+		<!-- Scripts -->
+			<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/jquery.scrollex.min.js"></script>
+			<script src="assets/js/jquery.scrolly.min.js"></script>
+			<script src="assets/js/browser.min.js"></script>
+			<script src="assets/js/breakpoints.min.js"></script>
+			<script src="assets/js/util.js"></script>
+			<script src="assets/js/main.js"></script>
+
+	</body>
+</html>
