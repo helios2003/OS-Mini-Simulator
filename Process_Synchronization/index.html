@@ -97,69 +97,59 @@
 						The challenge is to ensure that producers and consumers can work concurrently and efficiently
 						without data corruption or resource conflicts.</p>
 					<ul class="actions special">
-						<li><a href="simulation/producer_consumer.html"
-								class="button">Simulation</a></li>
+						<li><a href="simulation/producer_consumer/producer_consumer.html" class="button">Simulation</a></li>
 					</ul>
 				</article>
 				<article>
 					<header>
-						<span class="date">SJF</span>
-						<h2><a href="#">Shortest Job<br />
-								First</a></h2>
+						<span class="date"></span>
+						<h2><a href="#">Readers Writers<br />
+								Problem</a></h2>
 					</header>
 					<!-- <a href="#" class="image fit"><img src="images/pic03.jpg" alt="" /></a> -->
-					<p>SJF is a non-preemptive process scheduling algorithm that selects the process with the smallest
-						execution time next. It aims to minimize the average waiting time and response time,
-						prioritizing shorter processes over longer ones.</p>
+					<p>The readers-writers problem is a synchronization problem where multiple readers and writers access
+						a shared resource (e.g., a database). The problem involves ensuring that concurrent access to
+						the resource by multiple readers is allowed, but exclusive access by a writer should prevent any
+						other reader or writer from accessing it. This synchronization ensures data consistency and
+						prevents conflicts between readers and writers.</p>
 					<ul class="actions special">
-						<li><a href="CPU-Scheduling-Visualisation/ShortestJobFirst.html" class="button">Simulation</a>
+						<li><a href="simulation/readers_writers/reader_writer.html" class="button">Simulation</a>
 						</li>
 					</ul>
 				</article>
 				<article>
 					<header>
-						<span class="date">RR</span>
-						<h2><a href="#">Round<br />
-								Robin</a></h2>
+						<span class="date"></span>
+						<h2><a href="#">Dining Philosophers<br />
+								Problem</a></h2>
 					</header>
 					<!-- <a href="#" class="image fit"><img src="images/pic04.jpg" alt="" /></a> -->
-					<p>RR is a preemptive process scheduling algorithm that allocates a fixed time quantum to each
-						process in a cyclic manner. Processes are executed in a round-robin fashion, allowing fairness
-						and preventing starvation, but potentially incurring higher context-switching overhead.</p>
+					<p>The Dining Philosophers problem is a classic synchronization problem where a group of
+						philosophers sits around a table with a bowl of rice and a single chopstick between each pair of
+						adjacent philosophers. Each philosopher alternates between thinking and eating, but to eat, they
+						must pick up both chopsticks on their sides. The challenge is to design a solution that prevents
+						deadlocks and resource contention, ensuring that each philosopher can eat without starving while
+						avoiding deadlock situations where all philosophers are waiting indefinitely for a second
+						chopstick.</p>
 					<ul class="actions special">
-						<li><a href="CPU-Scheduling-Visualisation/RoundRobin.html" class="button">Simulation</a></li>
+						<li><a href="simulation/dining_philosophers/dining.html" class="button">Simulation</a></li>
 					</ul>
 				</article>
 				<article>
 					<header>
-						<span class="date">PP</span>
-						<h2><a href="#">Priority<br />
-								Preemptive</a></h2>
+						<span class="date"></span>
+						<h2><a href="#">Sleeping Barbers<br />
+								Problem</a></h2>
 					</header>
 					<!-- <a href="#" class="image fit"><img src="images/pic05.jpg" alt="" /></a> -->
-					<p>Priority preemptive scheduling assigns priorities to processes and allows higher priority
-						processes to preempt lower priority ones. It ensures that higher priority processes are given
-						preference in CPU allocation, but may lead to lower priority processes waiting indefinitely.</p>
+					<p>The Sleeping Barber Problem is a classic synchronization problem in computer science. It involves
+						a barber who sleeps until a customer arrives. When a customer arrives, they either wake up the
+						barber or, if the barber is busy, sit in a waiting room. If the waiting room is full, the
+						customer leaves. The challenge is to implement a solution that ensures proper synchronization
+						between the barber and customers, avoiding issues like race conditions and deadlocks.</p>
 					<ul class="actions special">
-						<li><a href="CPU-Scheduling-Visualisation/PriorityPreemptive.html" class="button">Simulation</a>
+						<li><a href="simulation/" class="button">Simulation</a>
 						</li>
-					</ul>
-				</article>
-				<article>
-					<header>
-						<span class="date">PNP</span>
-						<h2><a href="#">Priority<br />
-								Non Preemptive</a></h2>
-					</header>
-					<!-- <a href="#" class="image fit"><img src="images/pic06.jpg" alt="" /></a> -->
-					<p>Priority non-preemptive scheduling assigns priorities to processes without preemption. Once a
-						process starts executing, it continues until it completes or blocks, regardless of higher
-						priority processes becoming available. It may result in longer response times for higher
-						priority processes if lower priority processes are executing for extended periods.
-					</p>
-					<ul class="actions special">
-						<li><a href="CPU-Scheduling-Visualisation/PriorityNonPreemptive.html"
-								class="button">Simulation</a></li>
 					</ul>
 				</article>
 				<!-- <article>
@@ -235,8 +225,8 @@
 					<ul class="icons alt">
 						<li><a href="https://github.com/helios2003" class="icon brands alt fa-github"><span
 									class="label">GitHub</span></a></li>
-									<li><a href="https://www.linkedin.com/in/ankitdash/" class="icon brands alt linkedin"><span
-										class="label">Linkedin</span></a></li>
+						<li><a href="https://www.linkedin.com/in/ankitdash/" class="icon brands alt linkedin"><span
+									class="label">Linkedin</span></a></li>
 					</ul>
 				</section>
 			</section>
