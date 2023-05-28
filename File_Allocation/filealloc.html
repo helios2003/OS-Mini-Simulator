@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>File Allocation</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <style>
+    body {
+        font-family: sans-serif;
+        background-color: rgb(244, 206, 228);
+        color: #c18484;
+    }
+    
+    .jumbotron {
+        text-align: center;
+        margin-left: 1%;
+        margin-right: 1%;
+        margin-top: 5%;
+        background-color: rgb(54, 49, 60);
+        padding-bottom: 10px;
+        padding-top: 20px;
+        }
+
+    
+    .container {
+      margin-top: 20px;
+    }
+    
+    .file-input, .block-input, .index-input {
+      margin-bottom: 10px;
+    }
+    
+    label {
+      display: inline-block;
+      width: 120px;
+    }
+    
+    input[type="text"], input[type="number"] {
+      width: 200px;
+    }
+    
+    button {
+      padding: 10px 20px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+    
+    button:hover {
+      background-color: #45a049;
+    }
+    
+    #output {
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+  <div class="jumbotron text-center">
+    <h1>File Allocation</h1>
+    <p class="lead">
+        File allocation refers to the process of assigning storage space on a storage medium, such as a hard disk drive or solid-state drive, to store files. It involves determining how and where the data of a file will be stored on the storage medium.
+    </p>
+  </div>
+
+  <div class="container">
+    <div class="panel panel-default">
+      <div class="panel-heading">Contiguous Allocation</div>
+      <div class="panel-body">
+        <div class="file-input">
+          <label for="contiguous-file-name">File Name:</label>
+          <input type="text" id="contiguous-file-name" placeholder="Enter file name">
+        </div>
+        <div class="block-input">
+          <label for="contiguous-start-block">Start Block:</label>
+          <input type="number" id="contiguous-start-block" placeholder="Enter start block number">
+        </div>
+        <div class="block-input">
+          <label for="contiguous-block-count">Number of Blocks:</label>
+          <input type="number" id="contiguous-block-count" placeholder="Enter number of blocks">
+        </div>
+        <button onclick="allocateContiguousFile()">Allocate File (Contiguous)</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="panel panel-default">
+      <div class="panel-heading">Linked Allocation</div>
+      <div class="panel-body">
+        <div class="file-input">
+          <label for="linked-file-name">File Name:</label>
+          <input type="text" id="linked-file-name" placeholder="Enter file name">
+        </div>
+        <div class="block-input">
+          <label for="linked-start-block">Start Block:</label>
+          <input type="number" id="linked-start-block" placeholder="Enter start block number">
+        </div>
+        <div class="block-input">
+          <label for="linked-block-count">Number of Blocks:</label>
+          <input type="number" id="linked-block-count" placeholder="Enter number of blocks">
+        </div>
+        <button onclick="allocateLinkedFile()">Allocate File (Linked)</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="panel panel-default">
+      <div class="panel-heading">Indexed Allocation</div>
+      <div class="panel-body">
+        <div class="file-input">
+          <label for="indexed-file-name">File Name:</label>
+          <input type="text" id="indexed-file-name" placeholder="Enter file name">
+        </div>
+        <div class="index-input">
+          <label for="indexed-index-block">Index Block:</label>
+          <input type="number" id="indexed-index-block" placeholder="Enter index block number">
+        </div>
+        <div class="block-input">
+          <label for="indexed-block-count">Number of Blocks:</label>
+          <input type="number" id="indexed-block-count" placeholder="Enter number of blocks">
+        </div>
+        <button onclick="allocateIndexedFile()">Allocate File (Indexed)</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="panel panel-default">
+      <div class="panel-heading">Output</div>
+      <div class="panel-body" id="output"></div>
+    </div>
+  </div>
+
+  <script>
+    function allocateContiguousFile() {
+      var fileName = document.getElementById("contiguous-file-name").value;
+      var startBlock = parseInt(document.getElementById("contiguous-start-block").value);
+      var blockCount = parseInt(document.getElementById("contiguous-block-count").value);
+
+      if (fileName === "" || isNaN(startBlock) || isNaN(blockCount) || startBlock < 1 || blockCount < 1) {
+        alert("Please enter a valid file name, start block number, and number of blocks.");
+        return;
+      }
+
+      var blocks = [];
+      for (var i = startBlock; i < startBlock + blockCount; i++) {
+        blocks.push("Block " + i);
+      }
+
+      var output = "File Name: " + fileName + "<br>" +
+                   "Allocation: Contiguous<br>" +
+                   "Start Block: " + startBlock + "<br>" +
+                   "Block Count: " + blockCount + "<br>" +
+                   "Blocks: " + blocks.join(", ");
+
+      document.getElementById("output").innerHTML = output;
+    }
+
+    function allocateLinkedFile() {
+      var fileName = document.getElementById("linked-file-name").value;
+      var startBlock = parseInt(document.getElementById("linked-start-block").value);
+      var blockCount = parseInt(document.getElementById("linked-block-count").value);
+
+      if (fileName === "" || isNaN(startBlock) || isNaN(blockCount) || startBlock < 1 || blockCount < 1) {
+        alert("Please enter a valid file name, start block number, and number of blocks.");
+        return;
+      }
+
+      var blocks = [];
+      for (var i = startBlock; i < startBlock + blockCount; i++) {
+        blocks.push("Block " + i);
+      }
+
+      var output = "File Name: " + fileName + "<br>" +
+                   "Allocation: Linked<br>" +
+                   "Start Block: " + startBlock + "<br>" +
+                   "Block Count: " + blockCount + "<br>" +
+                   "Blocks: " + blocks.join(", ");
+
+      document.getElementById("output").innerHTML = output;
+    }
+
+    function allocateIndexedFile() {
+      var fileName = document.getElementById("indexed-file-name").value;
+      var indexBlock = parseInt(document.getElementById("indexed-index-block").value);
+      var blockCount = parseInt(document.getElementById("indexed-block-count").value);
+
+      if (fileName === "" || isNaN(indexBlock) || isNaN(blockCount) || indexBlock < 1 || blockCount < 1) {
+        alert("Please enter a valid file name, index block number, and number of blocks.");
+        return;
+      }
+
+      var blocks = [];
+      for (var i = 0; i < blockCount; i++) {
+        blocks.push("Block " + (indexBlock + i));
+      }
+
+      var output = "File Name: " + fileName + "<br>" +
+                   "Allocation: Indexed<br>" +
+                   "Index Block: " + indexBlock + "<br>" +
+                   "Block Count: " + blockCount + "<br>" +
+                   "Blocks: " + blocks.join(", ");
+
+      document.getElementById("output").innerHTML = output;
+    }
+  </script>
+</body>
+</html>
