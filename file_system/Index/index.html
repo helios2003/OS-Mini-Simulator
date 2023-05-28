@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="font-family: monaco"  content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>OS Simulator</title>
+    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Catamaran:100,200,300,400,500,600,700,800,900">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Muli">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/simple-line-icons/2.4.1/css/simple-line-icons.min.css">
+    <style>
+        @keyframes typing {
+            from {
+                width: 0;
+            }
+            to {
+                width: 100%;
+            }
+        }
+        
+        @keyframes flicker {
+            0% {
+                opacity: 0.7;
+            }
+            50% {
+                opacity: 0.3;
+            }
+            100% {
+                opacity: 0.7;
+            }
+        }
+        
+        @keyframes strobe {
+            0% {
+                background-color: lime;
+            }
+            50% {
+                background-color: red;
+            }
+            100% {
+                background-color: lime;
+            }
+        }
+        
+        .animated-text {
+            animation: typing 3s steps(30), flicker 1s infinite;
+        }
+        
+        .animated-button {
+            animation: flicker 1s infinite;
+        }
+
+        .strobe-effect {
+            animation: strobe 0.5s infinite;
+        }
+    </style>
+</head>
+
+<body style="background-color: black;">
+    <nav class="navbar navbar-expand-lg navbar-dark" id="mainNav">
+        <div class="container">
+            <a class="navbar-brand js-scroll-trigger" href="#page-top">OS Simulator</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                <i class="fa fa-bars"></i>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <a class="nav-link js-scroll-trigger" href="#filemanage">File Management</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link js-scroll-trigger" href="#">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link js-scroll-trigger" href="https://cldadr.tech/">Portfolio</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link js-scroll-trigger" href="http://127.0.0.1:5500/index.html">Login</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <section id="filemanage" class="cta" style="background-color: rgb(0, 0, 0); height: 965px;">
+        <div class="container">
+            <div class="my-auto">
+                <h2 class="mb-5" style="color: lime; font-family: 'Courier New', monospace;">
+                    <span class="animated-text strobe-effect">File Management System</span>
+                </h2>
+                <div class="resume-item d-flex flex-column flex-md-row">
+                    <div class="resume-content mr-auto">
+                        <p style="color: lime;">
+                            <span class="animated-text">File System represents data from a logical point of view. The different directory structures for the file systems are:</span>
+                        </p>
+                        <br>
+                        <li style="color: lime;">Single-Level Structured Directory</li>
+                        <li style="color: lime;">Two-Level Structured Directory</li>
+                        <li style="color: lime;">Tree Structured Directory</li>
+                        <br>
+                        <p style="color: lime;">Some more details here</p>
+                        <p class="lead">
+                            <a class="btn btn-success animated-button" href="https://en.wikipedia.org/wiki/File_system" role="button">See More</a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="subheading mb-2" style="color: lime;">Demo:</div>
+            <div class="row">
+                <a class="btn btn-secondary col-md-5 animated-button" href="../File_System/single_level_directory.html" style="font-family: 'Courier New', monospace;">Single-Level Structured Directory</a>
+                <a class="btn btn-secondary col-md-4 animated-button" href="../File_System/two_level_directory.html" style="font-family: 'Courier New', monospace;">Two-Level Structured Directory</a>
+            </div>
+            <br>
+            <div class="row">
+                <a class="btn btn-secondary col-md-4 animated-button" href="../File_System/tree_directory.html" style="font-family: 'Courier New', monospace;">Tree Structured Directory</a>
+            </div>
+        </div>
+    </section>
+
+    <footer></footer>
+
+    <div class="navbar-bottom" style="background-color: rgb(255, 0, 0); padding: 10px; position: fixed; bottom: 0; width: 100%; z-index: 999; background-image: linear-gradient(to right, #00ff00, #00cc00);">
+        <ul style="list-style-type: none; margin: 0; padding: 0; overflow: hidden; display: flex; justify-content: center;">
+            <li style="margin: 0 10px;"><a href="https://www.linkedin.com/in/cldadr/"><img class="social-media-logo" src="icons8-linkedin.png" alt="linkedin"></a></li>
+            <li style="margin: 0 10px;"><a href="https://www.instagram.com/sexxoo.exe/"><img class="social-media-logo" src="instagram_logo.png" alt="Instagram"></a></li>
+            <li style="margin: 0 10px;"><a href="https://github.com/cldadr"><img class="social-media-logo" src="github_logo.png" alt="GitHub"></a></li>
+        </ul>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"></script>
+    <script src="assets/js/script.min.js"></script>
+</body>
+</html>
