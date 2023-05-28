@@ -1,0 +1,251 @@
+<!DOCTYPE HTML>
+<!--
+	Massively by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+	<head>
+		<title>Theory - Memory Management</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="assets/css/main.css" />
+		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
+		<style>
+			.center{
+				width: 50px;
+			}
+		</style>
+	</head>
+	<body class="is-preload">
+
+		<!-- Wrapper -->
+			<div id="wrapper">
+
+				<!-- Header -->
+					<header id="header">
+						<a href="index.html" class="logo">Memory Management</a>
+					</header>
+
+				<!-- Nav -->
+					<nav id="nav">
+						<ul class="links">
+							<li><a href="index.html">Memory Management</a></li>
+							<li class="active"><a href="generic.html">Theory</a></li>
+							<!-- <li><a href="elements.html">Elements Reference</a></li> -->
+						</ul>
+						<ul class="icons">
+							<li><a href="#" class="icon brands fa-twitter"><span class="label">Twitter</span></a></li>
+							<li><a href="#" class="icon brands fa-facebook-f"><span class="label">Facebook</span></a></li>
+							<li><a href="#" class="icon brands fa-instagram"><span class="label">Instagram</span></a></li>
+							<li><a href="https://github.com/Gunashree13" class="icon brands fa-github"><span class="label">GitHub</span></a></li>
+						</ul>
+					</nav>
+
+				<!-- Main -->
+					<div id="main">
+
+						<!-- Post -->
+							<section class="post">
+								<header class="major">
+									<span class="date">Theory</span>
+									<h1><a id="1"></a>Theory for<br />
+									Memory Management</h1>
+									<p>  Memory Management Techniques are basic techniques that are used in managing the memory in operating system. <br />
+										At any time, many processes are competing for it. To increase performance, several processes are executed simultaneously. Since the size of main memory is fixed and small, we must keep selected processes in the main memory, so it is even more important to manage them effectively.
+									</p>
+								</header>
+								<div class="image main"><img src="images/cpu.jpg" alt="CPU Scheduling" class="center" /></div>
+								
+									<p>In this Memory Management Tutorial, you will learn:</p>
+										<ul>
+										<li><a href="#1">Introduction to memory management   		</a></li>
+										<li><a href="#2">Role of memory management    </a></li>
+										<li><a href="#3">Memory Management Techniques   </a></li>
+										<li><a href="#4">Single contiguous memory management schemes   </a></li>
+										<li><a href="#5">Multiple Partitioning: MVT    </a></li>
+										<li><a href="#6">Multiple Partitioning: MFT   </a></li>
+										<li><a href="#7">Non-Contiguous memory management schemes  </a></li>
+										
+										</ul>
+  
+										<h2><a id="2"></a>Role of memory management </h2>
+										<p>Following are the important roles of memory management in a computer system:</p>
+										<div class="image main"><img src="images/OS1.png" alt="CPU Scheduling" class="center" /></div>
+										<ul>
+											<li>Memory manager is used to keep track of the status of memory locations, whether it is free or allocated. It addresses primary memory by providing abstractions so that software perceives a large memory is allocated to it.
+											</li>
+											<li>
+												Memory manager permits computers with a small amount of main memory to execute programs larger than the size or amount of available memory. It does this by moving information back and forth between primary memory and secondary memory by using the concept of swapping.
+												The memory manager is responsible for protecting the memory allocated to each process from being corrupted by another process. If this is not ensured, then the system may exhibit unpredictable behavior.</li>
+												<li>
+													Memory managers should enable sharing of memory space between processes. Thus, two programs can reside at the same memory location although at different times.</li>
+										</ul>
+										<h2><a id="3"></a>Memory Management Techniques</h2>
+										<p><strong>The memory management techniques can be classified into following main categories:</strong></p>
+										
+										<div class="image main"><img src="images/OS2.png" alt="CPU Scheduling" class="center"  /></div>
+										<ul>
+											<li>Contiguous memory management schemes</li>
+											<li>Non-Contiguous memory management schemes</li>
+										</ul>
+										<p><strong>Contiguous memory management schemes:</strong></p> 
+										<p>	In a Contiguous memory management scheme, each program occupies a single contiguous block of storage locations, i.e., a set of memory locations with consecutive addresses.</p>
+  
+										<h2><a id="4"></a>Single contiguous memory management schemes</h2>
+										<p> The Single contiguous memory management scheme is the simplest memory management scheme used in the earliest generation of computer systems. In this scheme, the main memory is divided into two contiguous areas or partitions. The operating systems reside permanently in one partition, generally at the lower memory, and the user process is loaded into the other partition.</p>
+
+										<ul><strong> Advantages of Single contiguous memory management schemes:</strong>
+										<li>Simple to implement.</li>
+										<li>Easy to manage and design.</li>
+										<li>In a Single contiguous memory management scheme, once a process is loaded, it is given full processor's time, and no other processor will interrupt it.</li></ul>
+										
+										<ul><strong>
+											Disadvantages of Single contiguous memory management schemes:</strong>
+										<li>
+											Wastage of memory space due to unused memory as the process is unlikely to use all the available memory space.</li>
+										<li>
+											The CPU remains idle, waiting for the disk to load the binary image into the main memory.</li>
+										<li>
+											It can not be executed if the program is too large to fit the entire available main memory space.</li>
+										<li>
+											It does not support multiprogramming, i.e., it cannot handle multiple programs simultaneously.</li></ul>
+
+										<h2><a id="5"></a>Multiple Partitioning: MFT </h2>
+										<p>The single Contiguous memory management scheme is inefficient as it limits computers to execute only one program at a time resulting in wastage in memory space and CPU time. The problem of inefficient CPU use can be overcome using multiprogramming that allows more than one program to run concurrently. To switch between two processes, the operating systems need to load both processes into the main memory. The operating system needs to divide the available main memory into multiple parts to load multiple processes into the main memory. Thus multiple processes can reside in the main memory simultaneously.</p>
+										<ul><strong>The multiple partitioning schemes can be of two types:</strong>
+										<li>Fixed Partitioning</li>
+										<li>Dynamic Partitioning</li></ul>
+										<p><strong>Multiprogramming with Fixed number of Tasks</strong></p>
+										<p>In multiprogramming with a fixed number of tasks (MFT), all jobs entering the system are put in a job queue. The scheduler allocates memory to jobs based on the size of the job. Once loaded, the job can then compete for CPU time.</p>
+<ul><strong>Advantages of MFT:</strong>
+    <li>Simple</li>
+    <li>A fixed number of jobs at a time and this is known</li>
+    <li>No frequent switching of boundary registers</li>
+    <li>Fences are fixed</li>
+    <li>The OS is catered for a number of PCB's</li>
+    <li>The strategy can be used along with swapping.</li>
+</ul>
+
+<ul><strong>Disadvantages of MFT:</strong>
+    <li>Job scheduling is an expensive overhead</li>
+    <li>Fragmentation can be high:</li>
+    <ul>
+        <li>Internal fragmentation occurs when space is allocated but not used</li>
+        <li>External fragmentation occurs when space is not allocated and not used</li>
+    </ul>
+    <li>There could be a job that is too large to run in the system (for any of the partitions)</li>
+</ul>
+
+
+										
+										<h2><a id="6"></a>Multiple Partitioning: MVT</h2>
+										<p><strong>Multiprogramming with Variable number of Tasks </strong></p>
+										<p>Multiprogramming with variable number of tasks (MVT), which was successfully implemented on
+											UNIVAC 1108 machines, allows partition sizes to vary dynamically. As many jobs as can fit in memory
+											are loaded.
+											Initially, memory is one large hole. As jobs arrive, just enough space for each job is allocated, thus
+											gradually decreasing the size of the hole.
+											When a job terminates, its space is released as a hole. Adjacent holes are merged into a simple (larger)
+											hole. Holes are allocated based on best-fit, first-fit or worst-fit. First-fit processes the jobs FIFO, trying to fit
+											each job in the first available hole. Best-fit starts with the largest job and fits it in the smallest available
+											hole. This continues until there are no jobs that can fit. Worst-fit starts with the smallest job and fits it in
+											the largest available hole. This continues until there are no remaining jobs that can fit</p>
+										
+<ul><strong>Advantages of MVT:</strong>
+    <li>Significant reduction of internal fragmentation (to be confined to the last block occupied by a job)</li>
+    <li>More efficient use of memory space</li>
+    <li>The strategy can be used along with swapping</li>
+    <li>With dynamic relocation, a job can be rolled to a different location than originally occupied</li>
+</ul>
+
+<ul><strong> Drawbacks of MVT:</strong>
+    <li>External fragmentation is still possible, though its likelihood is also reduced. To offset this, compaction gathers all scattered holes into one large hole. Another strategy is to hold waiting jobs for a time quantum and allow jobs in memory to clear up, then continue</li>
+    <li>Starvation can occur if a large job is at the head of the queue. Skipping circumvents this problem</li>
+</ul>
+
+<ul><strong>Differences between MFT and MVT:</strong>
+    <li>MFT caters for a fixed number of jobs while MVT caters for a variable number of jobs</li>
+    <li>MFT uses fixed fences while MVT uses variable fences</li>
+    <li>Fragmentation is a major problem with MFT; with MVT, internal fragmentation is significantly reduced and external fragmentation can be corrected</li>
+</ul>
+
+  
+										<h2><a id="7"></a>Non-Contiguous memory management schemes</h2>
+										<p>In a Non-Contiguous memory management scheme, the program is divided into different blocks and loaded at different portions of the memory that need not necessarily be adjacent to one another. This scheme can be classified depending upon the size of blocks and whether the blocks reside in the main memory or not.</p>
+										<p><strong>What is Paging?</strong></p>
+										<p>Paging is a technique that eliminates the requirements of contiguous allocation of main memory. In this, the main memory is divided into fixed-size blocks of physical memory called frames. The size of a frame should be kept the same as that of a page to maximize the main memory and avoid external fragmentation.</p>
+										<p><strong>What is Segmentation?</strong></p>
+										<p>Segmentation is a technique that eliminates the requirements of contiguous allocation of main memory. In this, the main memory is divided into variable-size blocks of physical memory called segments. It is based on the way the programmer follows to structure their programs. With segmented memory allocation, each job is divided into several segments of different sizes, one for each module. Functions, subroutines, stack, array, etc., are examples of such modules.</p>
+										
+							</section>
+
+					</div>
+
+				<!-- Footer -->
+					<footer id="footer">
+						<!-- <section>
+							<form method="post" action="#">
+								<div class="fields">
+									<div class="field">
+										<label for="name">Name</label>
+										<input type="text" name="name" id="name" />
+									</div>
+									<div class="field">
+										<label for="email">Email</label>
+										<input type="text" name="email" id="email" />
+									</div>
+									<div class="field">
+										<label for="message">Message</label>
+										<textarea name="message" id="message" rows="3"></textarea>
+									</div>
+								</div>
+								<ul class="actions">
+									<li><input type="submit" value="Send Message" /></li>
+								</ul>
+							</form>
+						</section> -->
+						<section class="split contact">
+							<section class="alt">
+								<h3>Details</h3>
+								<p>Created by Gunashree V<br />
+									R.no: 211CS219</p>
+								</section>
+							<section>
+								<h3>Github</h3>
+								<p><a href="https://github.com/Gunashree13">Gunashree</a></p>
+							</section>
+							<section>
+								<h3>Email</h3>
+								<p><a href="#">gunashree.211cs219@nitk.edu.in</a></p>
+							</section>
+							<section>
+								<h3>Social</h3>
+								<ul class="icons alt">
+									<li><a href="#" class="icon brands alt fa-twitter"><span class="label">Twitter</span></a></li>
+									<li><a href="#" class="icon brands alt fa-facebook-f"><span class="label">Facebook</span></a></li>
+									<li><a href="#" class="icon brands alt fa-instagram"><span class="label">Instagram</span></a></li>
+									<li><a href="https://github.com/Gunashree13" class="icon brands alt fa-github"><span class="label">GitHub</span></a></li>
+								</ul>
+							</section>
+						</section>
+					</footer>
+
+				<!-- Copyright -->
+					<div id="copyright">
+						<ul><li>&copy; Gunashree</li><li><!--Design: <a href="https://html5up.net">HTML5 UP</a>-->211CS219</li></ul>
+					</div>
+
+			</div>
+
+		<!-- Scripts -->
+			<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/jquery.scrollex.min.js"></script>
+			<script src="assets/js/jquery.scrolly.min.js"></script>
+			<script src="assets/js/browser.min.js"></script>
+			<script src="assets/js/breakpoints.min.js"></script>
+			<script src="assets/js/util.js"></script>
+			<script src="assets/js/main.js"></script>
+
+	</body>
+</html>
