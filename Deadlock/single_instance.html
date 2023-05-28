@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>Deadlock Detection for Single Instance Resources</title>
+	<style>
+		body {
+			font-family: Arial, sans-serif;
+			margin: 20px;
+			background-color: #f1f1f1;
+			background-image: url("images/bg.jpg");
+		}
+
+		.container {
+			max-width: 600px;
+			margin: 0 auto;
+			background-color: #fff;
+			border: 1px solid #ccc;
+			border-radius: 5px;
+			padding: 20px;
+			text-align: center;
+		}
+
+		h1 {
+			margin-top: 0;
+			text-align: center;
+		}
+
+		form {
+			margin-bottom: 20px;
+		}
+
+		label {
+			display: block;
+			font-weight: bold;
+			margin-bottom: 5px;
+		}
+
+		table {
+			width: 100%;
+			margin-bottom: 10px;
+			border-collapse: collapse;
+			display: inline-block;
+			text-align: left;
+		}
+
+		table th,
+		table td {
+			padding: 8px;
+			text-align: left;
+			border-bottom: 1px solid #ddd;
+		}
+
+		table th {
+			background-color: #f2f2f2;
+		}
+
+		.btn {
+			padding: 8px 16px;
+			background-color: #4CAF50;
+			color: #fff;
+			border: none;
+			border-radius: 3px;
+			cursor: pointer;
+		}
+
+		.result {
+			margin-top: 20px;
+			padding: 10px;
+			background-color: #fff;
+			text-align: center;
+		}
+	</style>
+</head>
+
+<body>
+	<div class="container">
+		<h1>Deadlock Detection for Single Instance Resources</h1>
+
+		<form id="deadlockForm">
+			<label for="numResources">Number of Resources:</label>
+			<input type="number" id="numResources" required><br>
+
+			<label for="numProcesses">Number of Processes:</label>
+			<input type="number" id="numProcesses" required><br>
+
+			<h2>Allocation Matrix</h2>
+			<table id="allocationMatrix"></table>
+
+			<h2>Request Matrix</h2>
+			<table id="requestMatrix"></table>
+
+			<button type="button" class="btn" onclick="detectDeadlock()">Detect Deadlock</button>
+		</form>
+
+		<div id="result" class="result"></div>
+
+		<script>
+			// Generate input fields for allocation and request matrices based on the user's input
+			function generateInputFields() {
+				var numResources = parseInt(document.getElementById("numResources").value);
+				var numProcesses = parseInt(document.getElementById("numProcesses").value);
+
+				var allocationMatrix = document.getElementById("allocationMatrix");
+				allocationMatrix.innerHTML = generateMatrixHTML(numProcesses, numResources, "allocation");
+
+				var requestMatrix = document.getElementById("requestMatrix");
+				requestMatrix.innerHTML = generateMatrixHTML(numProcesses, numResources, "request");
+			}
+
+			// Generate HTML code for the allocation and request matrices
+			function generateMatrixHTML(numRows, numCols, matrixType) {
+				var matrixHTML = "<tr><th></th>";
+
+				for (var j = 0; j < numCols; j++) {
+					matrixHTML += "<th>R" + j + "</th>";
+				}
+
+				matrixHTML += "</tr>";
+
+				for (var i = 0; i < numRows; i++) {
+					matrixHTML += "<tr><th>P" + i + "</th>";
+
+					for (var j = 0; j < numCols; j++) {
+						matrixHTML += "<td><input type='number' id='" + matrixType + "-" + i + "-" + j + "' required></td>";
+					}
+
+					matrixHTML += "</tr>";
+				}
+
+				return matrixHTML;
+			}
+
+			// Function to detect deadlock in the resource allocation graph
+			function detectDeadlock() {
+				var numResources = parseInt(document.getElementById("numResources").value);
+				var numProcesses = parseInt(document.getElementById("numProcesses").value);
+
+				var allocation = [];
+				var request = [];
+
+				// Read values from the allocation and request matrices
+				for (var i = 0; i < numProcesses; i++) {
+					var allocationRow = [];
+					var requestRow = [];
+
+					for (var j = 0; j < numResources; j++) {
+						var allocationValue = parseInt(document.getElementById("allocation-" + i + "-" + j).value);
+						var requestValue = parseInt(document.getElementById("request-" + i + "-" + j).value);
+
+						allocationRow.push(allocationValue);
+						requestRow.push(requestValue);
+					}
+
+					allocation.push(allocationRow);
+					request.push(requestRow);
+				}
+
+				var deadlock = detectDeadlockHelper(numResources, numProcesses, allocation, request);
+
+				var resultElement = document.getElementById("result");
+				resultElement.innerHTML = deadlock ? "Deadlock detected!" : "No deadlock detected.";
+			}
+
+			// Function to check if a cycle exists in the wait-for graph
+			function isCycle(process, visited, recursionStack, n, wfg) {
+				if (visited[process] === false) {
+					visited[process] = true;
+					recursionStack[process] = true;
+
+					for (var i = 0; i < n; i++) {
+						if (wfg[process][i]) {
+							if (!visited[i] && isCycle(i, visited, recursionStack, n, wfg))
+								return true;
+							else if (recursionStack[i])
+								return true;
+						}
+					}
+				}
+
+				recursionStack[process] = false;
+				return false;
+			}
+
+			// Function to detect deadlock in the resource allocation graph
+			function detectDeadlockHelper(m, n, allocation, request) {
+				var wfg = [];
+				var visited = [];
+				var recursionStack = [];
+
+				// Create wait-for graph (WFG) based on resource allocation and request matrices
+				for (var i = 0; i < n; i++) {
+					wfg.push(new Array(n).fill(false));
+					visited.push(false);
+					recursionStack.push(false);
+
+					for (var j = 0; j < m; j++) {
+						if (request[i][j] > 0) {
+							// Process i is waiting for resource j
+							for (var k = 0; k < n; k++) {
+								if (allocation[k][j] > 0) {
+									// Resource j is allocated to process k
+									wfg[i][k] = true;
+								}
+							}
+						}
+					}
+				}
+
+				// Check for cycles in the wait-for graph (WFG)
+				for (var i = 0; i < n; i++) {
+					if (isCycle(i, visited, recursionStack, n, wfg))
+						return true;
+				}
+
+				return false;
+			}
+
+			document.getElementById("deadlockForm").addEventListener("submit", function (event) {
+				event.preventDefault();
+			});
+
+			// Call generateInputFields function when the number of resources and processes are entered
+			document.getElementById("numResources").addEventListener("change", generateInputFields);
+			document.getElementById("numProcesses").addEventListener("change", generateInputFields);
+		</script>
+	</div>
+</body>
+
+</html>
