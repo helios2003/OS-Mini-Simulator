@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>SCAN Disk Scheduling Algorithm</title>
+  <style>
+    body {
+      background-image: url("./images/bg.jpg");
+      font-family: Arial, sans-serif;
+      background-color: #f1f1f1;
+      padding: 20px;
+    }
+
+    .container {
+      max-width: 600px;
+      margin: 0 auto;
+      background-color: #fff;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      padding: 20px;
+    }
+
+    h1 {
+      text-align: center;
+      margin-top: 0;
+    }
+
+    form {
+      margin-bottom: 20px;
+    }
+
+    label {
+      display: block;
+      font-weight: bold;
+      margin-bottom: 5px;
+    }
+
+    input[type="number"],
+    input[type="text"] {
+      width: 100%;
+      padding: 8px;
+      border: 1px solid #ccc;
+      border-radius: 3px;
+    }
+
+    button {
+      padding: 8px 16px;
+      background-color: #4CAF50;
+      color: #fff;
+      border: none;
+      border-radius: 3px;
+      cursor: pointer;
+    }
+
+    h2 {
+      margin-top: 20px;
+      margin-bottom: 10px;
+    }
+
+    table {
+      width: 100%;
+      margin-bottom: 10px;
+      border-collapse: collapse;
+    }
+
+    th, td {
+      padding: 8px;
+      text-align: left;
+      border-bottom: 1px solid #ddd;
+    }
+
+    th {
+      background-color: #f2f2f2;
+    }
+
+    /* Additional Styles */
+    .result-container {
+      margin-top: 20px;
+    }
+
+    .result-container h2 {
+      margin-top: 0;
+    }
+
+    .result-table {
+      margin-bottom: 10px;
+    }
+
+    .result-table th, .result-table td {
+      padding: 10px;
+      text-align: center;
+    }
+
+    .head-movement-table th, .head-movement-table td {
+      padding: 8px;
+      text-align: center;
+      border-bottom: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>SCAN Disk Scheduling Algorithm</h1>
+
+    <form>
+      <label for="trackCount">Enter the number of tracks:</label>
+      <input type="number" id="trackCount" required><br>
+
+      <label for="headPosition">Enter the position of the head:</label>
+      <input type="number" id="headPosition" required><br>
+
+      <label for="tracksInput">Enter the tracks to be traversed:</label>
+      <input type="text" id="tracksInput" required><br>
+
+      <label for="diskSize">Enter the size of the disk:</label>
+      <input type="number" id="diskSize" required><br>
+
+      <button type="button"  onclick="calculateSCANdiskScheduling()">Calculate</button>
+    </form>
+
+    <div class="result-container">
+      <h2>Results:</h2>
+
+      <table class="result-table">
+        <tr>
+          <th>Total header movement:</th>
+          <td id="totalHeaderMovement"></td>
+        </tr>
+        <tr>
+          <th>Average header movement:</th>
+          <td id="averageHeaderMovement"></td>
+        </tr>
+      </table>
+
+      <h2>Head Movement:</h2>
+
+      <table class="head-movement-table" id="headMovementTable"></table>
+    </div>
+  </div>
+
+  <script>
+    function calculateSCANdiskScheduling() {
+      var t = [];
+      var n = parseInt(document.getElementById("trackCount").value);
+      var h = parseInt(document.getElementById("headPosition").value);
+      var s = parseInt(document.getElementById("diskSize").value);
+      var tracksInput = document.getElementById("tracksInput").value.split(" ");
+      var left = [];
+      var right = [];
+      var l = 0;
+      var r = 0;
+      var sum = 0;
+      var avg = 0;
+
+      for (var i = 0; i < n; i++) {
+        t[i] = parseInt(tracksInput[i]);
+      }
+
+      for (var i = 0; i < n - 1; i++) {
+        for (var j = 0; j < n - i - 1; j++) {
+          if (t[j] > t[j + 1]) {
+            var temp = t[j];
+            t[j] = t[j + 1];
+            t[j + 1] = temp;
+          }
+        }
+      }
+
+      for (var i = 0; i < n; i++) {
+        if (t[i] < h) {
+          left[l] = t[i];
+          l++;
+        } else {
+          right[r] = t[i];
+          r++;
+        }
+      }
+
+      var resultTable = document.getElementById("headMovementTable");
+      resultTable.innerHTML = "";
+
+      var headMovementHeaderRow = resultTable.insertRow();
+      var trackHeaderCell = headMovementHeaderRow.insertCell();
+      trackHeaderCell.innerHTML = "Head Movement";
+
+      var headMovementRow = resultTable.insertRow();
+      var headMovementCell = headMovementRow.insertCell();
+      headMovementCell.innerHTML = h + " " + right.join(" ");
+
+      if (l !== 0) {
+        headMovementCell.innerHTML += " " + s;
+      }
+
+      for (var i = l - 1; i >= 0; i--) {
+        headMovementCell.innerHTML += " " + left[i];
+      }
+
+      if (l === 0) {
+        sum = right[r - 1] - h;
+      } else {
+        sum = s - h + s - left[0];
+      }
+
+      avg = sum / n;
+
+      var totalHeaderMovementCell = document.getElementById("totalHeaderMovement");
+      totalHeaderMovementCell.innerHTML = sum;
+
+      var averageHeaderMovementCell = document.getElementById("averageHeaderMovement");
+      averageHeaderMovementCell.innerHTML = avg.toFixed(2);
+    }
+  </script>
+</body>
+</html>
