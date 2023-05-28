@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>MVT</title>
+    <style>
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        th, td {
+            text-align: left;
+            padding: 8px;
+            border-bottom: 1px solid #ddd;
+        }
+        body {
+      font-family: Arial, sans-serif;
+      background-color: #f1f1f1;
+      padding: 20px;
+      background-image: url("./images/bg.jpg");
+    }
+
+    .container {
+      max-width: 600px;
+      margin: 0 auto;
+      background-color: #fff;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      padding: 20px;
+    }
+
+    h1 {
+      text-align: center;
+      margin-top: 0;
+    }
+
+    form {
+      margin-bottom: 20px;
+    }
+
+    label {
+      display: block;
+      font-weight: bold;
+      margin-bottom: 5px;
+    }
+
+    input[type="number"],
+    input[type="text"] {
+      width: 100%;
+      padding: 8px;
+      border: 1px solid #ccc;
+      border-radius: 3px;
+    }
+    button {
+      padding: 8px 16px;
+      background-color: #4CAF50;
+      color: #fff;
+      border: none;
+      border-radius: 3px;
+      cursor: pointer;
+    }
+
+    h2 {
+      margin-top: 20px;
+      margin-bottom: 10px;
+    }
+
+    table {
+      width: 100%;
+      margin-bottom: 10px;
+      border-collapse: collapse;
+    }
+
+    th, td {
+      padding: 8px;
+      text-align: left;
+      border-bottom: 1px solid #ddd;
+    }
+
+    th {
+      background-color: #f2f2f2;
+    }
+    </style>
+    <script>
+        function calculate() {
+            var ts = parseInt(document.getElementById("totalMemory").value);
+            var processes = document.querySelectorAll("[name^='process']");
+            var mem = [];
+            var available = ts;
+            var total = 0;
+            var result = "";
+
+            processes.forEach(function(process) {
+                var size = parseInt(process.value);
+                if (size > 0) {
+                    mem.push(size);
+                    if (size <= available) {
+                        result += "Memory is allocated to process " + mem.length + "\n";
+                        available -= size;
+                        total += size;
+                    } else {
+                        result += "Memory is Full\n";
+                    }
+                }
+            });
+
+            var table = "<table><tr><th>Process</th><th>Memory</th><th>Allocated</th></tr>";
+            for (var i = 0; i < mem.length; i++) {
+                table += "<tr><td>" + i + "</td><td>" + mem[i] + "</td><td>YES</td></tr>";
+            }
+            table += "</table>";
+
+            result += "\nTotal memory allocated: " + total + "\n";
+            result += "External fragmentation: " + (ts - total) + "\n";
+
+            document.getElementById("resultTable").innerHTML = table;
+            document.getElementById("resultText").innerText = result;
+        }
+    </script>
+</head>
+<body>
+    <div class="container">
+    <h2>MVT: Multiprogramming with variable number of tasks</h2>
+    <label for="totalMemory">Enter the total available memory size in bytes:</label>
+    <input type="number" id="totalMemory" name="totalMemory" required>
+    <br><br>
+    <button type="button" onclick="addProcess()">Add Process</button>
+    <br><br>
+    <div id="processesContainer"></div>
+    <br>
+    <button type="button" onclick="calculate()">Run</button>
+    <br><br>
+    <h2>Memory Allocation Result:</h2>
+    <div id="resultTable"></div>
+    <br>
+    <h2>Fragmentation:</h2>
+    <pre id="resultText"></pre>
+</div>
+
+    <script>
+        var processCount = 1;
+
+        function addProcess() {
+            var container = document.getElementById("processesContainer");
+
+            var label = document.createElement("label");
+            label.textContent = "Enter the size of process " + processCount + ": ";
+
+            var input = document.createElement("input");
+            input.type = "number";
+            input.name = "process" + processCount;
+
+            var lineBreak = document.createElement("br");
+
+            container.appendChild(label);
+            container.appendChild(input);
+            container.appendChild(lineBreak);
+
+            processCount++;
+        }
+    </script>
+</body>
+</html>

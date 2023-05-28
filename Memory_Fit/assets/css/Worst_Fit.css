@@ -1,0 +1,168 @@
+.whole{
+    width: 100%;
+}
+#background{
+    position: relative;
+    top: 0px;
+    left: 0px;
+    background-repeat: repeat;
+    z-index: 3;
+}
+.the_body {
+    position: absolute;
+    border: 2px solid black;
+    padding: 25px;
+    margin: 15px 30px 15px 15px;
+    left:0px;
+    top:0px;
+    width:98%;
+    z-index: 4;
+    background-color: white;
+   
+  }
+  
+.header{
+    height: fit-content;
+    background-color: lightcoral;
+    width: 100%;
+    margin:0px;
+    text-align: center;
+    font-size: xx-large;
+}
+
+.simulation{
+    max-width:100%;
+    background-image: url("images/pic01.jpg");
+   
+}
+
+.rowo{
+    display: flex;
+    flex-direction: row;
+    gap:20px;
+    padding-left:20px;
+}
+
+.rowo .start{
+    min-width: 50%;
+    display: flex;
+    justify-content: flex-start;
+    flex-direction:row;
+}
+
+.rowo .end{
+    min-width: 40%;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+}
+
+.colo{
+    max-width: 200px;
+}
+
+#refesh_uni{
+    display: flex;
+    align-self: flex-end;
+}
+
+#new_field{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    gap: 10px 20px;
+    width: 95%;
+    margin:2.5%;
+    /*background-color: lightblue;*/
+    padding:10px;
+}
+
+input[id^="hole_count_new"] {
+    max-width:25%;
+    display: flex;
+  }
+
+#calculate{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+  }
+
+#cal_fun{
+    display: none;
+    flex-direction: row;
+    justify-content: center;
+
+}
+
+#Allocate_field{
+    display: none;
+}
+
+.Allocate_start{
+    display: flex;
+    flex-direction: row;
+}
+
+#show_Aloc{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    gap: 10px 20px;
+    width: 95%;
+    margin:2.5%;
+    /*background-color: lightblue;*/
+    padding:10px;
+}
+
+input[id^="file_count_new"] {
+    max-width:25%;
+    display: flex;
+  }
+
+#calculate_Aloc{
+    display: none;
+    flex-direction: row;
+    justify-content: center;
+}
+
+#final{
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    
+}
+
+#showing_Avail_res{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content:flex-start;
+    font-size: large;
+    gap:20px;
+    
+}
+
+#showing_store_res{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content:flex-start;
+    font-size: large;
+    gap:20px;
+}
+#this_is_it{
+    display: flex;
+    flex-direction: column;
+    gap:20px;
+    font-size: medium;
+}
+
+#final_output{
+    display: flex;
+    flex-direction: column;
+    gap:10px;
+    align-items: center;
+}

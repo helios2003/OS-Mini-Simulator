@@ -52,8 +52,168 @@
 									</p>
 								</header>
 								<div class="image main"><img src="images/cpu.jpg" alt="CPU Scheduling" class="center" /></div>
-								<p>Donec eget ex magna. Interdum et malesuada fames ac ante ipsum primis in faucibus. Pellentesque venenatis dolor imperdiet dolor mattis sagittis. Praesent rutrum sem diam, vitae egestas enim auctor sit amet. Pellentesque leo mauris, consectetur id ipsum sit amet, fergiat. Pellentesque in mi eu massa lacinia malesuada et a elit. Donec urna ex, lacinia in purus ac, pretium pulvinar mauris. Nunc lorem mauris, fringilla in aliquam at, euismod in lectus. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Curabitur sapien risus, commodo eget turpis at, elementum convallis enim turpis, lorem ipsum dolor sit amet nullam.</p>
-								<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis dapibus rutrum facilisis. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Etiam tristique libero eu nibh porttitor fermentum. Nullam venenatis erat id vehicula viverra. Nunc ultrices eros ut ultricies condimentum. Mauris risus lacus, blandit sit amet venenatis non, bibendum vitae dolor. Nunc lorem mauris, fringilla in aliquam at, euismod in lectus. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. In non lorem sit amet elit placerat maximus. Pellentesque aliquam maximus risus. Donec eget ex magna. Interdum et malesuada fames ac ante ipsum primis in faucibus. Pellentesque venenatis dolor imperdiet dolor mattis sagittis. Praesent rutrum sem diam, vitae egestas enim auctor sit amet. Pellentesque leo mauris, consectetur id ipsum.</p>
+								
+									<p>In this CPU scheduling tutorial, you will learn:</p>
+										<ul>
+										<li><a href="#1">What is CPU scheduling?    		</a></li>
+										<li><a href="#2">Types of CPU Scheduling    </a></li>
+										<li><a href="#3">Important CPU scheduling Terminologies    </a></li>
+										<li><a href="#4">CPU Scheduling Criteria    </a></li>
+										<li><a href="#5">Interval Timer    </a></li>
+										<li><a href="#6">What is Dispatcher?    </a></li>
+										<li><a href="#7">Types of CPU scheduling Algorithm    </a></li>
+										<li><a href="#8">First Come First Serve    </a></li>
+										<li><a href="#9">Shortest Remaining Time    </a></li>
+										<li><a href="#10">Priority Based Scheduling    </a></li>
+										<li><a href="#11">Round-Robin Scheduling    </a></li>
+										<li><a href="#12">Shortest Job First    </a></li>
+										<li><a href="#13">Multiple-Level Queues Scheduling    </a></li>
+										<li><a href="#14">The Purpose of a Scheduling algorithm    </a></li>
+										</ul>
+  
+										<h2><a id="2"></a>Types of CPU Scheduling</h2>
+										<p>Here are two kinds of Scheduling methods:</p>
+										<div class="image main"><img src="images/types.png" alt="CPU Scheduling" class="center" /></div>
+										<h3>Preemptive Scheduling</h3>
+										<p>In Preemptive Scheduling, the tasks are mostly assigned with their priorities. Sometimes it is important to run a task with a higher priority before another lower priority task, even if the lower priority task is still running. The lower priority task holds for some time and resumes when the higher priority task finishes its execution.</p>
+										<h3>Non-Preemptive Scheduling</h3>
+										<p>In this type of scheduling method, the CPU has been allocated to a specific process.  The process that keeps the CPU busy will release the CPU either by switching context or terminating. It is the only method that can be used for various hardware platforms. That&#8217;s because  it doesn&#8217;t need special hardware (for example, a timer) like preemptive scheduling.</p>
+										<h3>When scheduling is Preemptive or Non-Preemptive?</h3>
+										<p>To determine if scheduling is preemptive or non-preemptive, consider these four parameters:</p>
+										<ol>
+										<li>A process switches from the running to the waiting state.</li>
+										<li>Specific process switches from the running state to the ready state.</li>
+										<li>Specific process switches from the waiting state to the ready state.</li>
+										<li>Process finished its execution and terminated.</li>
+										</ol>
+										<p><strong>Only conditions 1 and 4 apply, the scheduling is called non- preemptive.</strong></p>
+										<p><strong>All other scheduling are preemptive.</strong></p>
+										<h2><a id="3"></a>Important CPU scheduling Terminologies</h2>
+										<ul>
+										<li><strong>Burst Time/Execution Time:</strong> It is a time required by the process to complete execution. It is also called running time.</li>
+										<li><strong>Arrival Time:</strong> when a process enters in a ready state</li>
+										<li><strong>Finish Time:</strong> when process complete and exit from a system</li>
+										<li><strong>Multiprogramming:</strong> A number of programs which can be present in memory at the same time.</li>
+										<li><strong>Jobs:</strong>  It is a type of program without any kind of user interaction.</li>
+										<li><strong>User:</strong> It is a kind of program having user interaction.</li>
+										<li><strong>Process:</strong> It is the reference that is used for both job and user.</li>
+										<li><strong>CPU/IO burst cycle:</strong> Characterizes process execution, which alternates between CPU and I/O activity. CPU times are usually shorter than the time of I/O.</li>
+										</ul>
+  
+										<h2><a id="4"></a>CPU Scheduling Criteria</h2>
+										<p>A CPU scheduling algorithm tries to maximize and minimize the following:</p>
+										<div class="image main"><img src="images/sche.png" alt="CPU Scheduling" class="center" /></div>
+										<h3>Maximize:</h3>
+										<p><strong>CPU utilization:	</strong>CPU utilization is the main task in which the operating system needs to make sure that CPU remains as busy as possible. It can range from 0 to 100 percent. However, for the RTOS, it can be range from 40 percent for low-level and 90 percent  for the high-level system.</p>
+										<p><strong>Throughput: </strong>The number of processes that finish their execution per unit time is known Throughput. So, when the CPU is busy executing the process, at that time, work is being done, and the work completed per unit time is called Throughput.</p>
+										<h3>Minimize:</h3>
+										<p><strong>Waiting time: </strong>Waiting time is an amount that specific process needs to wait in the ready queue.</p>
+										<p><strong>Response time: </strong>It is an amount to time in which the request was submitted until the first response is produced.</p>
+										<p><strong>Turnaround Time: </strong>Turnaround time is an amount of time to execute a specific process. It is the calculation of the total time spent waiting to get into the memory, waiting in the queue and, executing on the CPU. The period between the time of process submission to the completion time is the turnaround time.</p>
+										<h2><a id="5"></a>Interval Timer</h2>
+										<p>Timer interruption is a method that is closely related to preemption. When a certain process gets the CPU allocation, a timer may be set to a specified interval. Both timer interruption and preemption force a process to return the CPU before its CPU burst is complete.</p>
+										<p>Most of the multi-programmed operating system uses some form of a timer to prevent a process from tying up the system forever.</p>
+										<h2><a id="6" ></a>What is Dispatcher?</h2>
+										<p>It is a module that provides control of the CPU to the process. The Dispatcher should be fast so that it can run on every context switch. Dispatch latency is the amount of time needed by the CPU scheduler to stop one process and start another.</p>
+										<p>Functions performed by Dispatcher:</p>
+										<ul>
+										<li>Context Switching</li>
+										<li>Switching to user mode</li>
+										<li>Moving to the correct location in the newly loaded program.</li>
+										</ul>
+
+  
+										<h2><a id="7"></a>Types of CPU scheduling Algorithm</h2>
+										<p>There are mainly six types of process scheduling algorithms</p>
+										<ol>
+										<li>First Come First Serve (FCFS)</li>
+										<li>Shortest-Job-First (SJF) Scheduling</li>
+										<li>Shortest Remaining Time</li>
+										<li>Priority Scheduling</li>
+										<li>Round Robin Scheduling</li>
+										<li>Multilevel Queue Scheduling</li>
+										</ol>
+										<div class="image main"><img src="images/cpu.jpg" alt="CPU Scheduling" class="center" /></div>
+										<h2><a id="8"></a>First Come First Serve</h2>
+										<p>First Come First Serve is the full form of FCFS. It is the easiest and most simple CPU scheduling algorithm. In this type of algorithm, the process which requests the CPU gets the CPU allocation first. This scheduling method can be managed with a FIFO queue.</p>
+										<p>As the process enters the ready queue, its PCB (Process Control Block) is linked with the tail of the queue. So, when CPU becomes free, it should be assigned to the process at the beginning of the queue.</p>
+										<h3>Characteristics of FCFS method:</h3>
+										<ul>
+										<li>It offers non-preemptive and pre-emptive scheduling algorithm.</li>
+										<li>Jobs are always executed on a first-come, first-serve basis</li>
+										<li>It is easy to implement and use.</li>
+										<li>However, this method is poor in performance, and the general wait time is quite high.</li>
+										</ul>
+										<h2><a id="9" ></a>Shortest Remaining Time</h2>
+										<p>The full form of SRT is Shortest remaining time. It is also known as SJF preemptive scheduling. In this method, the process will be allocated to the task, which is closest to its completion. This method prevents a newer ready state process from holding the completion of an older process.</p>
+										<h3>Characteristics of SRT scheduling method:</h3>
+										<ul>
+										<li>This method is mostly applied in batch environments where short jobs are required to be given preference.</li>
+										<li>This is not an ideal method to implement it in a shared system where the required CPU time is unknown.</li>
+										<li>Associate with each process as the length of its next CPU burst. So that operating system uses these lengths, which helps to schedule the process with the shortest possible time.</li>
+										</ul>
+										<h2><a id="10" ></a>Priority Based Scheduling</h2>
+										<p>Priority scheduling is a method of scheduling processes based on priority. In this method, the scheduler selects the tasks to work as per the priority.</p>
+										<p>Priority scheduling also helps OS to involve priority assignments. The processes with higher priority should be carried out first, whereas jobs with equal priorities are carried out on a round-robin or FCFS basis. Priority can be decided based on memory requirements, time requirements, etc.</p>
+										<h2><a id="11" ></a>Round-Robin Scheduling</h2>
+										<p>Round robin is the oldest, simplest scheduling algorithm. The name of this algorithm comes from the round-robin principle, where each person gets an equal share of something in turn. It is mostly used for scheduling algorithms in multitasking. This algorithm method helps for starvation free execution of processes.</p>
+										<h3>Characteristics of Round-Robin Scheduling</h3>
+										<ul>
+										<li>Round robin is a hybrid model which is clock-driven</li>
+										<li>Time slice should be minimum, which is assigned for a specific task to be processed. However, it may vary for different processes.</li>
+										<li>It is a real time system which responds to the event within a specific time limit.</li>
+										</ul>
+										<h2><a id="12" ></a>Shortest Job First</h2>
+										<p>SJF is a full form of (Shortest job first) is a scheduling algorithm in which the process with the shortest execution time should be selected for execution next. This scheduling method can be preemptive or non-preemptive. It significantly reduces the average waiting time for other processes awaiting execution.</p>
+										<h3>Characteristics of SJF Scheduling</h3>
+										<ul>
+										<li>It is associated with each job as a unit of time to complete.</li>
+										<li>In this method, when the CPU is available, the next process or job with the shortest completion time will be executed first.</li>
+										<li>It is Implemented with non-preemptive policy.</li>
+										<li>This algorithm method is useful for batch-type processing, where waiting for jobs to complete is not critical.</li>
+										<li>It improves job output by offering shorter jobs, which should be executed first, which mostly have a shorter turnaround time.</li>
+										</ul>
+										<h2><a id="13"></a>Multiple-Level Queues Scheduling</h2>
+										<p>This algorithm separates the ready queue into various separate queues. In this method, processes are assigned to a queue based on a specific property of the process, like the process priority, size of the memory, etc.</p>
+										<p>However, this is not an independent scheduling OS algorithm as it needs to use other types of algorithms in order to schedule the jobs.</p>
+										<h3>Characteristic of Multiple-Level Queues Scheduling:</h3>
+										<ul>
+										<li>Multiple queues should be maintained for processes with some characteristics.</li>
+										<li>Every queue may have its separate scheduling algorithms.</li>
+										<li>Priorities are given for each queue.</li>
+										</ul>
+										<h2><a id="14"></a>The Purpose of a Scheduling algorithm</h2>
+										<p>Here are the reasons for using a scheduling algorithm:</p>
+										<ul>
+										<li>The CPU uses scheduling to improve its efficiency.</li>
+										<li>It helps you to allocate resources among competing processes.</li>
+										<li>The maximum utilization of CPU can be obtained with multi-programming.</li>
+										<li>The processes which are to be executed are in ready queue.</li>
+										</ul>
+										<h2>Summary:</h2>
+										<ul>
+										<li>CPU scheduling is a process of determining which process will own CPU for execution while another process is on hold.</li>
+										<li>In Preemptive Scheduling, the tasks are mostly assigned with their priorities.</li>
+										<li>In the Non-preemptive scheduling method, the CPU has been allocated to a specific process.</li>
+										<li>The burst time is the time required for the process to complete execution. It is also called running time.</li>
+										<li>CPU utilization is the main task in which the operating system needs to ensure that the CPU remains as busy as possible.</li>
+										<li>The number of processes that finish their execution per unit time is known Throughput.</li>
+										<li>Waiting time is an amount that a specific process needs to wait in the ready queue.</li>
+										<li>It is the amount of time in which the request was submitted until the first response is produced.</li>
+										<li>Turnaround time is the amount of time to execute a specific process.</li>
+										<li>Timer interruption is a method that is closely related to preemption.</li>
+										<li>A dispatcher is a module that provides control of the CPU to the process.</li>
+										<li>Six types of process scheduling algorithms are: First Come First Serve (FCFS), 2) Shortest-Job-First (SJF) Scheduling, 3) Shortest Remaining Time, 4) Priority Scheduling, 5) Round Robin Scheduling, 6) Multilevel Queue Scheduling.</li>
+										<li>In the First Come First Serve method, the process which requests the CPU gets the CPU allocation first.</li>
+										<li>In the Shortest Remaining time, the process will be allocated to the task closest to its completion.</li>
+										<li>In Priority Scheduling, the scheduler selects the tasks to work as per the priority.</li>
+										<li>Round robin scheduling works on the principle where each person gets an equal share of something in turn.</li>
+										<li>In the Shortest job first, the shortest execution time should be selected for execution next.</li>
+										<li>The multilevel scheduling method separates the ready queue into various separate queues. In this method, processes are assigned to a queue based on a specific property.</li>
+										<li>The CPU uses scheduling to improve its efficiency.</li>
+									
+								<!-- <p>Donec eget ex magna. Interdum et malesuada fames ac ante ipsum primis in faucibus. Pellentesque venenatis dolor imperdiet dolor mattis sagittis. Praesent rutrum sem diam, vitae egestas enim auctor sit amet. Pellentesque leo mauris, consectetur id ipsum sit amet, fergiat. Pellentesque in mi eu massa lacinia malesuada et a elit. Donec urna ex, lacinia in purus ac, pretium pulvinar mauris. Nunc lorem mauris, fringilla in aliquam at, euismod in lectus. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Curabitur sapien risus, commodo eget turpis at, elementum convallis enim turpis, lorem ipsum dolor sit amet nullam.</p>
+								<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis dapibus rutrum facilisis. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Etiam tristique libero eu nibh porttitor fermentum. Nullam venenatis erat id vehicula viverra. Nunc ultrices eros ut ultricies condimentum. Mauris risus lacus, blandit sit amet venenatis non, bibendum vitae dolor. Nunc lorem mauris, fringilla in aliquam at, euismod in lectus. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. In non lorem sit amet elit placerat maximus. Pellentesque aliquam maximus risus. Donec eget ex magna. Interdum et malesuada fames ac ante ipsum primis in faucibus. Pellentesque venenatis dolor imperdiet dolor mattis sagittis. Praesent rutrum sem diam, vitae egestas enim auctor sit amet. Pellentesque leo mauris, consectetur id ipsum.</p> -->
 							</section>
 
 					</div>
