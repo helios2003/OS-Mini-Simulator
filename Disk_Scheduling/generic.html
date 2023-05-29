@@ -1,0 +1,230 @@
+<!DOCTYPE HTML>
+
+<html>
+	<head>
+		<title>Theory - Disk Scheduling</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="assets/css/main.css" />
+		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
+	</head>
+	<body class="is-preload">
+
+		<!-- Wrapper -->
+			<div id="wrapper">
+
+				<!-- Header -->
+					<header id="header">
+						<a href="index.html" class="logo">Disk Scheduling</a>
+					</header>
+
+				<!-- Nav -->
+					<nav id="nav">
+						<ul class="links">
+							<li><a href="index.html">Disk Scheduling</a></li>
+							<li class="active"><a href="generic.html">Theory</a></li>
+							<!-- <li><a href="elements.html">Elements Reference</a></li> -->
+						</ul>
+						<ul class="icons">
+							<li><a href="#" class="icon brands fa-twitter"><span class="label">Twitter</span></a></li>
+							<li><a href="#" class="icon brands fa-facebook-f"><span class="label">Facebook</span></a></li>
+							<li><a href="#" class="icon brands fa-instagram"><span class="label">Instagram</span></a></li>
+							<li><a href="https://github.com/Gayathri3110" class="icon brands fa-github"><span class="label">GitHub</span></a></li>
+						</ul>
+					</nav>
+
+				<!-- Main -->
+					<div id="main">
+
+						<!-- Post -->
+							<section class="post">
+								<header class="major">
+									<span class="date">Theory</span>
+									<h1>Theory for<br />
+									Disk Scheduling</h1>
+									
+								</header>
+								<div class="image main"><img src="types-of-computer-hard-disk-drives.jpg" alt="Disk Scheduling" class="center" /></div>
+								
+									<p>In this Disk scheduling tutorial, you will learn:</p>
+										<ul>
+										<li><a href="#1">What is Disk scheduling?</a></li>
+										<li><a href="#2">Types of Disk Scheduling Algorithms</a></li>
+										<li><a href="#3">FCFS</a></li>
+										<li><a href="#4">SCAN   </a></li>
+										<li><a href="#5">C-SCAN</a></li>
+										
+										</ul>
+  
+										<h2><a id="1"></a>What is Disk Scheduling?</h2>
+                                        <p>Disk scheduling is a technique used by operating systems to
+                                            determine the order in which disk I/O requests are processed.
+                                            When multiple processes or applications need to access the disk 
+                                            simultaneously, the disk scheduling algorithm decides the order 
+                                            in which these requests will be serviced, aiming to optimize disk 
+                                            utilization and minimize access time.
+                                       </p>
+                                       <h2><a id="2"></a>Types of Disk Scheduling</h2>
+                                        <p>The 3 common disk scheduling algorithms are:
+                                            <ul>
+                                                <li>FCFS(First Come First Serve)</li>
+                                                <li>SCAN</li>
+                                                <li>C-SCAN</li>
+                                            </ul>
+                                       </p>
+                                       <h2><a id="3"></a>FCFS</h2>
+                                       <p>FCFS (First-Come, First-Served) disk scheduling is a simple disk scheduling algorithm in which the I/O requests are serviced in the order they arrive. Each I/O request is added to the end of the request queue, and the disk serves the requests one by one from the front of the queue.
+
+                                        When a process or application sends an I/O request to the disk, it is appended to the end of the queue, regardless of the location of the requested data on the disk. The disk then services the requests sequentially, starting from the beginning of the queue. Once a request is completed, the next request in the queue is processed.
+                                        
+                                        The FCFS disk scheduling algorithm has some advantages:
+                                        <ul>
+                                        <li>Simplicity: FCFS is easy to understand and implement as it follows a straightforward approach of processing requests in the order of their arrival.
+                                    </li>
+                                    </ul>
+                                        However, FCFS also has certain drawbacks:
+                                    <ul>
+                                    <li>Poor performance with mixed workloads: If the I/O requests are not spatially localized and the disk head has to move across different areas of the disk, FCFS may result in long seek times and lower throughput. This is because requests are processed strictly in the order they arrive, without considering the current position of the disk head or the proximity of data.
+                                </li></li>
+                                        Convoy effect: If a long I/O request arrives before other shorter requests, it can cause subsequent requests to wait for an extended period. This situation is known as the convoy effect, where small requests get delayed by larger requests ahead of them in the queue.
+                                    </li>
+                                    </ul>
+                                        FCFS disk scheduling is rarely used in modern operating systems for general-purpose disk scheduling because it does not take into account the disk's physical characteristics or the potential for optimizing disk access. Instead, more advanced disk scheduling algorithms such as SSTF, SCAN, C-SCAN, or LOOK are commonly employed to improve performance and minimize access time.
+                                        
+
+                                        <h2><a id="4"></a>SCAN</h2>
+                                       <p>SCAN (also known as Elevator) disk scheduling is a popular disk scheduling algorithm that works by moving the disk's read/write heads in one direction (typically from one end to the other) while servicing the requests along the way. Once it reaches the end, the direction is reversed, and the process repeats.
+
+                                        Here's how SCAN disk scheduling algorithm works:
+                                        <ul>
+
+                                       <li> Initially, the disk head is at a specific position on the disk.</li>
+                                    <li>
+                                        The requests that are in the direction of the disk head's movement are serviced in the order they appear.
+                                    </li><li>
+                                        Once all the requests in that direction have been serviced, the disk head reaches the end of the disk.
+                                    </li><li>
+                                        Instead of immediately moving back to the starting position, the direction is reversed.
+                                    </li><li>
+                                        The requests in the opposite direction are now serviced in the order they appear.
+                                    </li><li>
+                                        The disk head keeps moving in this back-and-forth manner, servicing requests until the queue is empty.
+                                    </li><li>
+                                        The SCAN algorithm helps reduce the potential for starvation by ensuring that all requests on the disk receive service eventually. However, it may still lead to some requests waiting for an extended period if they are located far from the current position of the disk head.
+                                    </li>
+                                    </ul>
+                                    
+                                        Advantages of SCAN disk scheduling:
+                                        <ul>
+                                       <li> Fairness: SCAN ensures that all requests on the disk receive service eventually. This prevents starvation and provides fairness in accessing the disk.
+                                    </li><li>
+                                        Efficient disk utilization: By moving the disk head in one direction and servicing all requests along the way, SCAN makes efficient use of the disk's bandwidth.
+                                    </li>
+                                    </ul>
+                                        Disadvantages of SCAN disk scheduling:
+                                        <ul><li>
+                                        Increased average seek time: If there are frequent requests to different areas of the disk, SCAN may result in increased average seek time. This is because the disk head needs to move across the entire disk surface, even if there are requests closer to its current position.
+                                    </li><li>
+                                        Delay for requests located far from the current position: Requests located far from the current position of the disk head may experience longer wait times until the disk head reaches their location.
+                                    </li>
+                                    </ul>
+                                        Variations of SCAN, such as C-SCAN (Circular SCAN), modify the algorithm to avoid the backward movement of the disk head and provide more predictable performance.
+                                        
+                                        
+                                        
+                                        
+                                        <h2><a id="5"></a>CSCAN</h2>
+                                        <p>
+                                            C-SCAN (Circular SCAN) disk scheduling is an enhanced version of the SCAN disk scheduling algorithm. It addresses one of the limitations of SCAN, where the disk head reverses direction immediately after reaching the end of the disk, potentially causing delays for requests located on the opposite side of the disk.
+
+Here's how C-SCAN disk scheduling algorithm works:
+<ul><li>
+Initially, the disk head is at a specific position on the disk.</li>
+<li>
+The requests in the current direction of the disk head's movement are serviced in the order they appear.
+</li><li>
+Once all the requests in that direction have been serviced, the disk head reaches the end of the disk.
+</li><li>
+Instead of immediately moving back to the starting position, the disk head quickly moves to the other end of the disk without servicing any requests along the way.
+</li><li>
+At the other end of the disk, the direction is reversed, and the requests in that direction are serviced in the order they appear.
+</li><li>
+The disk head keeps moving in this circular manner, servicing requests until the queue is empty.
+</li><li>
+By quickly moving to the opposite end of the disk without servicing any requests, C-SCAN provides a more predictable performance compared to SCAN. This ensures that requests on the opposite side of the disk do not experience delays due to the immediate direction reversal.
+</li>
+</p>
+Advantages of C-SCAN disk scheduling:
+<ul><li>
+Predictable performance: C-SCAN offers more predictable performance compared to SCAN as it avoids the immediate direction reversal, preventing potential delays for requests on the opposite side of the disk.
+</li><li>
+Reduced variance in service time: C-SCAN provides a more consistent service time for requests since it scans the disk in one direction only, avoiding the potentially longer seek times caused by the direction reversal in SCAN.
+
+</li></ul>
+Disadvantages of C-SCAN disk scheduling:
+<ul><li>
+Increased average seek time: Similar to SCAN, C-SCAN may result in increased average seek time if there are frequent requests to different areas of the disk. This is because the disk head needs to move across the entire disk surface to service requests.</li></ul>
+C-SCAN is commonly used in scenarios where a predictable performance is desired, and delays for requests on the opposite side of the disk should be minimized.
+
+
+
+
+
+
+                                        </p>
+                                        
+                                        
+                                        
+                                        
+                                        
+                                        
+                                        
+                                      </p>
+										
+										
+							</section>
+
+					</div>
+
+				<!-- Footer -->
+					<footer id="footer">
+						<section class="split contact">
+							<section class="alt">
+								<h3>Details</h3>
+								<p>Created by Gayathri S<br />
+									R.no: 211CS218</p>
+								</section>
+							<section>
+								<h3>Github</h3>
+								<p><a href="https://github.com/Gayathri3110">Gayathri3110</a></p>
+							</section>
+							<section>
+								<h3>Social</h3>
+								<ul class="icons alt">
+									<li><a href="#" class="icon brands alt fa-twitter"><span class="label">Twitter</span></a></li>
+									<li><a href="#" class="icon brands alt fa-facebook-f"><span class="label">Facebook</span></a></li>
+									<li><a href="#" class="icon brands alt fa-instagram"><span class="label">Instagram</span></a></li>
+									<li><a href="https://github.com/Gayathri3110" class="icon brands alt fa-github"><span class="label">GitHub</span></a></li>
+								</ul>
+							</section>
+						</section>
+					</footer>
+
+				<!-- Copyright -->
+					<div id="copyright">
+						<ul><li>&copy; Gayathri3110</li><li><!--Design: <a href="https://html5up.net">HTML5 UP</a>-->211CS216</li></ul>
+					</div>
+
+			</div>
+
+		<!-- Scripts -->
+			<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/jquery.scrollex.min.js"></script>
+			<script src="assets/js/jquery.scrolly.min.js"></script>
+			<script src="assets/js/browser.min.js"></script>
+			<script src="assets/js/breakpoints.min.js"></script>
+			<script src="assets/js/util.js"></script>
+			<script src="assets/js/main.js"></script>
+
+	</body>
+</html>
