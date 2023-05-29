@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>Banker's Algorithm</title>
+	<style>
+		body {
+			font-family: Arial, sans-serif;
+			padding: 20px;
+			background-color: #f1f1f1;
+			background-image: url("images/bg.jpg");
+		}
+
+		.container {
+			max-width: 600px;
+			margin: 0 auto;
+			background-color: #fff;
+			border: 1px solid #ccc;
+			border-radius: 5px;
+			padding: 20px;
+		}
+
+		h1 {
+			margin-top: 0;
+			text-align: center;
+		}
+
+		form {
+			margin-bottom: 20px;
+		}
+
+		label {
+			display: block;
+			font-weight: bold;
+			margin-bottom: 5px;
+		}
+
+		input[type="number"],
+		input[type="text"] {
+			width: 100%;
+			padding: 8px;
+			border: 1px solid #ccc;
+			border-radius: 3px;
+		}
+
+		h2 {
+			margin-top: 20px;
+			margin-bottom: 10px;
+		}
+
+		.matrix {
+			margin-bottom: 10px;
+		}
+
+		.matrix label {
+			font-weight: normal;
+		}
+
+		.matrix div {
+			margin-bottom: 5px;
+		}
+
+		button {
+			padding: 8px 16px;
+			background-color: #4CAF50;
+			color: #fff;
+			border: none;
+			border-radius: 3px;
+			cursor: pointer;
+		}
+
+		.result {
+			margin-top: 20px;
+			padding: 10px;
+			background-color: #fff;
+		}
+
+		.result p {
+			margin: 0;
+		}
+	</style>
+	<script>
+		function executeBankersAlgorithm() {
+			var n = parseInt(document.getElementById("numProcesses").value);
+			var m = parseInt(document.getElementById("numResources").value);
+
+			var alloc = [];
+			var max = [];
+			var total = [];
+			var avail = [];
+
+			for (var i = 0; i < n; i++) {
+				alloc[i] = [];
+				max[i] = [];
+
+				for (var j = 0; j < m; j++) {
+					alloc[i][j] = parseInt(document.getElementById("alloc-" + i + "-" + j).value);
+					max[i][j] = parseInt(document.getElementById("max-" + i + "-" + j).value);
+				}
+			}
+
+			for (var i = 0; i < m; i++) {
+				total[i] = parseInt(document.getElementById("total-" + i).value);
+				avail[i] = total[i];
+			}
+
+			for (var i = 0; i < n; i++) {
+				for (var j = 0; j < m; j++) {
+					avail[j] -= alloc[i][j];
+				}
+			}
+
+			var flags = [];
+			var temp = [];
+			var index = 0;
+
+			for (var k = 0; k < n; k++) {
+				flags[k] = 0;
+			}
+
+			var need = [];
+			for (var i = 0; i < n; i++) {
+				need[i] = [];
+
+				for (var j = 0; j < m; j++) {
+					need[i][j] = max[i][j] - alloc[i][j];
+				}
+			}
+
+			var y = 0;
+			for (var k = 0; k < n; k++) {
+				for (var i = 0; i < n; i++) {
+					if (flags[i] == 0) {
+						var flag = 0;
+						for (var j = 0; j < m; j++) {
+							if (need[i][j] > avail[j]) {
+								flag = 1;
+								break;
+							}
+						}
+						if (flag == 0) {
+							temp[index++] = i;
+							for (var y = 0; y < m; y++) {
+								avail[y] += alloc[i][y];
+							}
+							flags[i] = 1;
+						}
+					}
+				}
+			}
+
+			var flag = 1;
+			for (var i = 0; i < n; i++) {
+				if (flags[i] == 0) {
+					flag = 0;
+					document.getElementById("result").innerHTML = "The following system is not safe.";
+					return;
+				}
+			}
+
+			var sequence = "Following is the SAFE Sequence:<br>";
+			sequence += "P" + temp[0];
+			for (var i = 1; i < n; i++) {
+				sequence += " -> P" + temp[i];
+			}
+			document.getElementById("result").innerHTML = sequence;
+		}
+	</script>
+</head>
+
+<body>
+	<div class="container">
+		<h1>Banker's Algorithm</h1>
+
+		<form id="bankersForm">
+			<label for="numProcesses">Number of Processes:</label>
+			<input type="number" id="numProcesses" required><br>
+
+			<label for="numResources">Number of Resources:</label>
+			<input type="number" id="numResources" required><br>
+
+			<h2>Allocation Matrix</h2>
+			<div class="matrix" id="allocationMatrix"></div>
+
+			<h2>Maximum Matrix</h2>
+			<div class="matrix" id="maximumMatrix"></div>
+
+			<h2>Total Matrix</h2>
+			<div class="matrix" id="totalMatrix"></div>
+
+			<button type="button" onclick="executeBankersAlgorithm()">Execute Algorithm</button>
+		</form>
+
+		<div class="result" id="result"></div>
+
+		<script>
+			// Generate input fields for allocation, maximum, and total matrices based on the user's input
+			function generateInputFields() {
+				var n = parseInt(document.getElementById("numProcesses").value);
+				var m = parseInt(document.getElementById("numResources").value);
+
+				var allocationMatrix = document.getElementById("allocationMatrix");
+				allocationMatrix.innerHTML = "";
+
+				var maximumMatrix = document.getElementById("maximumMatrix");
+				maximumMatrix.innerHTML = "";
+
+				var totalMatrix = document.getElementById("totalMatrix");
+				totalMatrix.innerHTML = "";
+
+				for (var i = 0; i < n; i++) {
+					var allocationRow = document.createElement("div");
+					allocationRow.innerHTML = "Process " + i + ": ";
+
+					var maximumRow = document.createElement("div");
+					maximumRow.innerHTML = "Process " + i + ": ";
+
+					for (var j = 0; j < m; j++) {
+						var allocationInput = document.createElement("input");
+						allocationInput.type = "number";
+						allocationInput.id = "alloc-" + i + "-" + j;
+						allocationInput.required = true;
+
+						var maximumInput = document.createElement("input");
+						maximumInput.type = "number";
+						maximumInput.id = "max-" + i + "-" + j;
+						maximumInput.required = true;
+
+						allocationRow.appendChild(allocationInput);
+						maximumRow.appendChild(maximumInput);
+					}
+
+					allocationMatrix.appendChild(allocationRow);
+					maximumMatrix.appendChild(maximumRow);
+				}
+
+				for (var i = 0; i < m; i++) {
+					var totalInput = document.createElement("input");
+					totalInput.type = "number";
+					totalInput.id = "total-" + i;
+					totalInput.required = true;
+
+					totalMatrix.appendChild(totalInput);
+				}
+			}
+
+			document.getElementById("numProcesses").addEventListener("change", generateInputFields);
+			document.getElementById("numResources").addEventListener("change", generateInputFields);
+		</script>
+	</div>
+</body>
+
+</html>

@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Sleeping Barber's Algorithm</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f1f1f1;
+            background-image: url("../images/bg.jpg");
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: #fff;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            padding: 20px;
+            text-align: center;
+        }
+
+        h1 {
+            margin-top: 0;
+            text-align: center;
+        }
+
+        .btn {
+            padding: 8px 16px;
+            background-color: #4CAF50;
+            color: #fff;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+
+        .barber-shop {
+            margin-top: 20px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .waiting-room {
+            margin: 0 10px;
+        }
+
+        .chair {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: #661fac;
+            margin-bottom: 10px;
+        }
+
+        .barber-chair {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background-color: #e8982e;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Sleeping Barber's Algorithm</h1>
+        <form>
+            <div>
+                <label for="numChairs" style="font-weight: bold;">Number of Chairs:</label>
+            </div>
+            <div>
+                <input type="number" id="numChairs" min="1" value="5"><br>
+            </div>
+            <div>
+                <label for="numCustomers" style="font-weight: bold;">Number of Customers:</label>
+            </div>
+            <div>
+                <input type="number" id="numCustomers" min="1" value="10"><br>
+            </div>
+
+            <div class="barber-shop">
+                <div class="waiting-room">
+                    <h3>Waiting Room</h3>
+                    <div id="waitingRoom"></div>
+                </div>
+
+                <div class="barber-chair">
+                    <h3>Barber Chair</h3>
+                </div>
+            </div>
+
+            <button type="button" class="btn" onclick="startSimulation()">Start Simulation</button>
+    </div>
+    </form>
+    <script>
+        function startSimulation() {
+            var numChairsInput = document.getElementById("numChairs");
+            var numCustomersInput = document.getElementById("numCustomers");
+
+            var numChairs = parseInt(numChairsInput.value);
+            var numCustomers = parseInt(numCustomersInput.value);
+
+            var waitingRoom = document.getElementById("waitingRoom");
+
+            waitingRoom.innerHTML = '';
+
+            for (var i = 0; i < numChairs; i++) {
+                var chair = document.createElement('div');
+                chair.classList.add('chair');
+                waitingRoom.appendChild(chair);
+            }
+
+            var barberChair = document.querySelector('.barber-chair');
+            barberChair.innerHTML = '<h3>Barber Chair (Occupied)</h3>';
+            barberChair.style.backgroundColor = '#f44336';
+
+            var waitingChairs = document.querySelectorAll('.chair');
+
+            for (var i = 0; i < numCustomers; i++) {
+                if (i < numChairs) {
+                    setTimeout(function (index) {
+                        waitingChairs[index].style.backgroundColor = '#4CAF50';
+                    }, i * 1000, i);
+                }
+            }
+
+            setTimeout(function () {
+                barberChair.innerHTML = '<h3>Barber Chair (Empty)</h3>';
+                barberChair.style.backgroundColor = '#4CAF50';
+            }, numChairs * 1000);
+        }
+    </script>
+</body>
+
+</html>

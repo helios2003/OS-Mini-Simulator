@@ -1,0 +1,243 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+	<title>Theory - Deadlock Detection</title>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+	<link rel="stylesheet" href="assets/css/main.css" />
+	<noscript>
+		<link rel="stylesheet" href="assets/css/noscript.css" />
+	</noscript>
+</head>
+
+<body class="is-preload">
+	<div id="wrapper">
+		<header id="header">
+			<a href="index.html" class="logo">Deadlock Detection</a>
+		</header>
+		<nav id="nav">
+			<ul class="links">
+				<li><a href="index.html">Deadlock Detection</a></li>
+				<li class="active"><a href="generic.html">Theory</a></li>
+			</ul>
+			<ul class="icons">
+				<li><a href="#" class="icon brands fa-twitter"><span class="label">Twitter</span></a></li>
+				<li><a href="#" class="icon brands fa-facebook-f"><span class="label">Facebook</span></a></li>
+				<li><a href="#" class="icon brands fa-instagram"><span class="label">Instagram</span></a></li>
+				<li><a href="https://github.com/anuhyamurki" class="icon brands fa-github"><span
+							class="label">GitHub</span></a></li>
+			</ul>
+		</nav>
+		<div id="main">
+			<section class="post">
+				<header class="major">
+					<span class="date">Theory</span>
+					<h1>Theory for<br />
+						Deadlock Detection</h1>
+					<p>Deadlock is a situation in concurrent computing where two or more processes or threads are unable
+						to proceed because each is waiting for the other to release a resource. In other words, it's a
+						state where processes are stuck and cannot make progress.
+						Detecting and resolving deadlocks can be challenging. Some common techniques for dealing with
+						deadlocks include resource allocation strategies, deadlock detection algorithms, and deadlock
+						recovery mechanisms. Prevention is also important, which involves designing systems and
+						algorithms in a way that minimizes the chances of deadlock occurrence.
+					</p>
+				</header>
+				<div class="image main"><img src="maxresdefault.jpg" alt="Deadlock Detection" class="center" /></div>
+				<p>Regarding Deadlock Detection, we will be seeing:</p>
+				<ul>
+					<li><a href="#1">What is Deadlock?</a></li>
+					<li><a href="#2">Conditions for Deadlock</a></li>
+					<li><a href="#3">Banker's Algorithm</a></li>
+					<li><a href="#4">How to detect deadlock when we have single instance of all the resources?</a></li>
+					<li><a href="#5">How to detect deadlock when we have multiple instances of all the resources?</a>
+					</li>
+
+				</ul>
+
+				<h2><a id="1"></a>What is Deadlock?</h2>
+				<p>Deadlock is a situation in concurrent computing where two or more processes or threads are unable to
+					proceed because each is waiting for the other to release a resource. In other words, it's a state
+					where processes are stuck and cannot make progress.
+				<p>To handle deadlocks, various techniques are used, including deadlock prevention, deadlock detection,
+					and deadlock recovery. Prevention aims to eliminate one or more of the deadlock conditions, while
+					detection involves identifying the presence of a deadlock using algorithms or resource allocation
+					graphs. Recovery strategies involve terminating processes, preempting resources, or rolling back to
+					a previous state to resolve the deadlock.</p>
+				<p>Deadlock is an important concept in operating systems and concurrent programming, and understanding
+					it is crucial for designing systems that are robust, efficient, and resistant to deadlock
+					situations.</p>
+				</p>
+				<h2><a id="2"></a>Conditions for Deadlock</h2>
+				<p>
+				<ul>
+					Deadlock occurs when certain conditions are met simultaneously:
+					<li>Mutual Exclusion: Resources cannot be simultaneously shared between multiple processes. Only one
+						process can use a resource at a time.</li>
+					<li>Hold and Wait: Processes hold resources while waiting for additional resources to be allocated.
+						They don't release resources until they have acquired all the required resources.</li>
+					<li>No Preemption: Resources cannot be forcibly taken away from a process. They can only be released
+						voluntarily by the process holding them.</li>
+					<li>Circular Wait: There is a circular chain of processes, where each process holds a resource that
+						is requested by the next process in the chain.</li>
+				</ul>
+				</p>
+
+				<h2><a id="3"></a>Banker's Algorithm</h2>
+				<p>The Banker's algorithm is a resource allocation and deadlock avoidance algorithm used in operating
+					systems. It is designed to prevent deadlock by ensuring that the allocation of resources to
+					processes is safe.</p>
+				<p>The algorithm was developed by Edsger Dijkstra and named after the banking system, where bankers
+					would only lend money if it was safe to do so. Similarly, the Banker's algorithm ensures that
+					resources are allocated in a way that guarantees the system will not enter a deadlock state.</p>
+				<p>The Banker's algorithm works by considering the maximum resource needs of each process and the
+					currently available resources in the system. It uses this information to determine if granting a
+					resource request will leave the system in a safe state, where all processes can eventually complete
+					their execution.</p>
+				<p>The algorithm operates in the following steps:
+				<ol>
+					<li>Initialization: The system determines the total number of resources available for each resource
+						type and keeps track of the current allocation and maximum resource needs of each process.</li>
+
+					<li>Safety Check: The algorithm checks if granting a resource request from a process will result in
+						a safe state. It simulates the allocation of resources to different processes and checks if all
+						processes can complete their execution successfully without entering a deadlock state.</li>
+
+					<li>Resource Request and Allocation: When a process requests additional resources, the algorithm
+						checks if granting the request will keep the system in a safe state. If so, the resources are
+						allocated to the process. Otherwise, the process is forced to wait until resources become
+						available.</li>
+
+					<li>Resource Release: When a process finishes using resources, it releases them, making them
+						available for other processes.</li>
+				</ol>
+				</p>
+				<p>By carefully considering the maximum resource needs and available resources, the Banker's algorithm
+					ensures that resource allocation is done in a way that avoids deadlocks.</p>
+				<p>The Banker's algorithm is commonly used in operating systems for resource management, particularly in
+					scenarios where multiple processes compete for limited resources. It provides a systematic approach
+					to resource allocation that helps prevent deadlocks and maintain system stability.</p>
+
+				<h2><a id="4"></a>How to detect deadlock when we have single instance of all the resources?</h2>
+				<p>In a system with single-instance resources, deadlock detection involves determining whether a
+					deadlock has occurred and identifying the processes and resources involved in the deadlock. Here's a
+					brief overview of the deadlock detection process for single-instance resources:
+				<ol>
+					<li>Resource Allocation Graph: The first step is to construct a resource allocation graph, which
+						represents the resource allocation and resource request relationships between processes and
+						resources in the system. Nodes in the graph represent processes and resources, and edges
+						represent the allocation and request relationships.</li>
+					<li>Cycle Detection: Once the resource allocation graph is constructed, the next step is to check
+						for cycles in the graph. A cycle in the graph indicates a potential deadlock situation. This can
+						be done using various graph algorithms such as depth-first search (DFS) or breadth-first search
+						(BFS).</li>
+					<li>Deadlock Detection: If a cycle is detected in the resource allocation graph, it implies a
+						potential deadlock. Further analysis is needed to confirm the deadlock. One common approach is
+						to perform a resource allocation check to see if the system is in a safe state or an unsafe
+						state.</li>
+					<li>Resource Allocation Check: The resource allocation check determines whether the system can
+						satisfy the resource requests of all processes in a circular wait situation. It involves
+						simulating the resource allocation and deallocation to see if the system can reach a safe state
+						where all processes can complete their execution. If the system can reach a safe state, then no
+						deadlock is present. Otherwise, a deadlock is confirmed.</li>
+					<li>Deadlock Resolution: Once a deadlock is detected, appropriate actions need to be taken to
+						resolve the deadlock. Deadlock resolution strategies can include process termination, resource
+						preemption, or a combination of both. The goal is to break the circular wait condition and allow
+						the affected processes to progress.</li>
+				</ol>
+				<p>It's important to note that deadlock detection and resolution are reactive approaches, aimed at
+					handling deadlocks after they have occurred. Deadlock prevention and avoidance techniques, such as
+					resource scheduling algorithms and resource allocation strategies, are typically preferred to
+					proactively avoid or minimize the occurrence of deadlocks in the system.</p>
+				<h2><a id="5"></a>How to detect deadlock when we have multiple instances of all the resources?</h2>
+				<p>In a system with multiple-instance resources, the resources are available in multiple copies or
+					instances, and deadlock detection becomes more complex compared to single-instance resources. Here's
+					an overview of deadlock detection for multiple-instance resources:
+				<ol>
+					<li>Resource Allocation Graph: Similar to the approach for single-instance resources, the first step
+						is to construct a resource allocation graph that represents the allocation and request
+						relationships between processes and resources. Nodes represent processes and resources, and
+						edges represent the allocation and request relationships.</li>
+					<li>Cycle Detection: The next step is to check for cycles in the resource allocation graph. A cycle
+						indicates a potential deadlock situation. This can be done using graph algorithms such as
+						depth-first search (DFS) or breadth-first search (BFS).</li>
+					<li>Resource Request Types: In the case of multiple-instance resources, each resource type can have
+						different request types:
+						<ul>
+							<li>Request and Hold: A process can request multiple instances of a resource and hold them
+								until all requested instances are allocated.</li>
+							<li>No Preemption: Preemption is not allowed, meaning a process cannot forcibly take
+								resources from another process.</li>
+							<li>Circular Wait: There must be a circular wait condition, where each process in the cycle
+								is waiting for a resource held by another process in the cycle.</li>
+						</ul>
+					</li>
+					<li>Deadlock Detection: If a cycle is detected in the resource allocation graph and the cycle
+						satisfies the resource request types mentioned above, it implies a potential deadlock. Further
+						analysis is needed to confirm the deadlock. One common approach is to perform a resource
+						allocation check.</li>
+					<li>Resource Allocation Check: The resource allocation check involves simulating the resource
+						allocation and deallocation to see if the system can reach a safe state. In this context, a safe
+						state means that it is possible to allocate resources to all processes in the cycle, allowing
+						them to complete their execution. If the system can reach a safe state, then no deadlock is
+						present. Otherwise, a deadlock is confirmed.</li>
+					<li>Deadlock Resolution: Once a deadlock is detected, deadlock resolution strategies are applied to
+						resolve the deadlock. These strategies can involve process termination, resource preemption, or
+						a combination of both. The goal is to break the circular wait condition and allow the affected
+						processes to proceed.</li>
+				</ol>
+				<p>It's important to note that detecting deadlocks in systems with multiple-instance resources can be
+					more challenging due to the different request types and the potential for more complex resource
+					allocation scenarios. Deadlock prevention and avoidance techniques are still crucial in such systems
+					to minimize the occurrence of deadlocks.</p>
+			</section>
+
+		</div>
+		<footer id="footer">
+			<section class="split contact">
+				<section class="alt">
+					<h3>Details</h3>
+					<p>Created by Anuhya Murki<br />
+						R.no: 211CS213</p>
+				</section>
+				<section>
+					<h3>Github</h3>
+					<p><a href="https://github.com/anuhyamurki">anuhyamurki</a></p>
+				</section>
+				<section>
+					<h3>Email</h3>
+					<p><a href="#">anuhyamurki.211cs213@nitk.edu.in</a></p>
+				</section>
+				<section>
+					<h3>Social</h3>
+					<ul class="icons alt">
+						<li><a href="#" class="icon brands alt fa-twitter"><span class="label">Twitter</span></a></li>
+						<li><a href="#" class="icon brands alt fa-facebook-f"><span class="label">Facebook</span></a>
+						</li>
+						<li><a href="#" class="icon brands alt fa-instagram"><span class="label">Instagram</span></a>
+						</li>
+						<li><a href="https://github.com/anuhyamurki" class="icon brands alt fa-github"><span
+									class="label">GitHub</span></a></li>
+					</ul>
+				</section>
+			</section>
+		</footer>
+		<div id="copyright">
+			<ul>
+				<li>&copy; Anuhya</li>
+				<li>211cs213</li>
+			</ul>
+		</div>
+
+	</div>
+	<script src="assets/js/jquery.min.js"></script>
+	<script src="assets/js/jquery.scrollex.min.js"></script>
+	<script src="assets/js/jquery.scrolly.min.js"></script>
+	<script src="assets/js/browser.min.js"></script>
+	<script src="assets/js/breakpoints.min.js"></script>
+	<script src="assets/js/util.js"></script>
+	<script src="assets/js/main.js"></script>
+</body>
+
+</html>
