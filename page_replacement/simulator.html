@@ -1,0 +1,657 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>My Website</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <style>
+body {
+      font-family: Arial, sans-serif;
+      background-color: #f2f2f2;
+      margin: 0;
+    }
+
+    .container {
+      max-width: 400px;
+      margin: 0 auto;
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    label {
+      display: block;
+      font-weight: bold;
+      margin-bottom: 5px;
+    }
+
+    input[type="text"],
+    select {
+      width: 100%;
+      padding: 10px;
+      font-size: 16px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+
+    .button-container {
+      text-align: center;
+      margin-top: 30px;
+    }
+
+    .button-container button {
+      margin-right: 10px;
+      padding: 10px 20px;
+      font-size: 16px;
+      border: none;
+      border-radius: 4px;
+      background-color: #68cb68;
+      color: #fff;
+      cursor: pointer;
+    }
+
+    .button-container button:hover {
+      background-color: #45a049;
+    }
+    #simulate {
+      display: flex;
+      width: 100%;
+      justify-content: center;
+      align-items: center;
+      background-color: rgb(221, 221, 218);
+      height: 100%;
+      flex-direction: column;
+    }
+    </style>
+
+  <div class="container">
+    <h1>Page Replacement Visualizer</h1>
+<form>
+      <div class="form-group">
+        <label for="reference-string">Enter the stream of pages:</label>
+        <input required type="text" id="reference-string" name="reference-string" placeholder="E.g., Page1, Page2, Page3...">
+      </div>
+      <div class="form-group">
+        <label for="num-frames">Enter the number of frames:</label>
+        <input required type="text" id="num-frames" name="num-frames" placeholder="E.g., 3">
+      </div>
+      <div class="form-group">
+        <label for="dropdown">Dropdown:</label>
+        <select required id="dropdown" name="dropdown">
+          <option value="fcfs">FCFS</option>
+          <option value="optimal">Optimal</option>
+          <option value="lru">LRU</option>
+          <option value="mru">MRU</option>
+        </select>
+      </div>
+      <div class="button-container">
+        <button id="visualize">Visualize</button>
+        <button id="reset">Reset</button>
+        <button id="compare">Compare</button>
+      </div>
+      </form> 
+
+  </div>
+  <div id="simulate">
+  </div>
+</body>
+<script>
+  var visualize=document.getElementById("visualize");
+  var reset=document.getElementById("reset");
+  var compare=document.getElementById("compare");
+  var reference_string = document.getElementById("reference-string");
+  var num_frames=document.getElementById("num-frames");
+
+
+  var dropdown=document.getElementById("dropdown");
+  var ref;
+  var simulate=document.getElementById("simulate");
+  var cells=[];
+  var value=[];
+  var current_page;
+  var hit_status;
+  var results = document.createElement("div");
+
+results.style.width="100%";
+results.style.position="relative";
+results.style.display="none";
+results.style.flexDirection="column";
+results.style.alignItems="center";
+results.style.justifyContent="center";
+results.style.border="2px solid green";
+
+results.style.border = "3px solid #ccc";
+results.style.borderRadius = "5px";
+results.style.padding = "10px";
+results.style.boxShadow = "0 1px 3px 0 #ccc";
+results.style.fontSize = "1.15rem";
+results.style.fontSize="bolder";
+document.body.appendChild(results);
+
+
+  //simulate.style.display="none";
+  function init() {
+    num_frames=parseInt(num_frames.value);
+    console.log(num_frames);
+
+    current_page=document.createElement("div");
+    current_page.style.height="10vh";
+    current_page.innerHTML="-";
+    current_page.style.width="10vw";
+    current_page.style.position="sticky";
+    current_page.style.left="0px";
+    current_page.style.display="inline-flex";
+    current_page.style.flexDirection="row";
+    current_page.style.alignItems="center";
+    current_page.style.justifyContent="center";
+    current_page.style.border="2px solid green";
+    current_page.style.marginLeft="0";
+    current_page.style.top="3vh";
+    current_page.style.border = "3px solid #ccc";
+    current_page.style.borderRadius = "5px";
+    current_page.style.padding = "10px";
+    current_page.style.margin = "10px";
+    current_page.style.boxShadow = "0 1px 3px 0 #ccc";
+    hit_status = document.createElement("div");
+    hit_status.style.height = "10vh";
+    hit_status.innerHTML = "-";
+    hit_status.style.width = "10vw";
+    hit_status.style.position = "sticky";
+    hit_status.style.float="right";
+    hit_status.style.top = "3vh";
+
+    hit_status.style.display = "flex";
+    hit_status.style.flexDirection = "row";
+    hit_status.style.alignItems = "center";
+    hit_status.style.justifyContent = "center";
+    
+    hit_status.style.border = "3px solid #ccc";
+    hit_status.style.borderRadius = "5px";
+    hit_status.style.padding = "10px";
+    hit_status.style.margin = "10px";
+    hit_status.style.boxShadow = "0 1px 3px 0 #ccc";
+    console.log("num_frames", num_frames);
+  for(let i=0;i<num_frames;i++) {
+    value[i]=-1;
+    
+    cells.push(document.createElement("div"));
+    console.log("cells: ", cells);
+    cells[i].id=i;
+    cells[i].style.height="10vh";
+    cells[i].innerHTML="-";
+    cells[i].style.width="10vw";
+    cells[i].style.position="relative";
+    cells[i].style.display="inline-flex";
+    cells[i].style.flexDirection="row";
+    cells[i].style.alignItems="center";
+    cells[i].style.justifyContent="center";
+    cells[i].style.border="2px solid black";
+    cells[i].style.border = "3px solid #ccc";
+    cells[i].style.borderRadius = "5px";
+    cells[i].style.padding = "10px";
+    cells[i].style.margin = "10px";
+    cells[i].style.boxShadow = "0 1px 3px 0 #ccc";
+    console.log(cells[i].innerHTML);
+    if(i==0) {
+      document.body.appendChild(current_page);
+      document.body.appendChild(hit_status);
+    }
+    simulate.appendChild(cells[i]);
+  }
+ 
+  document.body.appendChild(simulate);
+}
+
+function wait(seconds) {
+   return new Promise(resolve => {
+      setTimeout(resolve, seconds * 1000);
+   });
+} 
+
+async function start_simulation() {
+
+}
+
+async function fcfs(num_frames) {
+  var pageFaults=0;
+  var time=1;
+
+  console.log("num_frames: ", num_frames);
+  console.log("cells: ", cells);
+  for(let i=0;i<ref.length;i++) {
+    await wait(0.5);
+    console.log(i);
+      current_page.innerHTML=ref[i];
+      var found=0;
+      var idx=0;
+      for(let j=0;j<num_frames;j++) {
+        console.log("j: ", j);
+        if(cells[j].innerHTML=="-") {
+          idx=j;
+       
+          break;
+        }
+        console.log("cells[",j,"]", cells[j]);
+        if(ref[i]==parseInt(cells[j].innerHTML.trim())) {
+          found=1;
+       
+          idx=j;
+          break;
+        }
+        if(value[j]<value[idx]) {
+          idx=j;
+        }
+      }
+      if(found) {
+        hit_status.innerHTML="page hit";
+
+
+      }
+      else {
+        hit_status.innerHTML="page fault";
+       pageFaults++;
+        cells[idx].innerHTML=ref[i];
+        console.log("refi", ref[i], cells[idx].innerHTML);
+        value[idx]=time;
+      }
+
+      cells[idx].style.transform = "scale(1.2)";
+      if(hit_status.innerHTML=="page fault") {
+        cells[idx].style.backgroundColor="red";
+      }
+      else {
+        cells[idx].style.backgroundColor="green";
+      }
+      cells[idx].style.zIndex=1;
+      cells[idx].style.transition = "transform 0.5s ease-in-out, background-color 1s ease-in-out";
+      await wait(1);
+      cells[idx].style.transform = "scale(1)";
+      cells[idx].style.transition = "transform 0.5s ease-in-out";
+      await wait(1);
+      cells[idx].style.zIndex=0;
+      cells[idx].style.backgroundColor="inherit";
+     
+      time++;
+
+
+    }
+    var paragraph= new Array(4);
+    var para=document.createElement("h2");
+    para.innerHTML="FCFS";
+    results.appendChild(para);
+    paragraph[0] = document.createElement("p");
+  paragraph[0].innerText = "Number of page Faults: "+ pageFaults;
+  results.appendChild(paragraph[0]);
+  
+  paragraph[1] = document.createElement("p");
+  paragraph[1].innerText = "Number of page Hits: "+ (ref.length-pageFaults);
+  //results.appendChild(paragraph[1]);
+  results.innerHTML += paragraph[1].outerHTML+"<br>";
+
+  paragraph[2] = document.createElement("p");
+  paragraph[2].innerText = "Hit rate: "+ ((ref.length-pageFaults)/(ref.length)).toPrecision(2);
+ //results.appendChild(paragraph[2]);
+   results.innerHTML += paragraph[2].outerHTML+"<br>";
+
+  paragraph[3] = document.createElement("p");
+  paragraph[3].innerText = "Miss rate: "+ (pageFaults/(ref.length)).toPrecision(2);
+  //results.appendChild(paragraph[3]);
+  results.innerHTML += paragraph[3].outerHTML+"<br>";
+
+  results.style.display="inline-flex";
+  
+ 
+}
+async function optimal() 
+{
+  var pageFaults = 0;
+  var time = 1;
+  var value_map = new Map();
+
+  for (let i = 0; i < ref.length; i++) {
+    if (!value_map.has(ref[i])) {
+      console.log("value_map doesn't have ", ref[i]);
+
+      var arr = [];
+      arr.push(i);
+      value_map.set(ref[i], arr);
+    } else {
+      var arr = value_map.get(ref[i]);
+      console.log("ref", ref[i], "arr", arr);
+      arr.push(i);
+      value_map.set(ref[i], arr);
+
+    }
+    console.log("value_map: " + value_map.get(ref[i]));
+  }
+
+  console.log("num_frames: ", num_frames);
+  console.log("cells: ", cells);
+  for (let i = 0; i < ref.length; i++) 
+  {
+    await wait(0.5);
+    console.log(i);
+    current_page.innerHTML = ref[i];
+    var found = 0;
+    var empty = 0;
+    var optimal_value = 0;
+    var idx = -1;
+    for (let j = 0; j < num_frames; j++) {
+      if (cells[j].innerHTML == "-") 
+      {
+        idx = j;
+        empty = 1;
+        break;
+      }
+      if (ref[i] == parseInt(cells[j].innerHTML.trim())) {
+        found = 1;
+        idx = j;
+        break;
+      }
+      console.log("cells i inner html", cells[j].innerHTML);
+      var page = parseInt(cells[j].innerHTML, 10);
+      console.log("page: ", page);
+      var val = value_map.get(page);
+      if (val > optimal_value) 
+      {
+        idx = j;
+        optimal_value = val;
+      }
+    }
+    if (found) {
+      hit_status.innerHTML = "page hit";
+    } else {
+      hit_status.innerHTML = "page fault";
+      pageFaults++;
+    }
+    if(idx==-1)idx=0;
+    console.log("idx: ", idx);
+
+    cells[idx].innerHTML = ref[i];
+
+    console.log("refi", ref[i], cells[idx].innerHTML);
+    
+    var arr = value_map.get(ref[i]);
+    arr=arr.slice(1);
+    value_map.set(ref[i], arr);
+    if (value_map.get(ref[i]).length == 0) {
+      delete value_map.get(ref[i]);
+    }
+    console.log("value_map: ", value_map);
+
+    cells[idx].style.transform = "scale(1.2)";
+    if (hit_status.innerHTML == "page fault") {
+      cells[idx].style.backgroundColor = "red";
+    } else {
+      cells[idx].style.backgroundColor = "green";
+    }
+    cells[idx].style.zIndex = 1;
+    cells[idx].style.transition = "transform 0.5s ease-in-out, background-color 1s ease-in-out";
+    await wait(1);
+    cells[idx].style.transform = "scale(1)";
+    cells[idx].style.transition = "transform 0.5s ease-in-out";
+    await wait(1);
+    cells[idx].style.zIndex = 0;
+    cells[idx].style.backgroundColor = "inherit";
+    value[idx] = time;
+    time++;
+
+  }
+  var paragraph= new Array(4);
+  var para=document.createElement("h2");
+    para.innerHTML="Optimal";
+    results.appendChild(para);
+    paragraph[0] = document.createElement("p");
+  paragraph[0].innerText = "Number of page Faults: "+ pageFaults;
+  results.appendChild(paragraph[0]);
+  
+  paragraph[1] = document.createElement("p");
+  paragraph[1].innerText = "Number of page Hits: "+ (ref.length-pageFaults);
+  //results.appendChild(paragraph[1]);
+  results.innerHTML += paragraph[1].outerHTML+"<br>";
+
+  paragraph[2] = document.createElement("p");
+  paragraph[2].innerText = "Hit rate: "+ ((ref.length-pageFaults)/(ref.length)).toPrecision(2);
+ //results.appendChild(paragraph[2]);
+   results.innerHTML += paragraph[2].outerHTML+"<br>";
+
+  paragraph[3] = document.createElement("p");
+  paragraph[3].innerText = "Miss rate: "+ (pageFaults/(ref.length)).toPrecision(2);
+  //results.appendChild(paragraph[3]);
+  results.innerHTML += paragraph[3].outerHTML+"<br>";
+
+  results.style.display="inline-flex";
+
+}
+async function lru() {
+  var pageFaults=0;
+  var time=1;
+
+  console.log("num_frames: ", num_frames);
+  console.log("cells: ", cells);
+  for(let i=0;i<ref.length;i++) {
+    await wait(0.5);
+    console.log(i);
+      current_page.innerHTML=ref[i];
+      var found=0;
+      var idx=0;
+      for(let j=0;j<num_frames;j++) {
+        console.log("j: ", j);
+        if(cells[j].innerHTML=="-") {
+          idx=j;
+       
+          break;
+        }
+        console.log("cells[",j,"]", cells[j]);
+        if(ref[i]==parseInt(cells[j].innerHTML.trim())) {
+          found=1;
+       
+          idx=j;
+          break;
+        }
+        if(value[j]<value[idx]) {
+          idx=j;
+        }
+      }
+      if(found) {
+        hit_status.innerHTML="page hit";
+      
+
+      }
+      else {
+        hit_status.innerHTML="page fault";
+       pageFaults++;
+        cells[idx].innerHTML=ref[i];
+        console.log("refi", ref[i], cells[idx].innerHTML);
+      }
+
+      cells[idx].style.transform = "scale(1.2)";
+      if(hit_status.innerHTML=="page fault") {
+        cells[idx].style.backgroundColor="red";
+      }
+      else {
+        cells[idx].style.backgroundColor="green";
+      }
+      cells[idx].style.zIndex=1;
+      cells[idx].style.transition = "transform 0.5s ease-in-out, background-color 1s ease-in-out";
+      await wait(1);
+      cells[idx].style.transform = "scale(1)";
+      cells[idx].style.transition = "transform 0.5s ease-in-out";
+      await wait(1);
+      cells[idx].style.zIndex=0;
+      cells[idx].style.backgroundColor="inherit";
+      value[idx]=time;
+      time++;
+
+    }
+    var paragraph= new Array(4);
+    var para=document.createElement("h2");
+    para.innerHTML="LRU";
+    results.appendChild(para);
+    paragraph[0] = document.createElement("p");
+  paragraph[0].innerText = "Number of page Faults: "+ pageFaults;
+  results.appendChild(paragraph[0]);
+  
+  paragraph[1] = document.createElement("p");
+  paragraph[1].innerText = "Number of page Hits: "+ (ref.length-pageFaults);
+  //results.appendChild(paragraph[1]);
+  results.innerHTML += paragraph[1].outerHTML+"<br>";
+
+  paragraph[2] = document.createElement("p");
+  paragraph[2].innerText = "Hit rate: "+ ((ref.length-pageFaults)/(ref.length)).toPrecision(2);
+ //results.appendChild(paragraph[2]);
+   results.innerHTML += paragraph[2].outerHTML+"<br>";
+
+  paragraph[3] = document.createElement("p");
+  paragraph[3].innerText = "Miss rate: "+ (pageFaults/(ref.length)).toPrecision(2);
+  //results.appendChild(paragraph[3]);
+  results.innerHTML += paragraph[3].outerHTML+"<br>";
+
+  results.style.display="inline-flex";
+}
+async function mru() {
+  var pageFaults=0;
+  var time=1;
+
+  console.log("num_frames: ", num_frames);
+  console.log("cells: ", cells);
+  for(let i=0;i<ref.length;i++) {
+    await wait(0.5);
+    console.log(i);
+      current_page.innerHTML=ref[i];
+      var found=0;
+      var idx=0;
+      for(let j=0;j<num_frames;j++) {
+        console.log("j: ", j);
+        if(cells[j].innerHTML=="-") {
+          idx=j;
+       
+          break;
+        }
+        console.log("cells[",j,"]", cells[j]);
+        if(ref[i]==parseInt(cells[j].innerHTML.trim())) {
+          found=1;
+       
+          idx=j;
+          break;
+        }
+        if(value[j]>value[idx]) {
+          idx=j;
+        }
+      }
+      if(found) {
+        hit_status.innerHTML="page hit";
+      
+
+      }
+      else {
+        hit_status.innerHTML="page fault";
+       pageFaults++;
+        cells[idx].innerHTML=ref[i];
+        console.log("refi", ref[i], cells[idx].innerHTML);
+      }
+
+      cells[idx].style.transform = "scale(1.2)";
+      if(hit_status.innerHTML=="page fault") {
+        cells[idx].style.backgroundColor="red";
+      }
+      else {
+        cells[idx].style.backgroundColor="green";
+      }
+      cells[idx].style.zIndex=1;
+      cells[idx].style.transition = "transform 0.5s ease-in-out, background-color 1s ease-in-out";
+      await wait(1);
+      cells[idx].style.transform = "scale(1)";
+      cells[idx].style.transition = "transform 0.5s ease-in-out";
+      await wait(1);
+      cells[idx].style.zIndex=0;
+      cells[idx].style.backgroundColor="inherit";
+      value[idx]=time;
+      time++;
+
+
+    }
+    var paragraph= new Array(4);
+    var para=document.createElement("h2");
+    para.innerHTML="MRU";
+    results.appendChild(para);
+    paragraph[0] = document.createElement("p");
+  paragraph[0].innerText = "Number of page Faults: "+ pageFaults;
+  results.appendChild(paragraph[0]);
+  
+  paragraph[1] = document.createElement("p");
+  paragraph[1].innerText = "Number of page Hits: "+ (ref.length-pageFaults);
+  //results.appendChild(paragraph[1]);
+  results.innerHTML += paragraph[1].outerHTML+"<br>";
+
+  paragraph[2] = document.createElement("p");
+  paragraph[2].innerText = "Hit rate: "+ ((ref.length-pageFaults)/(ref.length)).toPrecision(2);
+ //results.appendChild(paragraph[2]);
+   results.innerHTML += paragraph[2].outerHTML+"<br>";
+
+  paragraph[3] = document.createElement("p");
+  paragraph[3].innerText = "Miss rate: "+ (pageFaults/(ref.length)).toPrecision(2);
+  //results.appendChild(paragraph[3]);
+  results.innerHTML += paragraph[3].outerHTML+"<br>";
+
+  results.style.display="inline-flex";
+}
+
+  visualize.addEventListener("click", async function(event){
+  event.preventDefault();   
+   init();
+   simulate.scrollIntoView();
+    ref=reference_string.value; 
+    console.log(ref);
+    ref=ref.split(' ').map(e=>parseInt(e,10));
+   // num_frames=parseInt(num_frames.value);
+    console.log("num_frames in visualize: ", num_frames);
+    if(dropdown.value=="fcfs") {
+      fcfs(num_frames);
+    }
+    else if(dropdown.value=="optimal"){
+      optimal();
+    }
+    else if(dropdown.value=="lru") {
+      lru();
+    }
+    else if(dropdown.value=="mru") {
+      mru();
+    }
+  } );
+  compare.addEventListener( 'click', async function(event) {
+    event.preventDefault();
+    init();
+    simulate.scrollIntoView();
+    ref=reference_string.value; 
+    console.log(ref);
+    ref=ref.split(' ').map(e=>parseInt(e,10));
+   // num_frames=parseInt(num_frames.value);
+    console.log("num_frames in visualize: ", num_frames);
+    window.alert("FCFS");
+   await fcfs(num_frames);
+    window.alert("optimal");
+    await optimal();
+    window.alert("lru");
+    await lru();
+    window.alert("mru");
+    await mru();
+
+  });
+
+</script>
+
+</html>
