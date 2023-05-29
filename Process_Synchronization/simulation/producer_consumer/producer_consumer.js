@@ -61,7 +61,7 @@ consumeBtn.addEventListener("click", () => {
   const fullBufList = buffer.children;
   let removed = false;
 
-  for (let i = fullBufList.length - 1; i >= 0; i--) {
+  for (let i = 0; i <= fullBufList.length - 1; i++) {
     if (fullBufList[i].classList.contains("buffer-item-produced")) {
       fullBufList[i].classList.remove("buffer-item-produced");
       removed = true;
