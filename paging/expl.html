@@ -1,0 +1,727 @@
+<!DOCTYPE html>
+<!-- saved from url=(0057)https://www.geeksforgeeks.org/paging-in-operating-system/ -->
+<html lang="en-us" prefix="og: http://ogp.me/ns#">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
+    <link rel="icon" type="image/png" href="./favicon.ico">
+    <script type="text/javascript" async="" src="./explanation/recaptcha__en.js" crossorigin="anonymous" integrity="sha384-GLJMwNj3546zgUVjrd41QmXS0fdK5/SrrvaM33bRtDDYeW5KygkcPN+lQPjFA6D+"></script>
+    <script async="" src="./explanation/clarity.js"></script>
+    <script type="text/javascript" async="" src="./explanation/f.txt"></script>
+    <script type="text/javascript" async="" src="./explanation/f.txt"></script>
+    <script type="text/javascript" async="" src="./explanation/js"></script>
+    <script type="text/javascript" async="" src="./explanation/js(1)"></script>
+    <script async="" src="./explanation/ayc7ypwwuk"></script>
+    <script defer="" src="./explanation/platform.js" gapi_processed="true"></script>
+    <script async="" src="./explanation/require.min.js"></script>
+    <title>Paging explanation in OS</title>
+    <script>
+        window._wpemojiSettings = {
+            "baseUrl": "https:\/\/s.w.org\/images\/core\/emoji\/11\/72x72\/",
+            "ext": ".png",
+            "svgUrl": "https:\/\/s.w.org\/images\/core\/emoji\/11\/svg\/",
+            "svgExt": ".svg",
+            "source": {
+                "concatemoji": "https:\/\/www.geeksforgeeks.org\/wp-includes\/js\/wp-emoji-release.min.js?ver=4.9.8"
+            }
+        };
+        ! function(a, b, c) {
+            function d(a, b) {
+                var c = String.fromCharCode;
+                l.clearRect(0, 0, k.width, k.height), l.fillText(c.apply(this, a), 0, 0);
+                var d = k.toDataURL();
+                l.clearRect(0, 0, k.width, k.height), l.fillText(c.apply(this, b), 0, 0);
+                var e = k.toDataURL();
+                return d === e
+            }
+
+            function e(a) {
+                var b;
+                if (!l || !l.fillText) return !1;
+                switch (l.textBaseline = "top", l.font = "600 32px Arial", a) {
+                    case "flag":
+                        return !(b = d([55356, 56826, 55356, 56819], [55356, 56826, 8203, 55356, 56819])) && (b = d([55356, 57332, 56128, 56423, 56128, 56418, 56128, 56421, 56128, 56430, 56128, 56423, 56128, 56447], [55356, 57332, 8203, 56128, 56423, 8203, 56128, 56418, 8203, 56128, 56421, 8203, 56128, 56430, 8203, 56128, 56423, 8203, 56128, 56447]), !b);
+                    case "emoji":
+                        return b = d([55358, 56760, 9792, 65039], [55358, 56760, 8203, 9792, 65039]), !b
+                }
+                return !1
+            }
+
+            function f(a) {
+                var c = b.createElement("script");
+                c.src = a, c.defer = c.type = "text/javascript", b.getElementsByTagName("head")[0].appendChild(c)
+            }
+            var g, h, i, j, k = b.createElement("canvas"),
+                l = k.getContext && k.getContext("2d");
+            for (j = Array("flag", "emoji"), c.supports = {
+                    everything: !0,
+                    everythingExceptFlag: !0
+                }, i = 0; i < j.length; i++) c.supports[j[i]] = e(j[i]), c.supports.everything = c.supports.everything && c.supports[j[i]], "flag" !== j[i] && (c.supports.everythingExceptFlag = c.supports.everythingExceptFlag && c.supports[j[i]]);
+            c.supports.everythingExceptFlag = c.supports.everythingExceptFlag && !c.supports.flag, c.DOMReady = !1, c.readyCallback = function() {
+                c.DOMReady = !0
+            }, c.supports.everything || (h = function() {
+                c.readyCallback()
+            }, b.addEventListener ? (b.addEventListener("DOMContentLoaded", h, !1), a.addEventListener("load", h, !1)) : (a.attachEvent("onload", h), b.attachEvent("onreadystatechange", function() {
+                "complete" === b.readyState && c.readyCallback()
+            })), g = c.source || {}, g.concatemoji ? f(g.concatemoji) : g.wpemoji && g.twemoji && (f(g.twemoji), f(g.wpemoji)))
+        }(window, document, window._wpemojiSettings);
+    </script>
+    <script src="./explanation/wp-emoji-release.min.js" type="text/javascript" defer=""></script>
+    <style>
+        img.wp-smiley,
+        img.emoji {
+            display: inline!important;
+            border: none!important;
+            box-shadow: none!important;
+            height: 1em!important;
+            width: 1em!important;
+            margin: 0 .07em!important;
+            vertical-align: -.1em!important;
+            background: 0 0!important;
+            padding: 0!important
+        }
+    </style>
+    <link rel="stylesheet" id="custom-style-css" href="./explanation/gfg.min.css" media="all">
+    <script src="./explanation/jquery-3.1.1.min.js"></script>
+    <script src="./explanation/jquery-migrate-3.0.0.min.js"></script>
+    <script>
+        /* <![CDATA[ */
+        var gfgObject = {
+            "authUrl": "https:\/\/auth.geeksforgeeks.org\/",
+            "writeApiUrl": "https:\/\/apiwrite.geeksforgeeks.org\/",
+            "writeUrl": "https:\/\/write.geeksforgeeks.org\/",
+            "utilUrl": "https:\/\/util.geeksforgeeks.org\/",
+            "apiUrl": "https:\/\/api.geeksforgeeks.org\/",
+            "cfApiUrl": "https:\/\/gfgapi.geeksforgeeks.org\/"
+        };
+        /* ]]> */
+    </script>
+    <script async="" src="./explanation/gfg.min.js"></script>
+    <link rel="https://api.w.org/" href="https://www.geeksforgeeks.org/wp-json/">
+    <link rel="edituri" type="application/rsd+xml" title="RSD" href="https://www.cdn.geeksforgeeks.org/xmlrpc.php?rsd">
+    <link rel="wlwmanifest" type="application/wlwmanifest+xml" href="https://www.cdn.geeksforgeeks.org/wp-includes/wlwmanifest.xml">
+    <meta name="generator" content="WordPress 4.9.8">
+    <link rel="shortlink" href="https://www.geeksforgeeks.org/?p=142475">
+    <link rel="alternate" type="application/json+oembed" href="https://www.geeksforgeeks.org/wp-json/oembed/1.0/embed?url=https%3A%2F%2Fwww.geeksforgeeks.org%2Fpaging-in-operating-system%2F">
+    <link rel="alternate" type="text/xml+oembed" href="https://www.geeksforgeeks.org/wp-json/oembed/1.0/embed?url=https%3A%2F%2Fwww.geeksforgeeks.org%2Fpaging-in-operating-system%2F&amp;format=xml">
+    <style>
+        #wpadminbar {
+            background: red!important
+        }
+    </style>
+    <style id="custom-background-css">
+        body.custom-background {
+            background-color: #fff
+        }
+    </style>
+    <link rel="amphtml" href="https://www.geeksforgeeks.org/paging-in-operating-system/amp/">
+    <script async="" src="./explanation/gpt.js"></script>
+    <script async="" src="./explanation/prebid.js"></script>
+    <script async="" src="./explanation/gfg_ads.min.js"></script>
+    <style>
+        @media(max-width:1043px) and (min-width:992px) {
+            .hide-1043992 {
+                display: none!important
+            }
+        }
+    </style>
+    <script async="" src="./explanation/js(2)"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+        gtag('js', new Date());
+        gtag('config', 'AW-474915276');
+        gtag('config', 'G-DWCCJLKX3X');
+        gtag('config', 'AW-796001856');
+    </script>
+    <script src="./explanation/adRecover.js" type="text/javascript" async="true"></script>
+    <script src="https://securepubads.g.doubleclick.net/gpt/pubads_impl_2022042101.js" async=""></script>
+    <script src="https://googleads.g.doubleclick.net/pagead/viewthroughconversion/474915276/?random=1650991772237&amp;cv=9&amp;fst=1650991772237&amp;num=1&amp;bg=ffffff&amp;guid=ON&amp;resp=GooglemKTybQhCsO&amp;u_h=900&amp;u_w=1440&amp;u_ah=811&amp;u_aw=1440&amp;u_cd=30&amp;u_his=8&amp;u_tz=330&amp;u_java=false&amp;u_nplug=5&amp;u_nmime=2&amp;gtm=2oa4p0&amp;sendb=1&amp;ig=1&amp;data=event%3Dgtag.config&amp;frm=0&amp;url=https%3A%2F%2Fwww.geeksforgeeks.org%2Fpaging-in-operating-system%2F&amp;ref=https%3A%2F%2Fwww.google.com%2F&amp;tiba=Paging%20in%20Operating%20System%20-%20GeeksforGeeks&amp;hn=www.googleadservices.com&amp;async=1&amp;rfmt=3&amp;fmt=4"></script>
+    <script src="https://googleads.g.doubleclick.net/pagead/viewthroughconversion/796001856/?random=1650991772239&amp;cv=9&amp;fst=1650991772239&amp;num=1&amp;bg=ffffff&amp;guid=ON&amp;resp=GooglemKTybQhCsO&amp;eid=376635470&amp;u_h=900&amp;u_w=1440&amp;u_ah=811&amp;u_aw=1440&amp;u_cd=30&amp;u_his=8&amp;u_tz=330&amp;u_java=false&amp;u_nplug=5&amp;u_nmime=2&amp;gtm=2oa4p0&amp;sendb=1&amp;ig=1&amp;data=event%3Dgtag.config&amp;frm=0&amp;url=https%3A%2F%2Fwww.geeksforgeeks.org%2Fpaging-in-operating-system%2F&amp;ref=https%3A%2F%2Fwww.google.com%2F&amp;tiba=Paging%20in%20Operating%20System%20-%20GeeksforGeeks&amp;hn=www.googleadservices.com&amp;async=1&amp;rfmt=3&amp;fmt=4"></script>
+    <link id="googleidentityservice" type="text/css" media="all" rel="stylesheet" href="./explanation/style">
+    <style id="googleidentityservice_button_styles">
+        .qJTHM {
+            -webkit-user-select: none;
+            color: #202124;
+            direction: ltr;
+            -webkit-touch-callout: none;
+            font-family: "Roboto-Regular", arial, sans-serif;
+            -webkit-font-smoothing: antialiased;
+            font-weight: 400;
+            margin: 0;
+            overflow: hidden;
+            -webkit-text-size-adjust: 100%
+        }
+        
+        .ynRLnc {
+            left: -9999px;
+            position: absolute;
+            top: -9999px
+        }
+        
+        .L6cTce {
+            display: none
+        }
+        
+        .bltWBb {
+            word-break: break-all
+        }
+        
+        .hSRGPd {
+            color: #1a73e8;
+            cursor: pointer;
+            font-weight: 500;
+            text-decoration: none
+        }
+        
+        .Bz112c-W3lGp {
+            height: 16px;
+            width: 16px
+        }
+        
+        .Bz112c-E3DyYd {
+            height: 20px;
+            width: 20px
+        }
+        
+        .Bz112c-r9oPif {
+            height: 24px;
+            width: 24px
+        }
+        
+        .Bz112c-uaxL4e {
+            -webkit-border-radius: 10px;
+            border-radius: 10px
+        }
+        
+        .LgbsSe-Bz112c {
+            display: block
+        }
+        
+        .S9gUrf-YoZ4jf,
+        .S9gUrf-YoZ4jf * {
+            border: none;
+            margin: 0;
+            padding: 0
+        }
+        
+        .fFW7wc-ibnC6b>.aZ2wEe>div {
+            border-color: #4285f4
+        }
+        
+        .P1ekSe-ZMv3u>div:nth-child(1) {
+            background-color: #1a73e8!important
+        }
+        
+        .P1ekSe-ZMv3u>div:nth-child(2),
+        .P1ekSe-ZMv3u>div:nth-child(3) {
+            background-image: linear-gradient(to right, rgba(255, 255, 255, .7), rgba(255, 255, 255, .7)), linear-gradient(to right, #1a73e8, #1a73e8)!important
+        }
+        
+        .haAclf {
+            display: inline-block
+        }
+        
+        .nsm7Bb-HzV7m-LgbsSe {
+            -webkit-border-radius: 4px;
+            border-radius: 4px;
+            -webkit-box-sizing: border-box;
+            box-sizing: border-box;
+            -webkit-transition: background-color .218s, border-color .218s;
+            transition: background-color .218s, border-color .218s;
+            -webkit-user-select: none;
+            -webkit-appearance: none;
+            background-color: #fff;
+            background-image: none;
+            border: 1px solid #dadce0;
+            color: #3c4043;
+            cursor: pointer;
+            font-family: "Google Sans", arial, sans-serif;
+            font-size: 14px;
+            height: 40px;
+            letter-spacing: 0.25px;
+            outline: none;
+            overflow: hidden;
+            padding: 0 12px;
+            position: relative;
+            text-align: center;
+            vertical-align: middle;
+            white-space: nowrap;
+            width: auto
+        }
+        
+        @media screen and (-ms-high-contrast:active) {
+            .nsm7Bb-HzV7m-LgbsSe {
+                border: 2px solid windowText;
+                color: windowText
+            }
+        }
+        
+        .nsm7Bb-HzV7m-LgbsSe.pSzOP-SxQuSe {
+            font-size: 14px;
+            height: 32px;
+            letter-spacing: 0.25px;
+            padding: 0 10px
+        }
+        
+        .nsm7Bb-HzV7m-LgbsSe.purZT-SxQuSe {
+            font-size: 11px;
+            height: 20px;
+            letter-spacing: 0.3px;
+            padding: 0 8px
+        }
+        
+        .nsm7Bb-HzV7m-LgbsSe.Bz112c-LgbsSe {
+            padding: 0;
+            width: 40px
+        }
+        
+        .nsm7Bb-HzV7m-LgbsSe.Bz112c-LgbsSe.pSzOP-SxQuSe {
+            width: 32px
+        }
+        
+        .nsm7Bb-HzV7m-LgbsSe.Bz112c-LgbsSe.purZT-SxQuSe {
+            width: 20px
+        }
+        
+        .nsm7Bb-HzV7m-LgbsSe.JGcpL-RbRzK {
+            -webkit-border-radius: 20px;
+            border-radius: 20px
+        }
+        
+        .nsm7Bb-HzV7m-LgbsSe.JGcpL-RbRzK.pSzOP-SxQuSe {
+            -webkit-border-radius: 16px;
+            border-radius: 16px
+        }
+        
+        .nsm7Bb-HzV7m-LgbsSe.JGcpL-RbRzK.purZT-SxQuSe {
+            -webkit-border-radius: 10px;
+            border-radius: 10px
+        }
+        
+        .nsm7Bb-HzV7m-LgbsSe.MFS4be-Ia7Qfc {
+            border: none;
+            color: #fff
+        }
+        
+        .nsm7Bb-HzV7m-LgbsSe.MFS4be-v3pZbf-Ia7Qfc {
+            background-color: #1a73e8
+        }
+        
+        .nsm7Bb-HzV7m-LgbsSe.MFS4be-JaPV2b-Ia7Qfc {
+            background-color: #202124;
+            color: #e8eaed
+        }
+        
+        .nsm7Bb-HzV7m-LgbsSe .nsm7Bb-HzV7m-LgbsSe-Bz112c {
+            height: 18px;
+            margin-right: 8px;
+            min-width: 18px;
+            width: 18px
+        }
+        
+        .nsm7Bb-HzV7m-LgbsSe.pSzOP-SxQuSe .nsm7Bb-HzV7m-LgbsSe-Bz112c {
+            height: 14px;
+            min-width: 14px;
+            width: 14px
+        }
+        
+        .nsm7Bb-HzV7m-LgbsSe.purZT-SxQuSe .nsm7Bb-HzV7m-LgbsSe-Bz112c {
+            height: 10px;
+            min-width: 10px;
+            width: 10px
+        }
+        
+        .nsm7Bb-HzV7m-LgbsSe.jVeSEe .nsm7Bb-HzV7m-LgbsSe-Bz112c {
+            margin-left: 8px;
+            margin-right: -4px
+        }
+        
+        .nsm7Bb-HzV7m-LgbsSe.Bz112c-LgbsSe .nsm7Bb-HzV7m-LgbsSe-Bz112c {
+            margin: 0;
+            padding: 10px
+        }
+        
+        .nsm7Bb-HzV7m-LgbsSe.Bz112c-LgbsSe.pSzOP-SxQuSe .nsm7Bb-HzV7m-LgbsSe-Bz112c {
+            padding: 8px
+        }
+        
+        .nsm7Bb-HzV7m-LgbsSe.Bz112c-LgbsSe.purZT-SxQuSe .nsm7Bb-HzV7m-LgbsSe-Bz112c {
+            padding: 4px
+        }
+        
+        .nsm7Bb-HzV7m-LgbsSe .nsm7Bb-HzV7m-LgbsSe-Bz112c-haAclf {
+            -webkit-border-top-left-radius: 3px;
+            border-top-left-radius: 3px;
+            -webkit-border-bottom-left-radius: 3px;
+            border-bottom-left-radius: 3px;
+            display: -webkit-box;
+            display: -webkit-flex;
+            display: flex;
+            justify-content: center;
+            -webkit-align-items: center;
+            align-items: center;
+            background-color: #fff;
+            height: 36px;
+            margin-left: -10px;
+            margin-right: 12px;
+            min-width: 36px;
+            width: 36px
+        }
+        
+        .nsm7Bb-HzV7m-LgbsSe .nsm7Bb-HzV7m-LgbsSe-Bz112c-haAclf .nsm7Bb-HzV7m-LgbsSe-Bz112c,
+        .nsm7Bb-HzV7m-LgbsSe.Bz112c-LgbsSe .nsm7Bb-HzV7m-LgbsSe-Bz112c-haAclf .nsm7Bb-HzV7m-LgbsSe-Bz112c {
+            margin: 0;
+            padding: 0
+        }
+        
+        .nsm7Bb-HzV7m-LgbsSe.pSzOP-SxQuSe .nsm7Bb-HzV7m-LgbsSe-Bz112c-haAclf {
+            height: 28px;
+            margin-left: -8px;
+            margin-right: 10px;
+            min-width: 28px;
+            width: 28px
+        }
+        
+        .nsm7Bb-HzV7m-LgbsSe.purZT-SxQuSe .nsm7Bb-HzV7m-LgbsSe-Bz112c-haAclf {
+            height: 16px;
+            margin-left: -6px;
+            margin-right: 8px;
+            min-width: 16px;
+            width: 16px
+        }
+        
+        .nsm7Bb-HzV7m-LgbsSe.Bz112c-LgbsSe .nsm7Bb-HzV7m-LgbsSe-Bz112c-haAclf {
+            -webkit-border-radius: 3px;
+            border-radius: 3px;
+            margin-left: 2px;
+            margin-right: 0;
+            padding: 0
+        }
+        
+        .nsm7Bb-HzV7m-LgbsSe.JGcpL-RbRzK .nsm7Bb-HzV7m-LgbsSe-Bz112c-haAclf {
+            -webkit-border-radius: 18px;
+            border-radius: 18px
+        }
+        
+        .nsm7Bb-HzV7m-LgbsSe.pSzOP-SxQuSe.JGcpL-RbRzK .nsm7Bb-HzV7m-LgbsSe-Bz112c-haAclf {
+            -webkit-border-radius: 14px;
+            border-radius: 14px
+        }
+        
+        .nsm7Bb-HzV7m-LgbsSe.purZT-SxQuSe.JGcpL-RbRzK .nsm7Bb-HzV7m-LgbsSe-Bz112c-haAclf {
+            -webkit-border-radius: 8px;
+            border-radius: 8px
+        }
+        
+        .nsm7Bb-HzV7m-LgbsSe .nsm7Bb-HzV7m-LgbsSe-bN97Pc-sM5MNb {
+            display: -webkit-box;
+            display: -webkit-flex;
+            display: flex;
+            -webkit-align-items: center;
+            align-items: center;
+            -webkit-flex-direction: row;
+            flex-direction: row;
+            justify-content: space-between;
+            -webkit-flex-wrap: nowrap;
+            flex-wrap: nowrap;
+            height: 100%;
+            position: relative;
+            width: 100%
+        }
+        
+        .nsm7Bb-HzV7m-LgbsSe .oXtfBe-l4eHX {
+            justify-content: center
+        }
+        
+        .nsm7Bb-HzV7m-LgbsSe .nsm7Bb-HzV7m-LgbsSe-BPrWId {
+            -webkit-flex-grow: 1;
+            flex-grow: 1;
+            font-family: "Google Sans", arial, sans-serif;
+            font-weight: 500;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            vertical-align: top
+        }
+        
+        .nsm7Bb-HzV7m-LgbsSe.purZT-SxQuSe .nsm7Bb-HzV7m-LgbsSe-BPrWId {
+            font-weight: 300
+        }
+        
+        .nsm7Bb-HzV7m-LgbsSe .oXtfBe-l4eHX .nsm7Bb-HzV7m-LgbsSe-BPrWId {
+            -webkit-flex-grow: 0;
+            flex-grow: 0
+        }
+        
+        .nsm7Bb-HzV7m-LgbsSe .nsm7Bb-HzV7m-LgbsSe-MJoBVe {
+            -webkit-transition: background-color .218s;
+            transition: background-color .218s;
+            bottom: 0;
+            left: 0;
+            position: absolute;
+            right: 0;
+            top: 0
+        }
+        
+        .nsm7Bb-HzV7m-LgbsSe:hover {
+            -webkit-box-shadow: none;
+            box-shadow: none;
+            border-color: #d2e3fc;
+            outline: none
+        }
+        
+        .nsm7Bb-HzV7m-LgbsSe:focus {
+            -webkit-box-shadow: none;
+            box-shadow: none;
+            border-color: #d2e3fc;
+            outline: none
+        }
+        
+        .nsm7Bb-HzV7m-LgbsSe:hover .nsm7Bb-HzV7m-LgbsSe-MJoBVe {
+            background: rgba(66, 133, 244, .04)
+        }
+        
+        .nsm7Bb-HzV7m-LgbsSe:focus .nsm7Bb-HzV7m-LgbsSe-MJoBVe {
+            background: rgba(66, 133, 244, .04)
+        }
+        
+        .nsm7Bb-HzV7m-LgbsSe:active .nsm7Bb-HzV7m-LgbsSe-MJoBVe {
+            background: rgba(66, 133, 244, .1)
+        }
+        
+        .nsm7Bb-HzV7m-LgbsSe.MFS4be-Ia7Qfc:hover .nsm7Bb-HzV7m-LgbsSe-MJoBVe {
+            background: rgba(255, 255, 255, .24)
+        }
+        
+        .nsm7Bb-HzV7m-LgbsSe.MFS4be-Ia7Qfc:focus .nsm7Bb-HzV7m-LgbsSe-MJoBVe {
+            background: rgba(255, 255, 255, .24)
+        }
+        
+        .nsm7Bb-HzV7m-LgbsSe.MFS4be-Ia7Qfc:active .nsm7Bb-HzV7m-LgbsSe-MJoBVe {
+            background: rgba(255, 255, 255, .32)
+        }
+        
+        .nsm7Bb-HzV7m-LgbsSe .n1UuX-DkfjY {
+            -webkit-border-radius: 50%;
+            border-radius: 50%;
+            display: -webkit-box;
+            display: -webkit-flex;
+            display: flex;
+            height: 20px;
+            margin-left: -4px;
+            margin-right: 8px;
+            min-width: 20px;
+            width: 20px
+        }
+        
+        .nsm7Bb-HzV7m-LgbsSe.jVeSEe .nsm7Bb-HzV7m-LgbsSe-BPrWId {
+            font-family: "Roboto";
+            font-size: 12px;
+            text-align: left
+        }
+        
+        .nsm7Bb-HzV7m-LgbsSe.jVeSEe .nsm7Bb-HzV7m-LgbsSe-BPrWId .ssJRIf,
+        .nsm7Bb-HzV7m-LgbsSe.jVeSEe .nsm7Bb-HzV7m-LgbsSe-BPrWId .K4efff .fmcmS {
+            overflow: hidden;
+            text-overflow: ellipsis
+        }
+        
+        .nsm7Bb-HzV7m-LgbsSe.jVeSEe .nsm7Bb-HzV7m-LgbsSe-BPrWId .K4efff {
+            display: -webkit-box;
+            display: -webkit-flex;
+            display: flex;
+            -webkit-align-items: center;
+            align-items: center;
+            color: #5f6368;
+            fill: #5f6368;
+            font-size: 11px;
+            font-weight: 400
+        }
+        
+        .nsm7Bb-HzV7m-LgbsSe.jVeSEe.MFS4be-Ia7Qfc .nsm7Bb-HzV7m-LgbsSe-BPrWId .K4efff {
+            color: #e8eaed;
+            fill: #e8eaed
+        }
+        
+        .nsm7Bb-HzV7m-LgbsSe.jVeSEe .nsm7Bb-HzV7m-LgbsSe-BPrWId .K4efff .Bz112c {
+            height: 18px;
+            margin: -3px -3px -3px 2px;
+            min-width: 18px;
+            width: 18px
+        }
+        
+        .nsm7Bb-HzV7m-LgbsSe.jVeSEe .nsm7Bb-HzV7m-LgbsSe-Bz112c-haAclf {
+            -webkit-border-top-left-radius: 0;
+            border-top-left-radius: 0;
+            -webkit-border-bottom-left-radius: 0;
+            border-bottom-left-radius: 0;
+            -webkit-border-top-right-radius: 3px;
+            border-top-right-radius: 3px;
+            -webkit-border-bottom-right-radius: 3px;
+            border-bottom-right-radius: 3px;
+            margin-left: 12px;
+            margin-right: -10px
+        }
+        
+        .nsm7Bb-HzV7m-LgbsSe.jVeSEe.JGcpL-RbRzK .nsm7Bb-HzV7m-LgbsSe-Bz112c-haAclf {
+            -webkit-border-radius: 18px;
+            border-radius: 18px
+        }
+        
+        .L5Fo6c-sM5MNb {
+            border: 0;
+            display: block;
+            left: 0;
+            position: relative;
+            top: 0
+        }
+        
+        .L5Fo6c-bF1uUb {
+            -webkit-border-radius: 4px;
+            border-radius: 4px;
+            bottom: 0;
+            cursor: pointer;
+            left: 0;
+            position: absolute;
+            right: 0;
+            top: 0
+        }
+        
+        .L5Fo6c-bF1uUb:focus {
+            border: none;
+            outline: none
+        }
+        
+        sentinel {}
+    </style>
+    <style>
+        * {
+            color: #000!important;
+        }
+        
+        body * {
+            background-color: #fff!important;
+        }
+        
+        .article-page_flex {
+            justify-content: center;
+        }
+        
+        .leftBar {
+            min-width: 80% !important;
+        }
+        
+        div.topbarfull {
+            position: fixed;
+            box-sizing: border-box;
+            height: 45px;
+            width: 100%;
+            padding: 0.5em;
+            z-index: 100;
+            box-shadow: 0 0 1px 2px #5555;
+        }
+        
+        .topbarfull ul {
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .topbarfull ul li {
+            display: inline-block;
+            margin: 0 20px;
+            font-size: 1.5em;
+            padding: 0.5em;
+            border: 1px solid #555;
+            border-radius: 0.5em;
+            text-decoration: none;
+        }
+        
+        li a {
+            color: #00e !important;
+        }
+    </style>
+    <div id="_bsa_srv-CKYDL2JJ_0"></div>
+    <script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="typeahead" src="./explanation/typeahead.jquery.min.js"></script>
+    <script type="text/javascript" charset="utf-8" async="" data-requirecontext="_" data-requiremodule="bloodhound" src="./explanation/bloodhound.min.js"></script>
+</head>
+
+<body class="post-template-default single single-post postid-142475 single-format-standard custom-background custom-background-white" data-dark-mode="true">
+   
+    <!-- <div class="topbarfull">
+        <ul>
+            <li><a href="#">Home</a></li>
+            <li><a href="./paging.html">Simulator</a></li>
+        </ul>
+    </div> -->
+    <div id="main" class="wrapper single-page">
+        <div class="container-fluid bg-light" id="home-page" style="position:relative;max-width:100%">
+            <div class="article-page_flex">
+                <div class="leftBar">
+                    <div class="article--viewer">
+                        <div class="article--viewer_content">
+                            <div class="a-wrapper">
+                                <article class="content post-142475 post type-post status-publish format-standard hentry category-operating-systems tag-memory-management" id="post-142475">
+                                    <h1>Paging in Operating System</h1>
+                                    <div class="text">
+                                        <p>Paging is a memory management scheme that eliminates the need for contiguous allocation of physical memory. This scheme permits the physical address space of a process to be non – contiguous.</p>
+                                        <ul>
+                                            <li>Logical Address or Virtual Address (represented in bits): An address generated by the CPU</li>
+                                            <li>Logical Address Space or Virtual Address Space( represented in words or bytes): The set of all logical addresses generated by a program</li>
+                                            <li>Physical Address (represented in bits): An address actually available on memory unit</li>
+                                            <li>Physical Address Space (represented in words or bytes): The set of all physical addresses corresponding to the logical addresses</li>
+                                        </ul>
+                                        <p><strong>Example:</strong></p>
+                                        <ul>
+                                            <li>If Logical Address = 31 bit, then Logical Address Space = 2<sup>31</sup> words = 2 G words (1 G = 2<sup>30</sup>)</li>
+                                            <li>If Logical Address Space = 128 M words = 2<sup>7</sup> * 2<sup>20</sup> words, then Logical Address = log<sub>2</sub> 2<sup>27</sup> = 27 bits</li>
+                                            <li>If Physical Address = 22 bit, then Physical Address Space = 2<sup>22</sup> words = 4 M words (1 M = 2<sup>20</sup>)</li>
+                                            <li>If Physical Address Space = 16 M words = 2<sup>4</sup> * 2<sup>20</sup> words, then Physical Address = log<sub>2</sub> 2<sup>24</sup> = 24 bits</li>
+                                        </ul>
+                                        <p>The mapping from virtual to physical address is done by the memory management unit (MMU) which is a hardware device and this mapping is known as paging technique.</p>
+                                        <ul>
+                                            <li>The Physical Address Space is conceptually divided into a number of fixed-size blocks, called <strong>frames</strong>.</li>
+                                            <li>The Logical address Space is also splitted into fixed-size blocks, called <strong>pages</strong>.</li>
+                                            <li>Page Size = Frame Size</li>
+                                        </ul>
+                                        <p>Let us consider an example:</p>
+                                        <ul>
+                                            <li>Physical Address = 12 bits, then Physical Address Space = 4 K words</li>
+                                            <li>Logical Address = 13 bits, then Logical Address Space = 8 K words</li>
+                                            <li>Page size = frame size = 1 K words (assumption)</li>
+                                        </ul>
+                                        <p>
+                                            <a href="./explanation/paging.jpg"><img src="./explanation/paging.jpg" alt="size" width="918" height="533" class="aligncenter size-full wp-image-22773"></a>
+                                        </p>
+                                        <p>&nbsp;</p>
+                                        <p>Address generated by CPU is divided into</p>
+                                        <ul>
+                                            <li><strong>Page number(p):</strong> Number of bits required to represent the pages in Logical Address Space or Page number</li>
+                                            <li><strong>Page offset(d):</strong> Number of bits required to represent particular word in a page or page size of Logical Address Space or word number of a page or page offset.</li>
+                                        </ul>
+                                        <p>Physical Address is divided into</p>
+                                        <ul>
+                                            <li><strong>Frame number(f):</strong> Number of bits required to represent the frame of Physical Address Space or Frame number.</li>
+                                            <li><strong>Frame offset(d):</strong> Number of bits required to represent particular word in a frame or frame size of Physical Address Space or word number of a frame or frame offset.</li>
+                                        </ul>
+                                        <p>&nbsp;</p>
+                                        <p>The hardware implementation of page table can be done by using dedicated registers. But the usage of register for the page table is satisfactory only if page table is small. If page table contain large number of
+                                            entries then we can use TLB(translation Look-aside buffer), a special, small, fast look up hardware cache.</p>
+                                    </div>
+                                </article>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <a href="./simu.html">Simulation</a>
+</body>
+
+</html>
