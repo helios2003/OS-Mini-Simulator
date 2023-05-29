@@ -95,6 +95,7 @@ body {
           <option value="optimal">Optimal</option>
           <option value="lru">LRU</option>
           <option value="mru">MRU</option>
+          <option value="random">Random</option>
         </select>
       </div>
       <div class="button-container">
@@ -361,7 +362,11 @@ async function optimal()
         idx = j;
         break;
       }
-      console.log("cells i inner html", cells[j].innerHTML);
+      if(value_map.get(parseInt(cells[j].innerHTML)).length == 0) {
+        idx=j;
+        break;
+      }
+      console.log("cells j inner html", cells[j].innerHTML);
       var page = parseInt(cells[j].innerHTML, 10);
       console.log("page: ", page);
       var val = value_map.get(page);
@@ -388,7 +393,6 @@ async function optimal()
     arr=arr.slice(1);
     value_map.set(ref[i], arr);
     if (value_map.get(ref[i]).length == 0) {
-      delete value_map.get(ref[i]);
     }
     console.log("value_map: ", value_map);
 
@@ -610,6 +614,88 @@ async function mru() {
   results.style.display="inline-flex";
 }
 
+async function random() {
+  var pageFaults=0;
+  var time=1;
+
+  console.log("num_frames: ", num_frames);
+  console.log("cells: ", cells);
+  for(let i=0;i<ref.length;i++) {
+    await wait(0.5);
+    console.log(i);
+      current_page.innerHTML=ref[i];
+      var found=0;
+      var idx=0;
+
+      for(let j=0;j<num_frames;j++) {
+        if(ref[i]==parseInt(cells[j].innerHTML.trim())) {
+          found=1;
+       
+          idx=j;
+          break;
+        }
+      }
+       
+      if(found) {
+        hit_status.innerHTML="page hit";
+      }
+      else {
+        hit_status.innerHTML="page fault";
+       pageFaults++;
+       idx=Math.floor(Math.random()*(num_frames));
+        cells[idx].innerHTML=ref[i];
+        console.log("refi", ref[i], cells[idx].innerHTML);
+      }
+
+      cells[idx].style.transform = "scale(1.2)";
+      if(hit_status.innerHTML=="page fault") {
+        cells[idx].style.backgroundColor="red";
+      }
+      else {
+        cells[idx].style.backgroundColor="green";
+      }
+  
+      cells[idx].style.zIndex=1;
+      cells[idx].style.transition = "transform 0.5s ease-in-out, background-color 1s ease-in-out";
+      await wait(1);
+      cells[idx].style.transform = "scale(1)";
+      cells[idx].style.transition = "transform 0.5s ease-in-out";
+      await wait(1);
+      cells[idx].style.zIndex=0;
+      cells[idx].style.backgroundColor="inherit";
+      value[idx]=time;
+      time++;
+
+
+}
+    var paragraph= new Array(4);
+    var para=document.createElement("h2");
+    para.innerHTML="Random";
+    results.appendChild(para);
+    paragraph[0] = document.createElement("p");
+  paragraph[0].innerText = "Number of page Faults: "+ pageFaults;
+  results.appendChild(paragraph[0]);
+  
+  paragraph[1] = document.createElement("p");
+  paragraph[1].innerText = "Number of page Hits: "+ (ref.length-pageFaults);
+  //results.appendChild(paragraph[1]);
+  results.innerHTML += paragraph[1].outerHTML+"<br>";
+
+  paragraph[2] = document.createElement("p");
+  paragraph[2].innerText = "Hit rate: "+ ((ref.length-pageFaults)/(ref.length)).toPrecision(2);
+ //results.appendChild(paragraph[2]);
+   results.innerHTML += paragraph[2].outerHTML+"<br>";
+
+  paragraph[3] = document.createElement("p");
+  paragraph[3].innerText = "Miss rate: "+ (pageFaults/(ref.length)).toPrecision(2);
+  //results.appendChild(paragraph[3]);
+  results.innerHTML += paragraph[3].outerHTML+"<br>";
+
+  results.style.display="inline-flex";
+}
+
+
+reset.addEventListener("click", flush_cells);
   visualize.addEventListener("click", async function(event){
   event.preventDefault();   
    init();
@@ -631,7 +717,16 @@ async function mru() {
     else if(dropdown.value=="mru") {
       mru();
     }
+    else if(dropdown.value=="random") {
+      random();
+    }
   } );
+
+  function flush_cells() {
+    for(let i=0;i<num_frames;i++) {
+      cells[i].innerHTML = "-";
+    }
+  }
   compare.addEventListener( 'click', async function(event) {
     event.preventDefault();
     init();
@@ -643,13 +738,18 @@ async function mru() {
     console.log("num_frames in visualize: ", num_frames);
     window.alert("FCFS");
    await fcfs(num_frames);
+   flush_cells();
     window.alert("optimal");
     await optimal();
+    flush_cells();
     window.alert("lru");
     await lru();
+    flush_cells();
     window.alert("mru");
     await mru();
-
+    flush_cells();
+    window.alert("random");
+    await random();
   });
 
 </script>

@@ -6,7 +6,7 @@
 -->
 <html>
 	<head>
-		<title>Theory - Process Scheduling</title>
+		<title>Theory - Page Replacement</title>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 		<link rel="stylesheet" href="assets/css/main.css" />
@@ -19,13 +19,13 @@
 
 				<!-- Header -->
 					<header id="header">
-						<a href="index.html" class="logo">Process Scheduling</a>
+						<a href="index.html" class="logo">Page Replacement</a>
 					</header>
 
 				<!-- Nav -->
 					<nav id="nav">
 						<ul class="links">
-							<li><a href="index.html">Process Scheduling</a></li>
+							<li><a href="index.html">Page Replacement</a></li>
 							<li class="active"><a href="generic.html">Theory</a></li>
 							<!-- <li><a href="elements.html">Elements Reference</a></li> -->
 						</ul>
@@ -45,17 +45,45 @@
 								<header class="major">
 									<span class="date">Theory</span>
 									<h1>Theory for<br />
-									Process Scheduling</h1>
-									<p>CPU Scheduling is a process of determining which process will own CPU for execution while another process is on hold. <br />
-										The main task of CPU scheduling is to make sure that whenever the CPU remains idle, the OS at least select one of the processes available in the ready queue for execution. 
-										The selection process will be carried out by the CPU scheduler. It selects one of the processes in memory that are ready for execution.
-									</p>
+									Page Replacement</h1>
+									<!DOCTYPE html>
+<html>
+<head>
+<title>Page Replacement in OS</title>
+</head>
+<body>
+<h1>Page Replacement in OS</h1>
+<p>Page replacement is a technique used in operating systems to manage the physical memory of a computer. When a process needs to access a page of memory that is not currently in physical memory, the operating system must replace a page that is already in physical memory with the new page.</p>
+<p>There are many different page replacement algorithms, each with its own advantages and disadvantages. Some of the most common page replacement algorithms include:</p>
+<ul>
+<li>First-in, first-out (FIFO): The FIFO algorithm replaces the page that has been in physical memory the longest.</li>
+<li>Least recently used (LRU): The LRU algorithm replaces the page that has not been used in the longest time.</li>
+<li>Optimal: The optimal algorithm replaces the page that will not be used for the longest time in the future.</li>
+</ul>
+<p>The choice of which page replacement algorithm to use depends on a number of factors, including the size of the physical memory, the number of processes running on the computer, and the behavior of the applications.</p>
+<p>Page replacement is a complex and important topic in operating systems. A good page replacement algorithm can help to improve the performance of a computer by reducing the number of page faults.</p>
+
+<p>Page replacement algorithms are used to determine which pages to remove from physical memory when a new page needs to be loaded. The goal of any page replacement algorithm is to minimize the number of page faults, which are events that occur when a process tries to access a page that is not currently in physical memory.</p>
+
+<p>There are many different page replacement algorithms, each with its own advantages and disadvantages. Some of the most common page replacement algorithms include:</p>
+
+<ul>
+<li>First-in, first-out (FIFO): The FIFO algorithm removes the page that has been in physical memory the longest. This is a simple and easy-to-implement algorithm, but it can be inefficient if the pages are not used in a predictable order.</li>
+<li>Least recently used (LRU): The LRU algorithm removes the page that has not been used in the longest time. This algorithm is more complex than FIFO, but it is generally more efficient.</li>
+<li>Optimal: The optimal algorithm removes the page that will not be used for the longest time in the future. This algorithm is the most efficient, but it is also the most difficult to implement.</li>
+</ul>
+
+<p>The choice of which page replacement algorithm to use depends on a number of factors, including the size of the physical memory, the number of processes running on the computer, and the behavior of the applications.</p>
+
+<p>In general, FIFO is a good choice for systems with small amounts of physical memory, while LRU is a good choice for systems with large amounts of physical memory. The optimal algorithm is the best choice in theory, but it is not practical in most cases.</p>
+
+<p>Page replacement is an important part of virtual memory management, and a good page replacement algorithm can help to improve the performance of a computer by reducing the number of page faults.</p>
+</body>
+</html>
+
 								</header>
 								<div class="image main"><img src="images/cpu.jpg" alt="CPU Scheduling" class="center" /></div>
-								<p>Donec eget ex magna. Interdum et malesuada fames ac ante ipsum primis in faucibus. Pellentesque venenatis dolor imperdiet dolor mattis sagittis. Praesent rutrum sem diam, vitae egestas enim auctor sit amet. Pellentesque leo mauris, consectetur id ipsum sit amet, fergiat. Pellentesque in mi eu massa lacinia malesuada et a elit. Donec urna ex, lacinia in purus ac, pretium pulvinar mauris. Nunc lorem mauris, fringilla in aliquam at, euismod in lectus. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Curabitur sapien risus, commodo eget turpis at, elementum convallis enim turpis, lorem ipsum dolor sit amet nullam.</p>
-								<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis dapibus rutrum facilisis. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Etiam tristique libero eu nibh porttitor fermentum. Nullam venenatis erat id vehicula viverra. Nunc ultrices eros ut ultricies condimentum. Mauris risus lacus, blandit sit amet venenatis non, bibendum vitae dolor. Nunc lorem mauris, fringilla in aliquam at, euismod in lectus. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. In non lorem sit amet elit placerat maximus. Pellentesque aliquam maximus risus. Donec eget ex magna. Interdum et malesuada fames ac ante ipsum primis in faucibus. Pellentesque venenatis dolor imperdiet dolor mattis sagittis. Praesent rutrum sem diam, vitae egestas enim auctor sit amet. Pellentesque leo mauris, consectetur id ipsum.</p>
 							</section>
-
 					</div>
 
 				<!-- Footer -->

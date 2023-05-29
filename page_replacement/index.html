@@ -84,7 +84,7 @@
 										First Serve</a></h2>
 									</header>
 									<!-- <a href="#" class="image fit"><img src="images/pic02.jpg" alt="" /></a> -->
-									<p>FCFS is a non-preemptive process scheduling algorithm where the process that arrives first is executed first, regardless of its execution time. It operates on a queue-based approach, providing simplicity but potentially leading to longer waiting times for longer processes.</p>
+									<p>The FIFO algorithm is the simplest page replacement algorithm. It works by keeping track of the order in which pages are brought into memory. When a new page needs to be brought into memory and there is no room, the oldest page in memory is replaced.</p>
 									<ul class="actions special">
 										<li><a href="simulator.html" class="button">Simulation</a></li>
 									</ul>
@@ -96,7 +96,7 @@
 										</a></h2>
 									</header>
 									<!-- <a href="#" class="image fit"><img src="images/pic03.jpg" alt="" /></a> -->
-									<p>SJF is a non-preemptive process scheduling algorithm that selects the process with the smallest execution time next. It aims to minimize the average waiting time and response time, prioritizing shorter processes over longer ones.</p>
+									<p>The optimal page replacement algorithm is the most efficient, but it is also the most complex and difficult to implement. The optimal algorithm knows which pages will not be used again for the longest time. When a new page needs to be brought into memory and there is no room, the optimal algorithm replaces the page that will not be used again for the longest time.</p>
 									<ul class="actions special">
 										<li><a href="simulator.html" class="button">Simulation</a></li>
 									</ul>
@@ -108,7 +108,7 @@
 										</a></h2>
 									</header>
 									<!-- <a href="#" class="image fit"><img src="images/pic04.jpg" alt="" /></a> -->
-									<p>RR is a preemptive process scheduling algorithm that allocates a fixed time quantum to each process in a cyclic manner. Processes are executed in a round-robin fashion, allowing fairness and preventing starvation, but potentially incurring higher context-switching overhead.</p>
+									<p>The LRU algorithm is more complex than the FIFO algorithm, but it is also more efficient. The LRU algorithm keeps track of the last time each page was used. When a new page needs to be brought into memory and there is no room, the page that has not been used in the longest time is replaced.</p>
 									<ul class="actions special">
 										<li><a href="simulator.html" class="button">Simulation</a></li>
 									</ul>
@@ -120,7 +120,19 @@
 											</a></h2>
 									</header>
 									<!-- <a href="#" class="image fit"><img src="images/pic05.jpg" alt="" /></a> -->
-									<p>Priority preemptive scheduling assigns priorities to processes and allows higher priority processes to preempt lower priority ones. It ensures that higher priority processes are given preference in CPU allocation, but may lead to lower priority processes waiting indefinitely.</p>
+									<p>The MRU algorithm is a page replacement algorithm that replaces the page that has not been used in the longest time. It does this by keeping track of the last time each page was used. When a new page needs to be brought into memory and there is no room, the MRU algorithm looks at the last time each page was used and replaces the page that has not been used in the longest time.</p>
+									<ul class="actions special">
+										<li><a href="simulator.html" class="button">Simulation</a></li>
+									</ul>
+								</article>
+								<article>
+									<header>
+										<span class="date">RANDOM</span>
+										<h2><a href="#">RANDOM<br />
+											</a></h2>
+									</header>
+									<!-- <a href="#" class="image fit"><img src="images/pic05.jpg" alt="" /></a> -->
+									<p>The Random Page Replacement Algorithm replaces a random page into memory. This eliminates the page using a random function. The random function generates a random number that is the index of a memory frame and the frame indexed page is replaced with the inserted page</p>
 									<ul class="actions special">
 										<li><a href="simulator.html" class="button">Simulation</a></li>
 									</ul>
