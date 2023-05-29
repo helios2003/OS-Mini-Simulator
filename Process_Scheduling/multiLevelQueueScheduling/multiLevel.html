@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Multi-Level Queue Scheduling</title>
+    <style>
+        
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        th, td {
+            text-align: left;
+            padding: 8px;
+            border-bottom: 1px solid #ddd;
+        }
+        body {
+      font-family: Arial, sans-serif;
+      background-color: #f1f1f1;
+      padding: 20px;
+      background-image: url("./images/bg.jpg");
+    }
+
+    .container {
+      max-width: 600px;
+      margin: 0 auto;
+      background-color: #fff;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      padding: 20px;
+    }
+
+    h1 {
+      text-align: center;
+      margin-top: 0;
+    }
+
+    form {
+      margin-bottom: 20px;
+    }
+
+    label {
+      display: block;
+      font-weight: bold;
+      margin-bottom: 5px;
+    }
+
+    .dropdown, input[type="number"],
+    input[type="text"] {
+      width: 100%;
+      padding: 8px;
+      border: 1px solid #ccc;
+      border-radius: 3px;
+    }
+    .calc, button {
+      padding: 8px 16px;
+      background-color: #4CAF50;
+      color: #fff;
+      border: none;
+      border-radius: 3px;
+      cursor: pointer;
+    }
+
+    h2 {
+      margin-top: 20px;
+      margin-bottom: 10px;
+    }
+
+    table {
+      width: 100%;
+      margin-bottom: 10px;
+      border-collapse: collapse;
+    }
+
+    th, td {
+      padding: 8px;
+      text-align: left;
+      border-bottom: 1px solid #ddd;
+    }
+
+    th {
+      background-color: #f2f2f2;
+    }
+    </style>
+    <script>
+        function addProcess() {
+            var table = document.getElementById("processTable");
+            var row = table.insertRow(-1);
+            row.innerHTML = `<td><input type="number" name="processID[]" required></td>
+                             <td><input type="number" name="burstTime[]" required></td>
+                             <td>
+                                <select name="priority[]" required>
+                                    <option value="1">Queue 1</option>
+                                    <option value="2">Queue 2</option>
+                                    <option value="3">Queue 3</option>
+                                </select>
+                             </td>`;
+        }
+        var count = 0;
+        function calculateScheduling() {
+            count=0;
+    var processIDs = document.getElementsByName("processID[]");
+    var burstTimes = document.getElementsByName("burstTime[]");
+    var priorities = document.getElementsByName("priority[]");
+
+    var processes = [];
+
+    for (var i = 0; i < processIDs.length; i++) {
+        var process = {
+            processID: parseInt(processIDs[i].value),
+            burstTime: parseInt(burstTimes[i].value),
+            priority: parseInt(priorities[i].value)
+        };
+
+        processes.push(process);
+    }
+
+    var queue1 = [];
+    var queue2 = [];
+    var queue3 = [];
+
+    for (var i = 0; i < processes.length; i++) {
+        if (processes[i].priority === 1) {
+            queue1.push(processes[i]);
+        } else if (processes[i].priority === 2) {
+            queue2.push(processes[i]);
+        } else if (processes[i].priority === 3) {
+            queue3.push(processes[i]);
+        }
+    }
+
+    var queue1Output = roundRobin(queue1);
+    var queue2Output = fcfs(queue2);
+    var queue3Output = sjf(queue3);
+
+    var resultTable = document.getElementById("resultTable");
+    resultTable.innerHTML = "";
+
+    createQueueTable(queue1Output, "Queue 1 -> Round Robin");
+    createQueueTable(queue2Output, "Queue 2 -> FCFS");
+    createQueueTable(queue3Output, "Queue 3 -> SJF");
+}
+
+function roundRobin(queue) {
+    var quantum = 2;
+    var time = 0;
+    var executedProcesses = [];
+
+    while (queue.length > 0) {
+        var currentProcess = queue.shift();
+        var executedTime = Math.min(quantum, currentProcess.burstTime);
+        time += executedTime;
+        currentProcess.burstTime -= executedTime;
+        executedProcesses.push({ process: currentProcess, executionTime: executedTime });
+
+        if (currentProcess.burstTime > 0) {
+            queue.push(currentProcess);
+        }
+    }
+
+    return executedProcesses;
+}
+
+function fcfs(queue) {
+    var time = 0;
+    var executedProcesses = [];
+
+    for (var i = 0; i < queue.length; i++) {
+        var currentProcess = queue[i];
+        var executedTime = currentProcess.burstTime;
+        time += executedTime;
+        executedProcesses.push({ process: currentProcess, executionTime: executedTime });
+    }
+
+    return executedProcesses;
+}
+
+function sjf(queue) {
+    queue.sort((a, b) => a.burstTime - b.burstTime);
+
+    var time = 0;
+    var executedProcesses = [];
+
+    for (var i = 0; i < queue.length; i++) {
+        var currentProcess = queue[i];
+        var executedTime = currentProcess.burstTime;
+        time += executedTime;
+        executedProcesses.push({ process: currentProcess, executionTime: executedTime });
+    }
+
+    return executedProcesses;
+}
+
+
+
+function createQueueTable(queue, queueName) {
+    var table = document.createElement("table");
+    var headerRow = table.insertRow();
+    var countHeader = document.createElement("th");
+    countHeader.textContent = "Count";
+    headerRow.appendChild(countHeader);
+    var processIDHeader = document.createElement("th");
+    processIDHeader.textContent = "Process ID";
+    headerRow.appendChild(processIDHeader);
+    var executionTimeHeader = document.createElement("th");
+    executionTimeHeader.textContent = "Execution Time";
+    headerRow.appendChild(executionTimeHeader);
+
+    for (var i = 0; i < queue.length; i++) {
+        var row = table.insertRow();
+        count += queue[i].executionTime; // Add the execution time to count
+        var countCell = row.insertCell();
+        countCell.textContent = count;
+        var processIDCell = row.insertCell();
+        processIDCell.textContent = queue[i].process.processID;
+        var executionTimeCell = row.insertCell();
+        executionTimeCell.textContent = queue[i].executionTime;
+    }
+
+    var queueHeader = document.createElement("h2");
+    queueHeader.textContent = queueName;
+    document.getElementById("resultTable").appendChild(queueHeader);
+    document.getElementById("resultTable").appendChild(table);
+}
+
+
+    </script>
+</head>
+<body>
+    <div class="container">
+    <h1>Multi-Level Queue Scheduling</h1>
+    <form onsubmit="event.preventDefault(); calculateScheduling();">
+        <table id="processTable">
+            <tr>
+                <th>Process ID</th>
+                <th>Burst Time</th>
+                <th>Priority</th>
+            </tr>
+            <tr>
+                <td><input type="number" name="processID[]" required></td>
+                <td><input type="number" name="burstTime[]" required></td>
+                <td >
+                    <select class="dropdown" name="priority[]" required>
+                        <option value="1">Queue 1</option>
+                        <option value="2">Queue 2</option>
+                        <option value="3">Queue 3</option>
+                    </select>
+                </td>
+            </tr>
+        </table>
+        <button type="button" onclick="addProcess()">Add Process</button>
+        <br><br>
+        <input class="calc" type="submit" value="Calculate">
+    </form>
+    <br>
+    <div id="resultTable"></div>
+</div>
+</body>
+</html>
